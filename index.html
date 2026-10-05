@@ -48,6 +48,7 @@ h2::after{content:"";display:block;width:70px;height:2px;margin-top:1rem;backgro
 
 /* progres skrolovanja */
 .bar{position:fixed;top:0;left:0;width:100%;height:3px;z-index:120;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,var(--lg),var(--au))}
+
 /* okvir slike + fallback „Slika uskoro“ */
 .fx{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--dg),#050806)}
 .fx img{width:100%;height:100%;object-fit:cover}
@@ -355,12 +356,20 @@ html{background:#080b09}
 #gb{position:absolute;right:20px;bottom:30px;display:flex;gap:16px;align-items:flex-end}
 #gb button{width:76px;height:76px;border-radius:50%;border:2px solid #55d67b;background:#0b2a1acc;color:#fff;font:600 .85rem Oswald,sans-serif;letter-spacing:.1em;touch-action:none;cursor:pointer}
 #gb button[hidden]{display:none}
-#gr{position:absolute;left:14px;bottom:12px;z-index:6;display:flex;gap:7px;flex-wrap:wrap;max-width:min(720px,70vw)}
-#gr button{padding:7px 11px;border-radius:999px;border:1px solid #d8a83d;background:#17130bcc;color:#fff;font:600 .72rem Oswald,sans-serif;letter-spacing:.07em;cursor:pointer;box-shadow:0 3px 14px #0008}
-#gr button.on{border-color:#55d67b;background:#0b2a1acc}
-#gh #go{display:block}
 @media(pointer:fine){#st{display:none}}
-@media(max-width:700px){#gr{left:10px;right:10px;bottom:10px;max-width:none}#gr button{flex:1 1 auto}}
+
+/* ===== ELITE GAME HUD UPGRADE ===== */
+#gm{font-family:Inter,system-ui,sans-serif}
+#gq{top:58px;left:14px;right:14px;justify-content:flex-start}
+#gq button,#dv button{backdrop-filter:blur(8px)}
+#gh{right:118px;line-height:1.2}
+#go{margin-top:3px}
+#mm{background:#06120b;border-color:#d8a83d}
+#kh{top:112px;background:rgba(4,12,8,.88);border:1px solid rgba(85,214,123,.3);box-shadow:0 10px 30px #0008}
+#gb{right:18px;bottom:18px;gap:10px}
+#gb button{box-shadow:0 10px 25px #0007}
+@media(pointer:fine){#gb button{display:inline-flex!important}}
+
 </style>
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -557,7 +566,7 @@ Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI LOKACIJU</button>
 <section id="game" class="sec"><div class="wrap">
   <p class="eyebrow rv">IGRA</p>
   <h2 class="rv">POKRENI AVANTURU</h2>
-  <p class="sub rv">Prošetaj strašnim ulicama Kalač brda do Grbavskog, pa odigraj fudbal sa ekipom.</p>
+  <p class="sub rv">Istraži veliki, povezani svet Kalač Brda, pronađi tragove, upoznaj Peru, izbegni pse, otkrij ukletu kuću i kada stigneš do Grbavskog zaigraj fudbal.</p>
   <div class="game rv" id="game-slot">
     <!-- ==================================================== -->
     <!-- ★★★ OVDE UBACUJEM IGRICU ★★★                        -->
@@ -569,7 +578,7 @@ Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI LOKACIJU</button>
       <h3>KALAC BRDO</h3><strong>SPREMNO ZA IGRU</strong>
       <p>Od Kalač puta do Grbavskog, pa fudbal sa ekipom.</p>
       <button class="btn pri" id="play" type="button">▶ POKRENI IGRU</button>
-      <small>WASD ili džojstik · Shift/TRČI · Space = šut · E = pas</small>
+      <small>WASD / strelice ili džojstik · Shift = trk · E = interakcija / pas · Space = šut · Q = promena igrača</small>
     </div>
   </div>
 </div></section>
@@ -624,7 +633,6 @@ Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI LOKACIJU</button>
   <button id="gx" type="button" aria-label="Zatvori igru">&times;</button>
   <div id="gq"><button id="bq" type="button">GRAFIKA: SREDNJE</button><button id="bs" type="button">SEZONA: LETO</button></div><canvas id="mm" width="130" height="92"></canvas><div id="kh" hidden></div><div id="dv" hidden><div>Na čemu igraš?<br><button data-d="pc">PC</button><button data-d="an">ANDROID</button><button data-d="ip">IPHONE</button></div></div><div id="st"><i></i></div>
   <div id="gb"><button id="bC" type="button" hidden>MENJAJ</button><button id="bB" type="button" hidden>PAS</button><button id="bA" type="button">TRČI</button></div>
-  <div id="gr" hidden><button id="repel" type="button">RASTERIVAČ ZA PSE · 35%</button><button id="exitFootball" type="button" hidden>IZAĐI IZ FUDBALA</button></div>
 </div>
 
 <!-- MODAL / LIGHTBOX (koriste ga lokacije, TIS i galerija) -->
@@ -772,174 +780,395 @@ if (cv && !rm) {
 
 </script>
 <script>
-/* ===== IGRA ===== */
+/* ===== KALAC BRDO · ELITE IGRA ===== */
 (()=>{
-const $=s=>document.querySelector(s),gm=$('#gm'),cv=$('#gc'),c=cv.getContext('2d'),WW=5000,WH=3600,FW=1000,FH=560,FR=[2760,1800,560,420];
-let W,H,D=1,mode=1,K={},J={x:0,y:0},hA=0,eA=0,eB=0,eC=0,dvw=0,Q=1,SE=1,last=0,run=0,S,built=0,AC=null,dg,shake=0,fear=0,ban=['',0],zi=-1,F,sd=11,dgl=0;
-const R=()=>(sd=sd*16807%2147483647)/2147483647,dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
-const P=[[260,2150],[700,1900],[1000,1500],[1450,1380],[1700,1000],[1450,640],[1950,420],[2500,520],[2900,900],[3000,1500],[3050,1850]];
-const Z=[{n:'Kalač put',x:400,y:2060,r:260,d:.25,t:'Gde asfalt pukne, počinje Kalač. Psi laju iz svakog dvorišta.'},
-{n:'Tajna kuća',x:860,y:1700,r:230,d:.5,t:'Ružičasta kuća ispod kablova. Lampa na stubu pali se sama.'},
-{n:'Klupica',x:1230,y:1430,r:200,d:.4,t:'Klupica nad dolinom. Beli papiri se miču i kad nema vetra.'},
-{n:'Durmitorska ulica',x:1650,y:1060,r:300,d:.8,t:'Svaki pas te gleda, nijedan ne laje. Šta je iza krivine?'},
-{n:'Staza straha',x:1500,y:660,r:280,d:.9,t:'Uska staza, trnje i magla. Drži se sredine i ne zastajkuj.'},
-{n:'Ruševina',x:1990,y:440,r:230,d:.85,t:'Zidovi bez krova. Kroz prozor se vidi samo nebo. Ne ulazi.'},
-{n:'Ukleta meteo stanica',x:2560,y:530,r:260,d:.8,t:'Stanica je zatvorena, a zujanje se pojačava kad se približiš.'},
-{n:'Napuštena kuća',x:2920,y:1050,r:230,d:.7,t:'Vlasnici su otišli preko noći. Jedan prozor još svetli.'},
-{n:'Grbavsko',x:3040,y:1900,r:260,d:.1,t:'Stigao si! Ekipa te čeka na terenu.'}];
-const sg=(px,py,a,b)=>{const dx=b[0]-a[0],dy=b[1]-a[1],t=Math.max(0,Math.min(1,((px-a[0])*dx+(py-a[1])*dy)/(dx*dx+dy*dy)));return Math.hypot(px-a[0]-t*dx,py-a[1]-t*dy)};
-const BR=[[[1000,1500],[780,1250],[600,950],[420,600],[380,300]],[[1700,1000],[2050,1180],[2350,1330],[2650,1280]],[[1950,420],[1900,250],[2200,130],[2600,160]],[[3000,1500],[3250,1350],[3300,1000],[3250,600]],[[1450,1380],[1500,1700],[1800,1950],[2200,2100]],[[700,1900],[520,1650],[360,1450],[220,1200]],[[1000,1500],[1250,1180],[1500,920],[1850,760]],[[2350,1330],[2700,1500],[3150,1650],[3600,1850]],[[2650,1280],[3000,1150],[3450,1100],[3900,1250]],[[3600,1850],[3950,2050],[4300,2250],[4700,2200]],[[3450,1100],[3700,800],[4100,650],[4550,720]],[[2200,2100],[2700,2350],[3250,2550],[3800,2700]]];
-const dp=(x,y)=>{let m=1e9;for(let i=1;i<P.length;i++)m=Math.min(m,sg(x,y,P[i-1],P[i]));for(const b of BR)for(let i=1;i<b.length;i++)m=Math.min(m,sg(x,y,b[i-1],b[i]));return m};
-const dk=(x,y)=>{let m=.12;for(const z of Z)m=Math.max(m,z.d*Math.max(0,Math.min(1,1.5-Math.hypot(x-z.x,y-z.y)/z.r)));return m};
-const HS=[],ov=(r,m)=>HS.some(h=>r[0]<h[0]+h[2]+m&&r[0]+r[2]>h[0]-m&&r[1]<h[1]+h[3]+m&&r[1]+r[3]>h[1]-m);
-const spot=(z,md,w,h)=>{for(let r=110;r<430;r+=15)for(let a=0;a<6.28;a+=.35){const x=z.x+Math.cos(a)*r,y=z.y+Math.sin(a)*r;if(dp(x,y)>md&&dp(x+w,y+h)>md&&dp(x+w,y)>md&&dp(x,y+h)>md&&!ov([x,y,w,h],30)&&x>80&&y>80&&x<WW-200&&y<WH-200)return[x,y]}return[z.x,z.y]};
-function bare(g,x,y,s){g.fillStyle='rgba(0,0,0,.3)';g.beginPath();g.ellipse(x,y+2,12*s,5*s,0,0,7);g.fill();g.strokeStyle='#3d3128';g.lineCap='round';(function br(x,y,a,l,w,d){if(d<0)return;const x2=x+Math.cos(a)*l,y2=y+Math.sin(a)*l;g.lineWidth=w;g.beginPath();g.moveTo(x,y);g.lineTo(x2,y2);g.stroke();br(x2,y2,a-.5+R()*.3,l*.72,w*.7,d-1);br(x2,y2,a+.5-R()*.3,l*.72,w*.7,d-1)})(x,y,-1.57,17*s,4*s,4)}
-function leafy(g,x,y,s,dkv){g.fillStyle='rgba(0,0,0,.3)';g.beginPath();g.ellipse(x+6,y+4,20*s,8*s,0,0,7);g.fill();g.fillStyle='#4a3524';g.fillRect(x-3,y-8,6,12);[['#1f4a24',0,-24,20],['#2a6030',-8,-30,15],['#3b7a3c',6,-34,13]].forEach(([c,dx,dy,r])=>{g.fillStyle=c;g.beginPath();g.arc(x+dx*s,y+dy*s,r*s,0,7);g.fill()})}
-function pine(g,x,y,s){g.fillStyle='rgba(0,0,0,.3)';g.beginPath();g.ellipse(x+5,y+3,14*s,6*s,0,0,7);g.fill();for(let i=0;i<3;i++){g.fillStyle=['#173a25','#1d4a2c','#245a34'][i];g.beginPath();g.moveTo(x-(18-i*4)*s,y-i*14*s);g.lineTo(x,y-(30+i*14)*s);g.lineTo(x+(18-i*4)*s,y-i*14*s);g.fill()}}
-function house(g,h){const[x,y,w,ht]=h.r,rh=ht*.6,d=dk(x+w/2,y+ht/2);
-g.fillStyle='rgba(0,0,0,.35)';g.fillRect(x+8,y+10,w,ht);g.fillStyle=h.ab?'#6e665a':h.pk?'#e6a9ad':h.wl;g.fillRect(x,y+rh*.7,w,ht-rh*.7);g.fillStyle='rgba(0,0,0,.22)';g.fillRect(x,y+ht-5,w,5);
-const n=Math.max(2,w/40|0);for(let i=0;i<n;i++){const wx=x+(i+.5)*w/n-8,wy=y+rh+3;if(i==n-1&&!h.ab){g.fillStyle='#5a3a22';g.fillRect(wx-1,wy-2,18,ht-rh-5);continue}
-const lit=h.ab?i==0:R()<(d>.5?.3:.55);g.save();if(lit){g.shadowColor='#ffb84a';g.shadowBlur=12}g.fillStyle=lit?'#ffd36a':h.ab?'#000':'#1c2a36';g.fillRect(wx,wy,16,ht-rh-11);g.restore();g.strokeStyle='rgba(255,255,255,.4)';g.strokeRect(wx,wy,16,ht-rh-11)}
-const rf=h.ab?'#5a2f27':h.rf;g.fillStyle=rf;g.beginPath();g.moveTo(x-7,y+rh);g.lineTo(x+7,y);g.lineTo(x+w-7,y);g.lineTo(x+w+7,y+rh);g.fill();
-g.fillStyle='rgba(255,255,255,.13)';g.beginPath();g.moveTo(x-1,y+rh*.5);g.lineTo(x+7,y);g.lineTo(x+w-7,y);g.lineTo(x+w+1,y+rh*.5);g.fill();
-g.strokeStyle='rgba(0,0,0,.2)';g.lineWidth=1;for(let yy=y+6;yy<y+rh;yy+=6){g.beginPath();g.moveTo(x-6+(yy-y)*.1,yy);g.lineTo(x+w+6-(yy-y)*.1,yy);g.stroke()}
-g.fillStyle='rgba(0,0,0,.3)';g.fillRect(x-6,y+rh,w+12,4);g.fillStyle='rgba(255,255,255,.35)';g.fillRect(x+9,y+2,w-18,2);
-if(h.ab){g.fillStyle='#120c0a';g.fillRect(x+w*.25,y+8,16,12);g.fillRect(x+w*.6,y+16,22,14)}
-g.fillStyle='#8a4a38';g.fillRect(x+w*.68,y-9,11,18);g.fillStyle='#2a1a14';g.fillRect(x+w*.68,y-9,11,3)}
-function church(g,[x,y]){g.fillStyle='rgba(0,0,0,.35)';g.fillRect(x+10,y+14,150,110);g.fillStyle='#f2c230';g.fillRect(x,y+34,150,76);g.fillStyle='#e0ac1c';g.fillRect(x+54,y-34,42,70);g.fillStyle='#8c3a2b';g.beginPath();g.moveTo(x+48,y-34);g.lineTo(x+75,y-66);g.lineTo(x+102,y-34);g.fill();g.fillStyle='#fff';g.fillRect(x+73,y-90,4,26);g.fillRect(x+66,y-82,18,4);g.fillStyle='#a8402e';g.beginPath();g.moveTo(x-8,y+38);g.lineTo(x+22,y+12);g.lineTo(x+128,y+12);g.lineTo(x+158,y+38);g.fill();g.fillStyle='#4a78a8';[16,40,98,122].forEach(i=>{g.fillRect(x+i-1,y+66,14,18);g.beginPath();g.arc(x+i+6,y+66,7,Math.PI,0);g.fill()});g.fillStyle='#5a3a22';g.fillRect(x+64,y+72,22,38);g.beginPath();g.arc(x+75,y+72,11,Math.PI,0);g.fill();g.fillStyle='#fff';g.beginPath();g.arc(x+75,y-12,8,0,7);g.fill()}
-function build(){S=document.createElement('canvas');S.width=WW;S.height=WH;const g=S.getContext('2d');
-g.fillStyle='#2c4527';g.fillRect(0,0,WW,WH);for(let i=0;i<1100;i++){g.fillStyle=R()<.5?'rgba(20,50,20,.1)':'rgba(90,110,45,.09)';g.beginPath();g.arc(R()*WW,R()*WH,18+R()*70,0,7);g.fill()}
-for(let i=0;i<2600;i++){const x=R()*WW,y=R()*WH;g.strokeStyle=R()<.5?'#3d5f33':'#22381f';g.beginPath();g.moveTo(x,y);g.lineTo(x+R()*4-2,y-5-R()*4);g.stroke()}
-for(let i=0;i<14;i++){g.fillStyle=i%2?'#3c7a35':'#43853d';g.fillRect(FR[0]+i*40,FR[1],40,FR[3])}
-g.strokeStyle='#fff';g.lineWidth=3;g.strokeRect(FR[0]+14,FR[1]+14,FR[2]-28,FR[3]-28);g.beginPath();g.moveTo(FR[0]+FR[2]/2,FR[1]+14);g.lineTo(FR[0]+FR[2]/2,FR[1]+FR[3]-14);g.stroke();g.beginPath();g.arc(FR[0]+FR[2]/2,FR[1]+FR[3]/2,45,0,7);g.stroke();g.fillStyle='#fff';[FR[0]+4,FR[0]+FR[2]-14].forEach(x=>g.fillRect(x,FR[1]+FR[3]/2-40,10,80));
-g.lineCap=g.lineJoin='round';[[96,'#3e3427'],[78,'#7d6c52'],[46,'#957f5f']].forEach(([w,c])=>[P,...BR].forEach((q,k)=>{g.strokeStyle=c;g.lineWidth=w*(k?.6:1);g.beginPath();q.forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));g.stroke()}));
-for(let i=0;i<7000;i++){const x=R()*WW,y=R()*WH;if(dp(x,y)<38){g.fillStyle=R()<.5?'#6a5a43':'#b3a07e';g.fillRect(x,y,2+R()*2,2)}}
-// znamenitosti
-const L={};[['rn',5,130,90],['mt',6,100,64],['bn',2,60,24],['lg',0,70,44],['fn',4,170,20],['ch',2,150,110]].forEach(([k,zi,w,h])=>{const s=k=='ch'?[Z[2].x+260,Z[2].y-55]:spot(Z[zi],k=='fn'||k=='lg'?70:90,w,h);L[k]=s;HS.push([s[0],s[1],w,h])});
-const HL=[];for(let i=1;i<P.length;i++){const a=P[i-1],b=P[i],l=Math.hypot(b[0]-a[0],b[1]-a[1]),nx=-(b[1]-a[1])/l,ny=(b[0]-a[0])/l;
-for(let s=70;s<l-60;s+=150+R()*60)for(const sd2 of[-1,1]){if(R()<.2)continue;const w=105+R()*55|0,h=85+R()*30|0,off=135+R()*60,cx=a[0]+(b[0]-a[0])*s/l+nx*sd2*off,cy=a[1]+(b[1]-a[1])*s/l+ny*sd2*off,r=[cx-w/2|0,cy-h/2|0,w,h];
-if([[r[0],r[1]],[r[0]+w,r[1]],[r[0],r[1]+h],[r[0]+w,r[1]+h]].some(p=>dp(...p)<78)||ov(r,26)||r[0]+w>FR[0]-40&&r[1]+h>FR[1]-40||r[0]<20||r[1]<20)continue;
-HS.push(r);const dd=dk(cx,cy);HL.push({r,wl:dd>.5?['#8d8676','#7b7366','#8a8f90'][R()*3|0]:['#f2d16b','#e07a5f','#6fb3d2','#8fcf8f','#f4a6c0','#f0ede0','#c58bd9','#ff9f55'][R()*8|0],rf:['#a8402e','#8c3a2b','#2f5d8a','#3b6e3b','#5a3a6a','#7a3b2e'][R()*6|0]})}}
-const near=z=>HL.reduce((m,h)=>Math.hypot(h.r[0]-z.x,h.r[1]-z.y)<Math.hypot(m.r[0]-z.x,m.r[1]-z.y)?h:m);const pk=near(Z[1]),ab=near(Z[7]);pk.pk=1;ab.ab=1;HL.forEach(h=>house(g,h));church(g,L.ch);
-// Klupica je na ivici provalije: nema nevidljive barijere kroz sredinu vidikovca, već je ivica jasno označena terenom.
-{const cx=Z[2].x,cy=Z[2].y+65;g.fillStyle='#1b2520';g.beginPath();g.moveTo(cx-220,cy);g.lineTo(cx+220,cy);g.lineTo(cx+310,cy+150);g.lineTo(cx-250,cy+150);g.closePath();g.fill();g.strokeStyle='#53695c';g.lineWidth=3;g.beginPath();g.moveTo(cx-220,cy,cx+220,cy);g.stroke();for(let i=0;i<9;i++){const xx=cx-210+i*52;g.strokeStyle='#697b70';g.beginPath();g.moveTo(xx,cy+8);g.lineTo(xx-25,cy+125);g.stroke()}}
-HS.push([Z[2].x-250,Z[2].y+65,500,18]);
-// stub sa kablovima kod tajne kuće
-{const[x,y,w,h]=pk.r,px=x+w+16,py=y+h-4;g.strokeStyle='rgba(20,20,20,.7)';g.lineWidth=1;[[x,y+8],[x+w,y+10],[x+w/2,y+4],[x+w+60,py-70],[x-40,y-30]].forEach(p=>{g.beginPath();g.moveTo(px,py-52);g.quadraticCurveTo((px+p[0])/2,(py+p[1])/2-20,p[0],p[1]);g.stroke()});g.fillStyle='#2a2119';g.fillRect(px-3,py-56,6,60);g.fillRect(px-14,py-52,28,3);g.fillStyle='#ffe9a0';g.beginPath();g.arc(px-14,py-48,4,0,7);g.fill();HS.push([px-5,py-4,10,8])}
-// ruševina
-{const[x,y]=L.rn;g.fillStyle='#1d1814';g.fillRect(x,y,130,90);g.fillStyle='#9a4e36';g.fillRect(x,y,16,90);g.fillRect(x+114,y,16,52);g.fillRect(x,y,130,20);g.fillStyle='#1d1814';g.fillRect(x+50,y,32,20);g.fillStyle='#b9633f';for(let i=0;i<40;i++)g.fillRect(x+R()*126,y+R()*88,6,3);g.strokeStyle='#5a3a22';g.lineWidth=5;g.beginPath();g.moveTo(x+20,y+70);g.lineTo(x+100,y+30);g.stroke();g.fillStyle='rgba(0,0,0,.3)';g.fillRect(x+130,y+8,10,84)}
-// meteo stanica
-{const[x,y]=L.mt;g.fillStyle='#d9dcd6';g.fillRect(x+20,y+8,60,40);g.fillStyle='#8c918c';g.fillRect(x+16,y+4,68,10);g.fillStyle='#222';g.fillRect(x+44,y+30,12,18);g.strokeStyle='#4a3a30';g.lineWidth=2;for(let i=0;i<=6;i++){g.beginPath();g.moveTo(x-20+i*23,y-14);g.lineTo(x-20+i*23,y+8);g.stroke()}g.strokeStyle='rgba(60,60,60,.7)';g.lineWidth=1;g.strokeRect(x-20,y-10,138,70);g.fillStyle='#e8e8e8';g.fillRect(x+95,y+30,14,16);g.strokeStyle='#555';g.beginPath();g.moveTo(x+102,y+46);g.lineTo(x+102,y+60);g.stroke();
-const px=x+190,py=y-30;g.strokeStyle='#3a3f44';g.lineWidth=2;g.beginPath();g.moveTo(px,py-110);g.lineTo(px-22,py);g.moveTo(px,py-110);g.lineTo(px+22,py);g.moveTo(px-14,py-45);g.lineTo(px+14,py-45);g.moveTo(px-8,py-75);g.lineTo(px+8,py-75);g.stroke();HS.push([px-20,py-6,40,10])}
-// klupica
-{const[x,y]=L.bn;g.fillStyle='rgba(0,0,0,.3)';g.fillRect(x+4,y+10,60,20);g.fillStyle='#5a4630';g.fillRect(x+6,y+14,8,10);g.fillRect(x+46,y+14,8,10);g.fillStyle='#c9c4b4';g.fillRect(x,y,60,16);g.strokeStyle='#222';g.lineWidth=2;g.beginPath();g.moveTo(x+6,y+10);g.quadraticCurveTo(x+16,y+2,x+24,y+10);g.lineTo(x+34,y+4);g.stroke();g.fillStyle='#fff';for(let i=0;i<5;i++)g.fillRect(x+R()*80-10,y+26+R()*30,5,4)}
-// drva
-{const[x,y]=L.lg;for(let r=0;r<3;r++)for(let i=0;i<6-r;i++){const cx=x+i*11+r*5.5+6,cy=y+34-r*10;g.fillStyle='#7a5a3a';g.beginPath();g.arc(cx,cy,6,0,7);g.fill();g.fillStyle='#c9a574';g.beginPath();g.arc(cx,cy,3.5,0,7);g.fill()}}
-// drvena ograda
-{const[x,y]=L.fn;g.strokeStyle='#4a3826';g.lineWidth=2;for(let i=0;i<2;i++){g.beginPath();g.moveTo(x,y+6+i*8);g.lineTo(x+170,y+6+i*8);g.stroke()}g.fillStyle='#6b5233';for(let i=0;i<=17;i++)g.fillRect(x+i*10,y+(i%5==3?3:0),5,18)}
-// drveće
-for(let i=0;i<650;i++){const x=40+R()*(WW-80),y=40+R()*(WH-80);if(dp(x,y)<100||ov([x-14,y-14,28,28],12)||x>FR[0]-60&&y>FR[1]-60)continue;const d=dk(x,y);if(d>.55)bare(g,x,y,.8+R()*.6);else if(R()<.2)pine(g,x,y,.8+R()*.5);else leafy(g,x,y,.8+R()*.5);HS.push([x-5,y-6,10,10])}
-}
-// ---- likovi ----
-function man(x,y,o){const s=o.s||1;c.save();c.translate(x,y);if(o.rot)c.rotate(o.rot);c.scale(s,s);c.fillStyle='rgba(0,0,0,.35)';c.beginPath();c.ellipse(0,10,11,5,0,0,7);c.fill();const l=Math.sin(o.w||0)*4;c.fillStyle=o.lg||'#2b3550';c.fillRect(-6,3,5,9+l);c.fillRect(1,3,5,9-l);
-c.fillStyle=o.b;c.beginPath();c.ellipse(0,-5,10,10,0,0,7);c.fill();if(o.sc){c.fillStyle='#eee';c.fillRect(-5,-14,10,4);c.fillStyle='#111';c.fillRect(-5,-14,5,2);c.fillRect(0,-12,5,2)}
-c.fillStyle='#e2b48c';c.beginPath();c.arc(0,-17,6.5,0,7);c.fill();c.fillStyle=o.h;c.beginPath();c.arc(0,-19,6.9,Math.PI,0);c.fill();if(o.st){c.fillStyle='#fff';c.fillRect(-6.5,-21,13,2)}if(o.beard){c.fillStyle='#f4f4f4';c.beginPath();c.moveTo(-6,-15);c.quadraticCurveTo(0,6,6,-15);c.fill()}if(o.hat){c.fillStyle=o.hat;c.beginPath();c.moveTo(-10,-22);c.lineTo(2,-44);c.lineTo(10,-22);c.fill();c.fillStyle='#d8a83d';c.fillRect(-10,-24,20,3)}
-if(o.cane){c.strokeStyle='#4a3020';c.lineWidth=2;c.beginPath();c.moveTo(12,-4);c.lineTo(14,12);c.stroke()}if(o.orb){c.save();c.shadowColor='#7ad';c.shadowBlur=14;c.fillStyle='#9cf';c.beginPath();c.arc(12,-6,4,0,7);c.fill();c.restore()}c.restore();
-if(o.n){c.font='bold 11px Oswald,Arial,sans-serif';c.textAlign='center';c.lineWidth=3;c.strokeStyle='#000';c.strokeText(o.n,x,y-(o.hat?50:34)*s);c.fillStyle=o.nc||'#fff';c.fillText(o.n,x,y-(o.hat?50:34)*s)}}
-const AND={b:'#3f7a50',h:'#111',st:1,sc:1};
-function bsh(x,y){c.fillStyle='rgba(0,0,0,.3)';c.beginPath();c.ellipse(x,y+8,26,8,0,0,7);c.fill();[['#1d4d22',-14,0,14],['#2a6a30',12,-2,15],['#2f7a36',0,-9,17],['#3b8a3f',-5,-14,10]].forEach(([k,dx,dy,r])=>{c.fillStyle=k;c.beginPath();c.arc(x+dx,y+dy,r,0,7);c.fill()})}
-function dog(d){c.save();c.translate(d.x,d.y);const f=Math.cos(d.f)<0?-1:1;c.scale(f,1);c.fillStyle='rgba(0,0,0,.35)';c.beginPath();c.ellipse(0,7,15,4,0,0,7);c.fill();c.fillStyle='#6b4a2b';c.beginPath();c.ellipse(0,0,14,7,0,0,7);c.fill();c.beginPath();c.arc(13,-4,6,0,7);c.fill();c.fillStyle='#3a2616';c.fillRect(11,-12,3,6);c.strokeStyle='#6b4a2b';c.lineWidth=3;c.beginPath();c.moveTo(-13,-2);c.lineTo(-20,-8+Math.sin(T*12)*3);c.stroke();c.fillStyle=d.q?'#ff2a2a':'#fff';c.fillRect(15,-6,2,2);c.restore()}
-const pl={x:330,y:2130,f:0,w:0,vx:0,vy:0},cam={x:330,y:2130};let dogs=[],bub=[],T=0,repeller=false,repelUses=0,dead=false,ghosts=[],houseEvent=false,footballReturn=false;
-const PA=Array.from({length:220},()=>({x:Math.random(),y:Math.random(),k:.6+Math.random()*.8})),SC=[{t:'rgba(150,255,150,.07)',k:'#ffc4dc',s:3,vx:14,vy:22,n:[0,25,50,90]},{t:'rgba(255,205,70,.12)',k:'#fff3a0',s:2,vx:6,vy:-6,n:[0,0,25,60]},{t:'rgba(225,110,20,.2)',k:'#d9751f',s:4,vx:30,vy:36,n:[0,30,60,110]},{t:'rgba(200,225,255,.26)',k:'#fff',s:2.6,vx:10,vy:70,n:[0,60,120,220]}],QN=['NISKO','SREDNJE','VISOKO','EKSTREMNO'],SN=['PROLEĆE','LETO','JESEN','ZIMA'],MM=$('#mm').getContext('2d');
-function fxs(){const s=SC[SE];c.fillStyle=s.t;c.fillRect(0,0,W,H);c.fillStyle=s.k;for(let i=0;i<s.n[Q];i++){const p=PA[i],x=((p.x*W+Math.sin(T+i)*18+T*s.vx*p.k)%W+W)%W,y=((p.y*H+T*s.vy*p.k)%H+H)%H;c.fillRect(x,y,s.s*p.k,s.s*p.k)}if(Q==3){c.save();c.globalCompositeOperation='lighter';const l=c.createLinearGradient(0,0,W*.6,H);l.addColorStop(0,'rgba(255,230,160,.12)');l.addColorStop(1,'rgba(255,230,160,0)');c.fillStyle=l;c.beginPath();c.moveTo(W*.15,0);c.lineTo(W*.5,0);c.lineTo(W*.9,H);c.lineTo(W*.4,H);c.fill();c.restore()}}
-function mini(){const k=130/WW;MM.drawImage(S,0,0,130,92);MM.fillStyle='#0006';MM.fillRect(0,0,130,92);MM.fillStyle='#d8a83d';MM.fillRect(npc.x*k-2,npc.y*k-2,4,4);MM.fillStyle='#f33';MM.fillRect(3040*k-3,2010*k-3,6,6);MM.fillStyle='#55d67b';MM.beginPath();MM.arc(pl.x*k,pl.y*k,3.5,0,7);MM.fill()}
-const npc={x:470,y:2025,l:['Ja sam Pera. Idem s tobom da ispitamo ovo brdo.','Ako čujemo pse, ne glumimo heroje — bežimo.','Tamo napred je čudna kuća. Drži se mene.'],gray:1};
-function init(){dogs=[];ghosts=[];dead=false;houseEvent=false;repeller=false;repelUses=0;dogs=[];[0,3,4,7].forEach(zi=>{for(let i=0;i<3;i++){const a=Math.random()*6.28,r=90+Math.random()*120;dogs.push({x:Z[zi].x+Math.cos(a)*r,y:Z[zi].y+Math.sin(a)*r,ax:Z[zi].x,ay:Z[zi].y,f:0,tx:0,ty:0,bt:0,q:zi==3,z:zi})}});dogs.forEach(d=>{d.hid=1;d.hx=d.x;d.hy=d.y})}
-function tn(f0,f1,d,v,ty){if(!AC)return;const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime;o.type=ty||'square';o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(t+d+.02)}
-function audio(){if(AC)return;try{AC=new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),f=AC.createBiquadFilter();dg=AC.createGain();o.type='sawtooth';o.frequency.value=46;f.frequency.value=110;dg.gain.value=0;o.connect(f);f.connect(dg);dg.connect(AC.destination);o.start()}catch(e){}}
-const mv=()=>{let x=(K.d||K.arrowright?1:0)-(K.a||K.arrowleft?1:0)+J.x,y=(K.s||K.arrowdown?1:0)-(K.w||K.arrowup?1:0)+J.y;const l=Math.hypot(x,y);if(l>1){x/=l;y/=l}return[x,y]};
-function useRepeller(){if(!repeller||repelUses<=0||dead)return;repelUses--;let hit=false;for(const d of dogs){if(d.hid||dist(d,pl)>210)continue;if(Math.random()<.35){d.hid=1;d.bt=0;d.x=d.hx;d.y=d.hy;hit=true}}if(hit){bub.push([pl.x,pl.y-34,'RASTERENI!']);tn(520,180,.18,.08,'sine')}else{bub.push([pl.x,pl.y-34,'NE DELUJE!']);tn(90,60,.18,.08)}}
-function push(o,r){for(const h of HS){const cx=Math.max(h[0],Math.min(o.x,h[0]+h[2])),cy=Math.max(h[1],Math.min(o.y,h[1]+h[3])),dx=o.x-cx,dy=o.y-cy,d=Math.hypot(dx,dy);if(d<r){if(d>.01){o.x+=dx/d*(r-d);o.y+=dy/d*(r-d)}else o.y-=r}}}
-function wUpdate(dt){const[ax,ay]=mv(),sp=hA||K.shift?215:145;pl.x+=ax*sp*dt;pl.y+=ay*sp*dt;if(ax||ay){pl.f=Math.atan2(ay,ax);pl.w+=dt*sp/11}push(pl,10);pl.x=Math.max(20,Math.min(WW-20,pl.x));pl.y=Math.max(20,Math.min(WH-20,pl.y));
-cam.x+=(pl.x-cam.x)*Math.min(1,dt*6);cam.y+=(pl.y-cam.y)*Math.min(1,dt*6);bub=[];let tf=0;
-for(const d of dogs){const dd=dist(d,pl);d.bt-=dt;if(d.hid){if(dd<130){d.hid=0;d.bt=0;shake=9;bub.push([d.x,d.y-26,'GAV!']);tn(300,70,.25,.14)}continue}if(dd<190){d.f=Math.atan2(pl.y-d.y,pl.x-d.x);if(dd<115&&dd>38){d.x+=Math.cos(d.f)*(d.q?55:85)*dt;d.y+=Math.sin(d.f)*(d.q?55:85)*dt}tf=Math.max(tf,dd<125?.9:.5);
-if(!d.q&&d.bt<=0){d.bt=1.4+Math.random();bub.push([d.x,d.y-22,'AV!']);tn(230,90,.16,.07);shake=5}}else{if(!d.tx||Math.random()<.01){d.tx=d.ax+Math.random()*240-120;d.ty=d.ay+Math.random()*240-120}const a=Math.atan2(d.ty-d.y,d.tx-d.x);d.f=a;d.x+=Math.cos(a)*30*dt;d.y+=Math.sin(a)*30*dt}
-// Dog repeller: 35% success, 65% failure. Failed use still consumes the attempt.
-if(repeller&&d.hid===0&&dd<170&&repelUses>0){repelUses--;if(Math.random()<.35){d.hid=1;d.bt=0;d.x=d.hx;d.y=d.hy;bub.push([d.hx,d.hy-30,'RASTEREN!']);tn(520,180,.18,.08,'sine')}else{bub.push([pl.x,pl.y-28,'NE DELUJE!']);tn(90,60,.18,.08);}}
-if(!d.hid&&dd<24){dead=true;run=0;$('#go').textContent='KRAJ IGRE · PSE SI PREBLIZU';$('#gr').hidden=false;$('#repel').disabled=false;tn(90,30,.9,.16);}}
-const dd=dk(pl.x,pl.y);fear+=(Math.max(tf,dd*.55)-fear)*dt*1.5;shake=Math.max(0,shake-dt*20);
-if(Math.hypot(pl.x-npc.x,pl.y-npc.y)>105){const na=Math.atan2(pl.y-npc.y,pl.x-npc.x);npc.x+=Math.cos(na)*72*dt;npc.y+=Math.sin(na)*72*dt;}
-if(dist(pl,npc)<125)bub.push([npc.x,npc.y-44,npc.l[T/3.5%3|0]]);
-// Haunted house event: approach and press E/ENTER. Ghosts chase until you escape the zone.
-const ah=Z[7],hd=Math.hypot(pl.x-ah.x,pl.y-ah.y);
-if(!houseEvent&&hd<ah.r&& (eB||K.enter)){houseEvent=true;ghosts=Array.from({length:5},(_,i)=>({x:ah.x+(i-2)*45,y:ah.y-150-Math.random()*70,f:0}));ban=['UKLETA KUĆA\nPritisni E da otvoriš vrata. Duhovi! BEŽI!',5];tn(180,70,.4,.12);}
-if(houseEvent){for(const q of ghosts){const ga=Math.atan2(pl.y-q.y,pl.x-q.x);q.f=ga;q.x+=Math.cos(ga)*72*dt;q.y+=Math.sin(ga)*72*dt;if(dist(q,pl)<28){pl.x-=Math.cos(ga)*55*dt;pl.y-=Math.sin(ga)*55*dt;shake=7;bub.push([pl.x,pl.y-30,'BEŽI!']);}}if(ghosts.length&&Math.hypot(pl.x-ah.x,pl.y-ah.y)>520){ghosts=[];houseEvent=false;ban=['DUHOVI SU OSTALI IZA TEBE','Možeš da nastaviš istraživanje.',3];}}
-if(!repeller&&Math.hypot(pl.x-650,pl.y-1920)<70){repeller=true;repelUses=1;ban=['RASTERIVAČ ZA PSE','Klikni dugme svaki put kad želiš pokušaj · uspeh 35%.',4];$('#repel').hidden=false;}
-if(repeller&&eB&&Math.hypot(pl.x-650,pl.y-1920)<170){repelUses++;ban=['RASTERIVAČ SPREMAN','Jedan klik = jedan pokušaj · 35% uspeh / 65% promašaj.',3];}
+'use strict';
+const $=s=>document.querySelector(s), gm=$('#gm'), cv=$('#gc'), c=cv.getContext('2d');
+const mm=$('#mm'), mc=mm.getContext('2d');
+const WW=5600, WH=4200, FW=1100, FH=620;
+let W=0,H=0,D=1,run=0,built=0,mode='world',last=0,T=0;
+let quality=1, season=1, AC=null, masterGain=null, shake=0;
+const K=Object.create(null), J={x:0,y:0}, pressed=new Set();
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const d2=(x1,y1,x2,y2)=>Math.hypot(x1-x2,y1-y2);
+const dist=(a,b)=>d2(a.x,a.y,b.x,b.y);
+const rand=(()=>{let x=0x7a31e5;return()=>((x=x*1664525+1013904223|0)>>>0)/4294967296})();
+const pick=a=>a[(rand()*a.length)|0];
 
-let bz=-1,bd=1e9;Z.forEach((z,i)=>{const d=Math.hypot(pl.x-z.x,pl.y-z.y);if(d<z.r&&d<bd){bd=d;bz=i}});if(bz>=0&&bz!=zi){zi=bz;ban=[Z[bz].n+'\n'+Z[bz].t,5];$('#gt').textContent=Z[bz].n}
-ban[1]-=dt;const fd=Math.hypot(pl.x-3040,pl.y-2010);if(mode==1)$('#go').textContent='Cilj: Grbavsko · '+Math.max(0,fd/10-15|0)+' m';
-if(dg)dg.gain.value=dd*.06*(1+fear);
-if(pl.x>FR[0]&&pl.x<FR[0]+FR[2]&&pl.y>FR[1]+20&&pl.y<FR[1]+FR[3]){mode=2;fInit();if(dg)dg.gain.value=0;$('#bA').textContent='ŠUT';$('#bB').hidden=0;$('#bC').hidden=0;$('#mm').hidden=1;$('#gq').hidden=1;$('#gr').hidden=0;$('#exitFootball').hidden=0;dvw=1;$('#dv').hidden=0;$('#gt').textContent='Grbavsko · Fudbal';$('#go').textContent='5 na 5 · šut: Space/ŠUT · pas: E/PAS'}}
-function wrap(t,x,y,mw,lh,fill){const ws=t.split(' ');let l='';for(const w of ws){if(c.measureText(l+w).width>mw&&l){c.fillText(l,x,y);y+=lh;l=''}l+=w+' '}c.fillText(l,x,y);return y}
-function wDraw(){const z=Math.max(.7,Math.min(1.7,Math.min(W,H)/520));c.setTransform(D,0,0,D,0,0);c.fillStyle='#000';c.fillRect(0,0,W,H);
-const sx=shake?(Math.random()-.5)*shake:0,sy=shake?(Math.random()-.5)*shake:0,tx=W/2-cam.x*z+sx,ty=H/2-cam.y*z+sy;c.setTransform(D*z,0,0,D*z,D*tx,D*ty);
-const x0=Math.max(0,cam.x-W/2/z-4|0),y0=Math.max(0,cam.y-H/2/z-4|0),x1=Math.min(WW,x0+W/z+10|0),y1=Math.min(WH,y0+H/z+10|0);c.drawImage(S,x0,y0,x1-x0,y1-y0,x0,y0,x1-x0,y1-y0);
-const es=[{y:npc.y,f:()=>man(npc.x,npc.y,{b:'#686d73',h:'#2b2b2b',n:'Pera',nc:'#e8e8e8',s:1.02})},{y:pl.y,f:()=>man(pl.x,pl.y,{...AND,w:pl.w,n:'Andrej',nc:'#55d67b'})},{y:2050,f:()=>{man(2830,1880,{b:'#2fa84f',h:'#5a3a22',n:'Kosta'});man(2900,1960,{b:'#2fa84f',h:'#222',n:'Joca'})}}];
-ghosts.forEach(q=>es.push({y:q.y,f:()=>{c.save();c.globalAlpha=.72;c.fillStyle='#dfefff';c.beginPath();c.arc(q.x,q.y-15,8,0,7);c.fill();c.fillRect(q.x-9,q.y-7,18,20);c.fillStyle='#233';c.fillRect(q.x-4,q.y-17,2,2);c.fillRect(q.x+2,q.y-17,2,2);c.restore()}}));dogs.forEach(d=>{es.push({y:d.hy+6,f:()=>{bsh(d.hx,d.hy);if(d.hid&&dist(d,pl)<240){c.fillStyle='#f33';c.fillRect(d.x-5,d.y-3,2,2);c.fillRect(d.x+3,d.y-3,2,2)}}});if(!d.hid)es.push({y:d.y,f:()=>dog(d)})});es.sort((a,b)=>a.y-b.y).forEach(e=>e.f());
-c.font='bold 12px Arial';c.textAlign='center';bub.forEach(([x,y,t])=>{const w=c.measureText(t).width+14;c.fillStyle='#fffffff0';c.fillRect(x-w/2,y-16,w,20);c.fillStyle='#111';c.fillText(t,x,y-2)});
-c.setTransform(D,0,0,D,0,0);fxs();const d=dk(pl.x,pl.y),a=Math.min(.93,.18+d*.8)*(d>.6&&Math.random()<.04?.8:1),px=W/2+sx*0,rr=(95+(1-d)*150)*z;
-let g=c.createRadialGradient(W/2,H/2,rr*.3,W/2,H/2,rr*2.6);g.addColorStop(0,'rgba(2,4,12,0)');g.addColorStop(1,`rgba(2,4,12,${a})`);c.fillStyle=g;c.fillRect(0,0,W,H);
-if(d>.3)for(let i=0;i<5;i++){const fx=(i*260+T*14)%(W+500)-250,fy=H*(.2+.15*i)+Math.sin(T*.4+i)*30;g=c.createRadialGradient(fx,fy,0,fx,fy,260);g.addColorStop(0,`rgba(200,220,210,${.1*d})`);g.addColorStop(1,'rgba(200,220,210,0)');c.fillStyle=g;c.fillRect(fx-260,fy-260,520,520)}
-if(fear>.3){g=c.createRadialGradient(W/2,H/2,H*.3,W/2,H/2,H*.9);g.addColorStop(0,'rgba(120,0,0,0)');g.addColorStop(1,`rgba(120,0,0,${(fear-.3)*.45})`);c.fillStyle=g;c.fillRect(0,0,W,H)}
-if(dead){c.fillStyle='rgba(0,0,0,.72)';c.fillRect(0,0,W,H);c.textAlign='center';c.font='700 54px Oswald,Arial';c.lineWidth=5;c.strokeStyle='#000';c.strokeText('KRAJ IGRE',W/2,H/2-25);c.fillStyle='#d8a83d';c.fillText('KRAJ IGRE',W/2,H/2-25);c.font='16px Arial';c.fillStyle='#fff';c.fillText('Psi ili duhovi su te stigli. Zatvori i pokreni ponovo.',W/2,H/2+15)}
-if(ban[1]>0){c.globalAlpha=Math.min(1,ban[1]);c.textAlign='center';c.font='600 20px Oswald,Arial';c.lineWidth=4;const[n,t]=ban[0].split('\n');c.strokeStyle='#000';c.strokeText(n,W/2,86);c.fillStyle='#d8a83d';c.fillText(n,W/2,86);c.font='14px Arial';c.fillStyle='#fff';c.shadowColor='#000';c.shadowBlur=6;wrap(t,W/2,110,Math.min(W-40,520),18);c.shadowBlur=0;c.globalAlpha=1}mini()}
-// ---- fudbal ----
-function shoot(p,a,v){const b=F.b;b.vx=Math.cos(a)*v;b.vy=Math.sin(a)*v;p.cd=.35;b.o=p;tn(160,60,.12,.15,'sine')}
-function fInit(){const N=[['Andrej','Kosta','Aleksa D','Aleksa B','Joca'],['Lazar Z','Lazar K','Petah','Mihajlo','Dule']],H0=[[430,280],[330,140],[330,420],[220,280],[45,280]];
-F={p:[],b:{x:500,y:280,vx:0,vy:0,o:null},sc:[0,0],ci:0,t:180,pause:0,msg:'',over:0};footballReturn=false;for(let t=0;t<2;t++)N[t].forEach((n,i)=>F.p.push({n,t,hx:t?FW-H0[i][0]:H0[i][0],hy:H0[i][1],gk:i==4,x:0,y:0,vx:0,vy:0,cd:0,f:t?Math.PI:0,w:0}));fReset()}
-function fReset(){F.p.forEach(p=>{p.x=p.hx;p.y=p.hy;p.vx=p.vy=0});Object.assign(F.b,{x:500,y:280,vx:0,vy:0,o:null})}
-function fUpdate(dt){const b=F.b,ps=F.p;if(F.over){if(eA||eB)fInit();return}if(F.pause>0){F.pause-=dt;if(F.pause<=0){F.msg='';fReset()}return}
-F.t+=dt;if(F.t>180)F.t=0;
-if(eC)F.ci=(F.ci+1)%5;const me=ps[F.ci],[mx,my]=mv(),sp=K.shift?195:170;me.vx=mx*sp;me.vy=my*sp;if(mx||my)me.f=Math.atan2(my,mx);
-const aim=(p,f)=>{const ga=Math.atan2(280-p.y,(p.t?0:FW)-p.x);return Math.cos(f-ga)>.4?ga+(f-ga)*.4:f};
-if(eA&&dist(me,b)<42)shoot(me,me.f,680);
-if(dist(me,b)<28&&!eA&&!eB){b.x += (me.x-b.x)*0.12; b.y += (me.y-b.y)*0.12; b.vx*=0.72; b.vy*=0.72;}
-if(eB&&dist(me,b)<42){let best=null,bs=-9;ps.forEach(q=>{if(q.t||q===me||q.gk)return;const s=Math.cos(Math.atan2(q.y-me.y,q.x-me.x)-me.f)*2-dist(q,me)/400;if(s>bs){bs=s;best=q}});if(best){shoot(me,Math.atan2(best.y-me.y,best.x-me.x),Math.min(520,190+dist(best,me)*1.5));F.ci=ps.indexOf(best)}}
-const ch=[null,null];for(let t=0;t<2;t++){let bd=1e9;ps.forEach(q=>{if(q.t!=t||q.gk||q===me)return;const d=dist(q,b);if(d<bd){bd=d;ch[t]=q}})}
-ps.forEach(p=>{p.cd-=dt;p.dive=Math.max(0,(p.dive||0)-dt);if(p===me)return;let tx,ty,s=105;
-if(p.gk){tx=p.t?FW-40:40;ty=Math.max(215,Math.min(345,b.y));s=135;{const gv=p.t?b.vx>150:b.vx<-150,tt=(tx-b.x)/(b.vx||1);if(gv&&tt>0&&tt<.7){ty=Math.max(205,Math.min(355,b.y+b.vy*tt));s=340;if(!p.dive)p.dive=.5}}if(dist(p,b)<30&&p.cd<=0)shoot(p,(p.t?Math.PI:0)+(Math.random()-.5),430)}
-else if(p===ch[p.t]){if(dist(p,b)<28){const gx=p.t?0:FW;if(Math.hypot(gx-p.x,280-p.y)<340&&p.cd<=0&&Math.random()<.05)shoot(p,Math.atan2(280-p.y,gx-p.x)+(Math.random()-.5)*.5,530);
-else if(p.cd<=0&&Math.random()<.012){const m=ps.filter(q=>q.t==p.t&&q!==p&&!q.gk).sort((u,v)=>Math.abs(gx-u.x)-Math.abs(gx-v.x))[0];if(m)shoot(p,Math.atan2(m.y-p.y,m.x-p.x),380)}tx=gx;ty=280;s=108}else{tx=b.x+b.vx*.2;ty=b.y+b.vy*.2;s=128}}
-else{tx=p.hx+(b.x-500)*.4;ty=p.hy+(b.y-280)*.3}
-const dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy);if(d>6){p.vx=dx/d*s;p.vy=dy/d*s;p.f=Math.atan2(dy,dx)}else p.vx=p.vy=0});
-ps.forEach(p=>{p.x=Math.max(8,Math.min(FW-8,p.x+p.vx*dt));p.y=Math.max(8,Math.min(FH-8,p.y+p.vy*dt));p.w+=Math.hypot(p.vx,p.vy)*dt/10;const d=dist(p,b);
-if(d<(p.dive>0?30:19)&&p.cd<=0){const v=Math.hypot(p.vx,p.vy),nx=(b.x-p.x)/(d||1),ny=(b.y-p.y)/(d||1);b.vx=p.vx*1.25+nx*(v>20?30:110);b.vy=p.vy*1.25+ny*(v>20?30:110);b.o=p}
-ps.forEach(q=>{const e=dist(p,q);if(q!==p&&e<16&&e>0){p.x+=(p.x-q.x)/e*.8;p.y+=(p.y-q.y)/e*.8}})});
-b.x+=b.vx*dt;b.y+=b.vy*dt;const fr=Math.pow(.4,dt);b.vx*=fr;b.vy*=fr;if(b.y<4||b.y>FH-4){b.y=b.y<4?4:FH-4;b.vy*=-.6}
-if(b.x<0||b.x>FW){if(b.y>200&&b.y<360){const t=b.x<0?1:0;F.sc[t]++;F.msg='GOL! '+(b.o?b.o.n:'');F.pause=2.2;tn(500,900,.5,.12,'triangle')}else{b.x=b.x<0?0:FW;b.vx*=-.6}}}
-function fDraw(){c.setTransform(D,0,0,D,0,0);c.fillStyle='#17391c';c.fillRect(0,0,W,H);const s=Math.min(W/(FW+70),(H-40)/(FH+40)),ox=(W-FW*s)/2,oy=(H-FH*s)/2+14;c.setTransform(D*s,0,0,D*s,D*ox,D*oy);
-for(let i=0;i<10;i++){c.fillStyle=i%2?'#3c7a35':'#43853d';c.fillRect(i*100,0,100,FH)}c.strokeStyle='#fffc';c.lineWidth=3;c.strokeRect(0,0,FW,FH);c.beginPath();c.moveTo(500,0);c.lineTo(500,FH);c.stroke();c.beginPath();c.arc(500,280,55,0,7);c.stroke();c.strokeRect(0,150,110,260);c.strokeRect(FW-110,150,110,260);
-c.fillStyle='#ffffff18';for(let x=0;x<FW;x+=100){c.fillRect(x,0,1,FH)}c.fillStyle='#ffffff30';c.fillRect(-26,200,26,160);c.fillRect(FW,200,26,160);c.strokeStyle='#fff';c.strokeRect(-26,200,26,160);c.strokeRect(FW,200,26,160);
-const b=F.b,all=[...F.p.map(p=>({y:p.y,f:()=>man(p.x,p.y,{b:p.t?'#c8372d':'#2fa84f',h:p.n=='Andrej'?'#111':p.t?'#2a2a2a':'#5a3a22',st:p.n=='Andrej',sc:p.n=='Andrej',lg:p.gk?'#d8a83d':'#222',rot:p.dive>0?(p.vy>=0?1.45:-1.45):0,w:p.w,n:p.n,nc:p.n=='Andrej'?'#55d67b':'#fff',s:.95})})),{y:b.y,f:()=>{c.fillStyle='rgba(0,0,0,.35)';c.beginPath();c.ellipse(b.x+2,b.y+6,7,3,0,0,7);c.fill();c.fillStyle='#fff';c.beginPath();c.arc(b.x,b.y,7,0,7);c.fill();c.fillStyle='#111';c.beginPath();c.arc(b.x,b.y,3,0,7);c.fill()}}];
-all.sort((u,v)=>u.y-v.y).forEach(e=>e.f());const me=F.p[F.ci];c.strokeStyle='#55d67b';c.lineWidth=2;c.beginPath();c.ellipse(me.x,me.y+10,15,6,0,0,7);c.stroke();
-c.setTransform(D,0,0,D,0,0);c.textAlign='center';c.font='600 22px Oswald,Arial';c.lineWidth=4;c.strokeStyle='#000';const tt=`ANDREJ ${F.sc[0]} : ${F.sc[1]} LAZAR   ${Math.max(0,F.t/60|0)}:${String(Math.max(0,F.t%60|0)).padStart(2,'0')}`;c.strokeText(tt,W/2,32);c.fillStyle='#fff';c.fillText(tt,W/2,32);
-if(F.msg||F.over){c.font='600 46px Oswald,Arial';const m=F.over?(F.sc[0]>F.sc[1]?'POBEDA!':F.sc[0]<F.sc[1]?'PORAZ':'NEREŠENO'):F.msg;c.strokeText(m,W/2,H/2);c.fillStyle='#d8a83d';c.fillText(m,W/2,H/2);if(F.over){c.font='16px Arial';c.fillStyle='#fff';c.fillText('Dodirni ŠUT za revanš',W/2,H/2+34)}}}
-// ---- petlja i kontrole ----
-function loop(t){if(!run)return;const dt=Math.min(.05,(t-last)/1000||0);last=t;T+=dt;if(mode==1){wUpdate(dt);wDraw()}else{dvw||fUpdate(dt);fDraw()}eA=eB=eC=0;requestAnimationFrame(loop)}
-function rs(){D=Math.min(devicePixelRatio||1,[.7,1,1.35,1.6][Q]);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;c.imageSmoothingQuality=Q>1?'high':'low'}
-function open(){gm.hidden=0;$('#gr').hidden=1;$('#repel').hidden=1;$('#exitFootball').hidden=1;document.documentElement.classList.add('lock');if(!built){build();init();built=1;ban=[Z[0].n+'\n'+Z[0].t,6];$('#gt').textContent='Kalač brdo'}rs();audio();if(AC&&AC.state=='suspended')AC.resume();run=1;last=performance.now();requestAnimationFrame(loop)}
-function shut(){dvw=0;$('#dv').hidden=1;run=0;gm.hidden=1;document.documentElement.classList.remove('lock');if(dg)dg.gain.value=0}
-$('#play').onclick=open;$('#gx').onclick=shut;addEventListener('resize',()=>run&&rs());
-addEventListener('keydown',e=>{if(gm.hidden)return;const k=e.key.toLowerCase();K[k]=1;if(k==' '||k.startsWith('arrow'))e.preventDefault();if(k==' ')eA=1;if(k=='e'||k=='enter')eB=1;if(k=='q'||k=='tab'){eC=1;e.preventDefault()}if(k=='r'){useRepeller();}if(k=='escape')shut()});addEventListener('keyup',e=>{K[e.key.toLowerCase()]=0});
-const st=$('#st'),kn=st.firstElementChild;let sp=0;const sm=e=>{const r=st.getBoundingClientRect();let x=(e.clientX-r.left-r.width/2)/(r.width/2),y=(e.clientY-r.top-r.height/2)/(r.height/2);const l=Math.hypot(x,y);if(l>1){x/=l;y/=l}J.x=Math.abs(x)<.12?0:x;J.y=Math.abs(y)<.12?0:y;kn.style.transform=`translate(${x*40}px,${y*40}px)`};
-st.onpointerdown=e=>{sp=1;st.setPointerCapture(e.pointerId);sm(e)};st.onpointermove=e=>sp&&sm(e);st.onpointerup=st.onpointercancel=()=>{sp=0;J.x=J.y=0;kn.style.transform=''};
-$('#repel').onclick=()=>{if(repeller){useRepeller()}};$('#bA').onpointerdown=()=>{hA=1;eA=1};$('#bA').onpointerup=$('#bA').onpointercancel=()=>hA=0;$('#bB').onpointerdown=()=>eB=1;
-$('#bq').onclick=()=>{Q=(Q+1)%4;$('#bq').textContent='GRAFIKA: '+QN[Q];rs()};$('#bs').onclick=()=>{SE=(SE+1)%4;$('#bs').textContent='SEZONA: '+SN[SE]};$('#bC').onpointerdown=()=>eC=1;
-function bk(){mode=1;pl.x=FR[0]-90;pl.y=FR[1]+FH/2;$('#bA').textContent='TRČI';$('#bB').hidden=$('#bC').hidden=1;$('#mm').hidden=$('#gq').hidden=0;$('#gr').hidden=1;$('#gt').textContent='Kalač brdo';dead=false;run=1;if(dg)dg.gain.value=0;}
-$('#exitFootball').onclick=bk;
-document.querySelectorAll('#dv [data-d]').forEach(b=>b.onclick=()=>{const d=b.dataset.d,t=matchMedia('(pointer:coarse)').matches;if((d=='pc')==t){bk();return}dvw=0;$('#dv').hidden=1;const h=$('#kh');h.textContent=d=='pc'?'PC: WASD/strelice kretanje · SPACE šut · E pas · Q promena igrača · SHIFT sprint':'TELEFON: džojstik kretanje · ŠUT · PAS · MENJAJ igrača';h.hidden=0;clearTimeout(window.kt);window.kt=setTimeout(()=>h.hidden=1,25000)});
-window._kb={tp:(x,y)=>{pl.x=x;pl.y=y}};
+/* ---------- svet: mreža puteva inspirisana stvarnim krajem, ali namerno stilizovana ---------- */
+const roads=[
+  {n:'KALAČKI PUT',pts:[[280,3500],[760,3270],[1300,3000],[1900,2860],[2500,2750],[3100,2550],[3720,2260],[4320,2050],[5200,1840]],w:115},
+  {n:'DURMITORSKA',pts:[[900,3500],[1170,3240],[1450,2900],[1730,2500],[2030,2140],[2310,1740],[2660,1410],[3090,1170]],w:92},
+  {n:'BUBANJSKA',pts:[[190,2400],[820,2370],[1440,2330],[2060,2290],[2750,2260],[3450,2240],[4200,2260],[5140,2290]],w:105},
+  {n:'ZMAJA OD NOĆAJA',pts:[[720,4100],[870,3650],[980,3200],[1080,2780],[1110,2280],[1080,1800],[1070,1300],[1210,760],[1460,300]],w:78},
+  {n:'MILANA TOPLICE',pts:[[900,900],[1450,1040],[1980,1160],[2500,1260],[3050,1290],[3680,1210],[4300,1060],[5120,1040]],w:84},
+  {n:'SVETISLAVA TRGOJEVIĆA',pts:[[3380,3800],[3400,3320],[3370,2860],[3330,2400],[3340,1920],[3420,1460],[3550,1080],[3790,620],[4120,280]],w:86}
+];
+const branches=[
+  [[760,3270],[610,2900],[430,2550],[260,2200]],
+  [[1300,3000],[1410,3330],[1580,3610],[1830,3890]],
+  [[1900,2860],[1830,3130],[1770,3420],[1800,3800]],
+  [[2500,2750],[2440,3000],[2460,3290],[2590,3610],[2780,3880]],
+  [[3720,2260],[4020,2460],[4320,2700],[4660,2920],[5130,3100]],
+  [[2310,1740],[2590,1900],[2880,2040],[3200,2130]],
+  [[3090,1170],[3190,920],[3380,700]],
+  [[3050,1290],[2920,930],[2720,620],[2450,360]],
+  [[4300,1060],[4470,760],[4750,520],[5160,420]],
+  [[5140,2290],[5100,2600],[5140,2930],[5280,3300]]
+];
+
+const POI={
+  start:{n:'KALAČKI PUT',x:430,y:3500},
+  bench:{n:'KLUPA IZNAD PROVALIJE',x:1310,y:2750},
+  church:{n:'CRKVA',x:1510,y:2750},
+  perahouse:{n:'PERINA ČEKARA',x:760,y:3030},
+  haunted:{n:'UKLETA KUĆA',x:2190,y:710},
+  meteo:{n:'UKLETA METEO STANICA',x:4330,y:870},
+  ruin:{n:'RUŠEVINA',x:3570,y:250},
+  grb:{n:'GRBAVSKO · TEREN',x:5060,y:3100}
+};
+const zones=[
+ {n:'KALAČKI PUT',x:600,y:3300,r:460,txt:'Prvi deo sveta. Put te vodi u brdo, ali sporedne staze mogu da kriju tragove.'},
+ {n:'DURMITORSKA',x:1520,y:2460,r:520,txt:'Putevi se granaju. Ovde se prvi put oseća da mapa nije napravljena da ideš samo jednim pravcem.'},
+ {n:'KLUPA I PROVALIJA',x:1340,y:2770,r:310,txt:'Klupa je na bezbednoj ravni, a ispod nje je strm pad. Crkva je preko puta, kao što treba.'},
+ {n:'GORNJA ŠUMA',x:2680,y:900,r:700,txt:'Najgušći deo mape. Drveće nije samo ukras: ima punu koliziju.'},
+ {n:'UKLETA ZONA',x:4000,y:850,r:700,txt:'Što si bliže napuštenim objektima, manje je prijatno. Mogući su zvuci i duhovi.'},
+ {n:'GRBAVSKO',x:5050,y:3100,r:600,txt:'Otvorena zona i fudbalski teren. Ovde možeš da odigraš utakmicu i vratiš se nazad u šumu.'}
+];
+
+function segDist(px,py,a,b){const dx=b[0]-a[0],dy=b[1]-a[1],l2=dx*dx+dy*dy;const t=l2?clamp(((px-a[0])*dx+(py-a[1])*dy)/l2,0,1):0;return d2(px,py,a[0]+t*dx,a[1]+t*dy)}
+function roadDistance(x,y){let best=1e9; for(const r of roads){for(let i=1;i<r.pts.length;i++)best=Math.min(best,segDist(x,y,r.pts[i-1],r.pts[i])-r.w*.5)} for(const b of branches)for(let i=1;i<b.length;i++)best=Math.min(best,segDist(x,y,b[i-1],b[i])-58); return best}
+
+const trees=[];
+const houses=[];
+const fences=[];
+const props=[];
+const collisions=[];
+function rect(x,y,w,h,kind='obstacle'){collisions.push({x,y,w,h,kind})}
+function circleObstacle(x,y,r,kind='tree'){collisions.push({x:x-r,y:y-r,w:r*2,h:r*2,kind})}
+function nearRoad(x,y,pad=0){return roadDistance(x,y)<pad}
+function addHouse(x,y,w,h,color,type='house'){houses.push({x,y,w,h,color,type}); if(type!=='church')rect(x-16,y-12,w+32,h+30,'house')}
+function generateWorld(){
+  if(built)return;
+  // Klupa: cliff boundary immediately beyond it, church directly across the road.
+  addHouse(1425,2660,150,105,'#d7d0bd','church');
+  rect(1360,2865,700,420,'cliff'); // ravine/edge behind the bench
+  props.push({type:'bench',x:1310,y:2750});
+  props.push({type:'sign',x:1220,y:2940,t:'CRKVA 1 min'});
+  props.push({type:'sign',x:2040,y:710,t:'UKLETA KUĆA →'});
+  props.push({type:'sign',x:4690,y:3220,t:'GRBAVSKO →'});
+  props.push({type:'item',x:640,y:3390,t:'RASTERIVAČ PASA'});
+
+  // Main houses form small neighborhoods; roads stay open.
+  const hs=[
+    [520,3140,155,105,'#b96d57'],[780,2870,140,90,'#9e8b62'],[1030,3040,180,110,'#b5b2a7'],
+    [1760,2500,165,105,'#8a6e58'],[2080,2270,150,100,'#b8a17b'],[2510,2070,180,115,'#b56f78'],
+    [2860,1730,165,105,'#8d8f90'],[3120,1450,155,105,'#b8a372'],[3360,1120,180,115,'#8a6a52'],
+    [3890,1150,150,95,'#a8796c'],[4210,1160,165,100,'#b3ae9f'],[4560,1120,155,110,'#8d7560'],
+    [4700,2170,150,95,'#a58a63'],[4460,2490,180,110,'#877465'],[4800,2800,160,100,'#b5a58c'],
+    [3820,2050,155,95,'#8f7764'],[3370,2480,170,105,'#ad9470']
+  ];
+  for(const h of hs)addHouse(...h);
+  addHouse(2100,560,180,120,'#6c4e49','haunted');
+  rect(2078,536,224,176,'haunted');
+  addHouse(4270,780,190,120,'#d9dcd7','meteo');
+  rect(4245,755,240,165,'meteo');
+  addHouse(3480,110,160,100,'#8c6250','ruin');
+  rect(3450,80,220,150,'ruin');
+
+  // Random vegetation in patches, but never on a road, POI or collision structure.
+  const patches=[{x:250,y:700,w:2500,h:1500,n:360},{x:2500,y:250,w:2700,h:1800,n:400},{x:180,y:1750,w:2400,h:2200,n:440},{x:3000,y:2100,w:2300,h:1900,n:420}];
+  for(const p of patches)for(let i=0;i<p.n;i++){
+    const x=p.x+rand()*p.w,y=p.y+rand()*p.h,r=9+rand()*10;
+    if(nearRoad(x,y,45))continue;
+    if(d2(x,y,POI.bench.x,POI.bench.y)<240)continue;
+    if(x>1350&&x<2040&&y>2760&&y<3300)continue;
+    if(collisions.some(o=>x>o.x-20&&x<o.x+o.w+20&&y>o.y-20&&y<o.y+o.h+20))continue;
+    trees.push({x,y,r,kind:rand()<.25?'pine':'leaf',seed:rand()});
+    circleObstacle(x,y,r*.75,'tree');
+  }
+  // fences follow a few yards, giving the world a rural shape.
+  fences.push({pts:[[380,2990],[700,2990],[940,2990]]},{pts:[[1660,2630],[1920,2630]]},{pts:[[3890,1280],[4200,1280]]},{pts:[[4700,2680],[5120,2680]]});
+  for(const f of fences){for(let i=0;i<f.pts.length;i+=1){} }
+  // keep the bench itself clear; cliff is the real barrier beyond it.
+  built=true;
+}
+
+function collides(x,y,r){
+  for(const o of collisions){
+    if(o.kind==='cliff'){
+      if(x>o.x&&x<o.x+o.w&&y>o.y&&y<o.y+o.h)return true;
+      continue;
+    }
+    const nx=clamp(x,o.x,o.x+o.w),ny=clamp(y,o.y,o.y+o.h);
+    if(d2(x,y,nx,ny)<r)return true;
+  }
+  return false;
+}
+function moveEntity(e,dx,dy,r){
+  let nx=e.x+dx,ny=e.y+dy;
+  if(!collides(nx,e.y,r))e.x=nx;
+  if(!collides(e.x,ny,r))e.y=ny;
+  e.x=clamp(e.x,25,WW-25);e.y=clamp(e.y,25,WH-25);
+}
+
+/* ---------- igrivi objekti ---------- */
+const player={x:430,y:3500,r:15,angle:0,stamina:100,speed:190,health:100};
+const pera={x:510,y:3500,r:14,follow:true,talk:0,dir:0};
+const repeller={x:640,y:3390,taken:false,charges:1,cool:0,used:false};
+const ghostHouse={x:2100,y:560,w:180,h:120,opened:false,active:false,until:0};
+const ghosts=[];
+const dogs=[];
+let dogsTriggered=false, gameOver=false, zoneName='', zoneTimer=0;
+const story={seen:{bench:false,church:false,haunted:false,repeller:false},step:0};
+
+function spawnDogs(){
+  if(dogsTriggered)return;
+  dogsTriggered=true;
+  const spots=[[750,3140],[950,2800],[1830,2500],[2920,1530],[4620,1160],[4850,2770]];
+  for(const [x,y] of spots){
+    for(let i=0;i<2;i++)dogs.push({x:x+rand()*100-50,y:y+rand()*100-50,r:13,homeX:x,homeY:y,state:'idle',dir:0,speed:0,noise:0,flee:0,attack:0,repelled:0});
+  }
+}
+function scareDogs(){
+  for(const d of dogs){
+    const dd=dist(d,player);
+    if(dd<360){
+      const ok=rand()<0.35;
+      if(ok){d.state='flee';d.flee=3.3;d.repelled=1;d.dir=Math.atan2(d.y-player.y,d.x-player.x);}
+      else {d.state='attack';d.attack=1;}
+    }
+  }
+}
+function dogCountNear(){return dogs.filter(d=>d.state!=='flee'&&dist(d,player)<420).length}
+
+function interact(){
+  if(mode==='football'){passBall();return}
+  const near=(x,y,r)=>d2(player.x,player.y,x,y)<r;
+  if(!repeller.taken && near(repeller.x,repeller.y,80)){repeller.taken=true;story.seen.repeller=true;notify('Uzeo si rasterivač pasa. Šansa uspeha: 35%.');return}
+  if(near(POI.bench.x,POI.bench.y,90)){story.seen.bench=true;notify('Klupa je na ravnoj površini. Iza nje je provalija — nema staze kroz nju.');return}
+  if(near(POI.church.x+70,POI.church.y+50,115)){story.seen.church=true;notify('Crkva je preko puta klupe. Vrata su zatvorena, ali oko nje ima tragova.');return}
+  if(near(ghostHouse.x,ghostHouse.y,145) && !ghostHouse.opened){ghostHouse.opened=true;ghostHouse.active=true;ghostHouse.until=T+14;spawnGhosts();story.seen.haunted=true;notify('Vrata se otvaraju. Duhovi izlaze — BEŽI!');return}
+  if(near(ghostHouse.x,ghostHouse.y,145) && ghostHouse.opened){notify(ghostHouse.active?'Ne prilazi! Duhovi su još napolju.':'Kuća je opet tiha.');return}
+  if(near(POI.grb.x,POI.grb.y,210)){enterFootball();return}
+  if(near(pera.x,pera.y,70)){pera.talk=T+5;return}
+  notify('Ovde nema ničega sa čim možeš da stupiš u interakciju.');
+}
+
+function useRepeller(){
+  if(!repeller.taken){notify('Prvo pronađi rasterivač pasa kod početnog puta.');return}
+  if(repeller.cool>0){notify('Rasterivač se hladi još '+repeller.cool.toFixed(1)+' s.');return}
+  if(dogCountNear()===0){notify('Nema pasa dovoljno blizu.');return}
+  repeller.cool=5;
+  scareDogs();
+  notify('Pritisnuo si rasterivač pasa. Ne možeš računati da će uvek uspeti.');
+}
+
+function spawnGhosts(){
+  ghosts.length=0;
+  for(let i=0;i<4;i++)ghosts.push({x:ghostHouse.x+80+rand()*120,y:ghostHouse.y+80+rand()*100,r:15,phase:rand()*6,speed:125+rand()*35});
+}
+function updateGhosts(dt){
+  for(const g of ghosts){
+    const a=Math.atan2(player.y-g.y,player.x-g.x);moveEntity(g,Math.cos(a)*g.speed*dt,Math.sin(a)*g.speed*dt,12);
+    if(dist(g,player)<34){const push=34-dist(g,player);const a=Math.atan2(player.y-g.y,player.x-g.x);moveEntity(player,Math.cos(a)*push*.8,Math.sin(a)*push*.8,player.r);shake=Math.max(shake,3)}
+  }
+  if(T>ghostHouse.until){ghostHouse.active=false;ghosts.length=0;notify('Duhovi su nestali. Kuća je ponovo prazna.');}
+}
+
+function updatePera(dt){
+  if(!pera.follow)return;
+  const d=dist(pera,player),a=Math.atan2(player.y-pera.y,player.x-pera.x);
+  if(d>110)moveEntity(pera,Math.cos(a)*175*dt,Math.sin(a)*175*dt,12);
+  if(d>500){pera.x=player.x-Math.cos(player.angle)*65;pera.y=player.y-Math.sin(player.angle)*65;}
+}
+function updateDogs(dt){
+  for(const d of dogs){
+    const dd=dist(d,player);
+    if(d.flee>0){
+      d.flee-=dt;moveEntity(d,Math.cos(d.dir)*180*dt,Math.sin(d.dir)*180*dt,11);if(d.flee<=0)d.state='idle';continue;
+    }
+    if(dd<430){
+      if(d.state!=='attack'&&d.repelled!==1)d.state='attack';
+      if(d.state==='attack'){
+        d.dir=Math.atan2(player.y-d.y,player.x-d.x);
+        d.speed=dd<180?125:105;
+        moveEntity(d,Math.cos(d.dir)*d.speed*dt,Math.sin(d.dir)*d.speed*dt,11);
+        if(dd<38){player.health=clamp(player.health-42*dt,0,100);shake=Math.max(shake,5)}
+      }
+    }else{
+      if(d.state!=='idle')d.state='idle';
+      if(d.speed<=0)d.speed=28;
+      if(rand()<.015)d.dir=rand()*Math.PI*2;
+      moveEntity(d,Math.cos(d.dir)*d.speed*dt,Math.sin(d.dir)*d.speed*dt,10);
+      if(d2(d.x,d.y,d.homeX,d.homeY)>160)d.dir=Math.atan2(d.homeY-d.y,d.homeX-d.x);
+    }
+  }
+}
+
+function movementVector(){
+  let x=(K.d||K.arrowright?1:0)-(K.a||K.arrowleft?1:0)+J.x;
+  let y=(K.s||K.arrowdown?1:0)-(K.w||K.arrowup?1:0)+J.y;
+  const l=Math.hypot(x,y);if(l>1){x/=l;y/=l} return [x,y];
+}
+function updateWorld(dt){
+  const [mx,my]=movementVector();
+  const moving=Math.hypot(mx,my)>0.08;
+  let sp=(K.shift||runButton)?285:190;
+  if(player.stamina<18 && (K.shift||runButton))sp=160;
+  if(K.shift||runButton)player.stamina-=moving?28*dt:-18*dt;else player.stamina+=22*dt;
+  player.stamina=clamp(player.stamina,0,100);
+  if(moving){player.angle=Math.atan2(my,mx);moveEntity(player,mx*sp*dt,my*sp*dt,player.r)}
+  updatePera(dt);updateDogs(dt);if(ghostHouse.active)updateGhosts(dt);repeller.cool=Math.max(0,repeller.cool-dt);
+  const z=findZone(player.x,player.y);if(z&&z.n!==zoneName){zoneName=z.n;zoneTimer=T+4;$('#gt').textContent=z.n;notify(z.txt)}
+  if(player.health<=0){gameOver=true;notify('Pao si. Psi su te stigli. Pritisni R ili ponovo pokreni igru.');}
+  // Dogs become a real threat only after the player explores past the starter area.
+  if(player.x>900||player.y<3200)spawnDogs();
+}
+function findZone(x,y){let best=null,bd=1e9;for(const z of zones){const d=d2(x,y,z.x,z.y)-z.r;if(d<bd){bd=d;best=z}}return best}
+
+function notify(t){const el=$('#kh');el.textContent=t;el.hidden=false;clearTimeout(notify.t);notify.t=setTimeout(()=>el.hidden=true,4200)}
+
+/* ---------- prikaz sveta ---------- */
+function drawRoadPath(ctx,pts,w,base='#6e675b'){
+  ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#2f2b26';ctx.lineWidth=w+14;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke();
+  ctx.strokeStyle=base;ctx.lineWidth=w;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke();
+  ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=2;ctx.setLineDash([20,20]);ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke();ctx.setLineDash([]);
+}
+function drawTree(ctx,t){
+  const s=t.r/14;ctx.save();ctx.translate(t.x,t.y);ctx.fillStyle='rgba(0,0,0,.28)';ctx.beginPath();ctx.ellipse(6,8,18*s,8*s,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#5c402b';ctx.fillRect(-3,-12,6,20);
+  const cols=t.kind==='pine'?['#173b24','#214d2a','#2e6233']:['#173d20','#24542b','#357337'];
+  for(let i=0;i<3;i++){ctx.fillStyle=cols[i];ctx.beginPath();ctx.arc((i-1)*7*s,-22-i*4*s,(18-i*3)*s,0,Math.PI*2);ctx.fill();}
+  ctx.restore();
+}
+function drawHouse(ctx,h){
+  const {x,y,w,ht}=h.type==='church'?{x:h.x,y:h.y,w:h.w,ht:h.h}:{x:h.x,y:h.y,w:h.w,ht:h.h};
+  ctx.fillStyle='rgba(0,0,0,.28)';ctx.fillRect(x+8,y+10,w,ht);ctx.fillStyle=h.color;ctx.fillRect(x,y+25,w,ht-25);
+  ctx.fillStyle=h.type==='church'?'#d7d2c5':'#6e4d40';ctx.beginPath();ctx.moveTo(x-10,y+28);ctx.lineTo(x+w/2,y-28);ctx.lineTo(x+w+10,y+28);ctx.closePath();ctx.fill();
+  if(h.type==='church'){
+    ctx.fillStyle='#bbb4a0';ctx.fillRect(x+w*.36,y+4,w*.28,ht*.75);ctx.fillStyle='#222';ctx.fillRect(x+w*.42,y+ht*.48,w*.16,ht*.27);
+    ctx.fillStyle='#d1c9b5';ctx.fillRect(x+w*.46,y-55,w*.08,35);ctx.fillRect(x+w*.39,y-44,w*.22,6);
+  }else{
+    for(let i=0;i<Math.max(2,(w/55)|0);i++){const wx=x+12+i*48;ctx.fillStyle='#ffe19a';ctx.fillRect(wx,y+42,24,22);}
+    ctx.fillStyle='#5a382b';ctx.fillRect(x+w*.42,y+ht-55,w*.16,55);
+  }
+}
+function drawBench(ctx){
+  const x=POI.bench.x,y=POI.bench.y;ctx.fillStyle='rgba(0,0,0,.25)';ctx.fillRect(x+7,y+9,70,18);ctx.fillStyle='#6d5037';ctx.fillRect(x,y,75,12);ctx.fillRect(x+9,y+12,8,28);ctx.fillRect(x+57,y+12,8,28);}
+function drawSign(ctx,p){ctx.fillStyle='#5b472e';ctx.fillRect(p.x-2,p.y,4,26);ctx.fillStyle='#e0d7bf';ctx.fillRect(p.x-52,p.y-20,104,24);ctx.fillStyle='#282117';ctx.font='700 10px Inter';ctx.textAlign='center';ctx.fillText(p.t,p.x,p.y-4)}
+function drawMap(ctx){
+  ctx.fillStyle=season===3?'#14201a':season===2?'#1e3722':'#183a22';ctx.fillRect(0,0,WW,WH);
+  // gentle terrain bands
+  for(let i=0;i<55;i++){ctx.fillStyle=`rgba(${30+i%3*10},${65+i%4*5},${34+i%2*5},.18)`;ctx.beginPath();ctx.arc(250+((i*941)%5000),300+((i*613)%3600),120+(i%5)*70,0,Math.PI*2);ctx.fill();}
+  branches.forEach(p=>drawRoadPath(ctx,p,62,'#777063'));
+  roads.forEach(r=>drawRoadPath(ctx,r.pts,r.w,'#787166'));
+  trees.forEach(t=>drawTree(ctx,t));
+  houses.forEach(h=>drawHouse(ctx,h));
+  fences.forEach(f=>{ctx.strokeStyle='#59452f';ctx.lineWidth=4;ctx.beginPath();f.pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke()});
+  props.filter(p=>p.type==='bench'||p.type==='sign').forEach(p=>p.type==='bench'?drawBench(ctx):drawSign(ctx,p));
+  // cliff/ravine behind the bench
+  ctx.fillStyle='#14100d';ctx.fillRect(1360,2865,700,420);ctx.fillStyle='#2a2020';for(let i=0;i<28;i++){ctx.beginPath();ctx.moveTo(1360+i*25,2865);ctx.lineTo(1378+i*25,3285);ctx.lineTo(1394+i*25,3285);ctx.fill();}
+  // point of interest markers
+  [[POI.church.x+75,POI.church.y-70,'CRKVA'],[ghostHouse.x+90,ghostHouse.y-55,'UKLETA KUĆA'],[POI.grb.x,POI.grb.y-65,'GRBAVSKO']].forEach(([x,y,t])=>{ctx.fillStyle='#d8a83d';ctx.font='700 14px Oswald';ctx.textAlign='center';ctx.fillText(t,x,y)});
+  if(!repeller.taken){ctx.fillStyle='#55d67b';ctx.shadowColor='#55d67b';ctx.shadowBlur=12;ctx.beginPath();ctx.arc(repeller.x,repeller.y,10+Math.sin(T*4)*2,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+}
+function drawMan(ctx,x,y,o){ctx.save();ctx.translate(x,y);const s=o.s||1;ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(0,10,12*s,6*s,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=o.body;ctx.fillRect(-8*s,-9*s,16*s,22*s);ctx.fillStyle=o.pants||'#202a30';ctx.fillRect(-7*s,12*s,6*s,10*s);ctx.fillRect(1*s,12*s,6*s,10*s);ctx.fillStyle='#d7a47f';ctx.beginPath();ctx.arc(0,-18*s,7*s,0,Math.PI*2);ctx.fill();ctx.fillStyle=o.hair||'#111';ctx.beginPath();ctx.arc(0,-21*s,7.4*s,Math.PI,0);ctx.fill();if(o.name){ctx.font='700 11px Inter';ctx.textAlign='center';ctx.fillStyle=o.nameColor||'#fff';ctx.fillText(o.name,0,-34*s)}ctx.restore();}
+function drawDog(ctx,d){ctx.save();ctx.translate(d.x,d.y);ctx.rotate(d.dir);ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(2,7,15,5,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=d.repelled?'#6f7680':'#7a5536';ctx.beginPath();ctx.ellipse(0,0,15,8,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(13,-3,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#2b1c14';ctx.beginPath();ctx.moveTo(10,-8);ctx.lineTo(13,-15);ctx.lineTo(16,-7);ctx.fill();ctx.fillStyle=d.state==='attack'?'#ff2e2e':'#f4efe0';ctx.fillRect(15,-5,2,2);ctx.restore();}
+function drawWorld(){
+  const z=Math.max(.78,Math.min(1.55,Math.min(W,H)/620));
+  const sx=W/2-player.x*z,sy=H/2-player.y*z;
+  const ox=shake?(rand()-.5)*shake:0,oy=shake?(rand()-.5)*shake:0;
+  c.setTransform(D*z,0,0,D*z,D*(sx+ox/z),D*(sy+oy/z));
+  drawMap(c);
+  const entities=[];
+  trees.forEach(t=>{if(d2(t.x,t.y,player.x,player.y)<800)entities.push({y:t.y,f:()=>{}})});
+  entities.push({y:pera.y,f:()=>drawMan(c,pera.x,pera.y,{body:'#777b80',pants:'#273039',name:'Pera',nameColor:'#ddd'})});
+  entities.push({y:player.y,f:()=>drawMan(c,player.x,player.y,{body:'#2f8c4f',pants:'#162019',hair:'#111',name:'Andrej',nameColor:'#55d67b'})});
+  dogs.filter(d=>d2(d.x,d.y,player.x,player.y)<900).forEach(d=>entities.push({y:d.y,f:()=>drawDog(c,d)}));
+  if(ghostHouse.active)ghosts.forEach(g=>entities.push({y:g.y,f:()=>{c.save();c.globalAlpha=.78;drawMan(c,g.x,g.y,{body:'#e9eef0',pants:'#d0d5d7',hair:'#c9c9c9'});c.restore()}}));
+  entities.sort((a,b)=>a.y-b.y).forEach(e=>e.f());
+  // flashlight / vignette
+  c.setTransform(D,0,0,D,0,0);
+  let rg=c.createRadialGradient(W/2,H/2,60,W/2,H/2,Math.max(W,H)*.7);rg.addColorStop(0,'rgba(0,0,0,0)');rg.addColorStop(1,'rgba(0,0,0,.58)');c.fillStyle=rg;c.fillRect(0,0,W,H);
+  // top HUD
+  const zt=findZone(player.x,player.y),near=dogCountNear();
+  c.fillStyle='rgba(0,0,0,.58)';c.fillRect(10,10,Math.min(610,W-20),84);c.font='700 14px Inter';c.fillStyle='#d8a83d';c.fillText(zt?zt.n:'KALAČ BRDO',24,34);c.font='500 12px Inter';c.fillStyle='#fff';c.fillText('Pera: '+(dist(pera,player)<120?'tu je':'prati te'),24,56);c.fillStyle='#55d67b';c.fillText(repeller.taken?'Rasterivač: '+(repeller.cool>0?'hlađenje':'spreman'):'Rasterivač: nije pronađen',24,76);if(near){c.fillStyle='#ff6262';c.fillText('Psi u blizini: '+near,370,56);}
+  // health/stamina
+  c.fillStyle='#0009';c.fillRect(W-210,12,200,62);c.fillStyle='#42151b';c.fillRect(W-198,27,176,11);c.fillStyle='#d83e4e';c.fillRect(W-198,27,176*player.health/100,11);c.fillStyle='#172e1d';c.fillRect(W-198,46,176,9);c.fillStyle='#55d67b';c.fillRect(W-198,46,176*player.stamina/100,9);c.fillStyle='#fff';c.font='10px Inter';c.fillText('ŽIVOT',W-198,24);c.fillText('IZDRŽLJIVOST',W-198,44);
+  drawPrompt();drawMini();
+  if(gameOver)drawGameOver();
+}
+function drawPrompt(){const nearBench=d2(player.x,player.y,POI.bench.x,POI.bench.y)<100;const nearHaunt=d2(player.x,player.y,ghostHouse.x,ghostHouse.y)<160;const nearGrb=d2(player.x,player.y,POI.grb.x,POI.grb.y)<210;const nearItem=!repeller.taken&&d2(player.x,player.y,repeller.x,repeller.y)<85;let t='';if(nearItem)t='E — UZMI RASTERIVAČ';else if(nearHaunt&&!ghostHouse.active)t='E — OTVORI UKLETU KUĆU';else if(nearGrb)t='E — UĐI U FUDBAL';else if(nearBench)t='E — PREGLEDAJ KLUPU';if(t){c.font='700 14px Inter';const w=c.measureText(t).width+30;c.fillStyle='#000c';c.fillRect((W-w)/2,H-72,w,40);c.fillStyle='#fff';c.textAlign='center';c.fillText(t,W/2,H-47);c.textAlign='left';}}
+function drawGameOver(){c.fillStyle='rgba(0,0,0,.75)';c.fillRect(0,0,W,H);c.textAlign='center';c.fillStyle='#d83e4e';c.font='700 46px Oswald';c.fillText('PSI SU TE STIGLI',W/2,H/2-30);c.fillStyle='#fff';c.font='500 16px Inter';c.fillText('Pritisni R za novi pokušaj',W/2,H/2+12);c.textAlign='left'}
+function drawMini(){const s=130/WW;mc.clearRect(0,0,130,92);mc.fillStyle='#0c2114';mc.fillRect(0,0,130,92);mc.fillStyle='#665f52';for(const r of roads){mc.lineCap='round';mc.lineWidth=Math.max(1,r.w*s);mc.beginPath();r.pts.forEach((p,i)=>i?mc.lineTo(p[0]*s,p[1]*s):mc.moveTo(p[0]*s,p[1]*s));mc.stroke()}for(const h of houses){mc.fillStyle=h.type==='church'?'#d8a83d':'#775';mc.fillRect(h.x*s,h.y*s,Math.max(1,h.w*s),Math.max(1,h.h*s))}mc.fillStyle='#55d67b';mc.beginPath();mc.arc(player.x*s,player.y*s,3,0,Math.PI*2);mc.fill();mc.fillStyle='#ddd';mc.beginPath();mc.arc(POI.church.x*s,POI.church.y*s,2,0,Math.PI*2);mc.fill();mc.fillStyle='#ff6262';dogs.slice(0,12).forEach(d=>{mc.fillRect(d.x*s-1,d.y*s-1,2,2)});}
+
+/* ---------- fudbal: bolja kontrola, pas, šut, promena igrača ---------- */
+let F=null,runButton=0;
+function enterFootball(){mode='football';if(!F)initFootball();$('#mm').hidden=true;$('#gq').hidden=true;$('#bA').textContent='ŠUT';$('#bB').hidden=false;$('#bC').hidden=false;$('#go').textContent='E = pas · Q = promena igrača · Space = šut';notify('Grbavsko. Lopta ima težinu, pas ima smer, a Q menja igrača.');}
+function exitFootball(){mode='world';$('#mm').hidden=false;$('#gq').hidden=false;$('#bA').textContent='TRČI';$('#bB').hidden=true;$('#bC').hidden=true;F=null;notify('Vratio si se u Kalač Brdo. Avantura se nastavlja.');}
+function initFootball(){
+  const namesA=['ANDREJ','KOSTA','ALEKSA','JOCA','NIKOLA'],namesB=['LAZAR','MIHAJLO','DULE','MARKO','PETAR'];
+  const pos=[[330,310],[250,170],[250,450],[120,250],[45,310]];
+  F={p:[],ball:{x:550,y:310,vx:0,vy:0},score:[0,0],active:0,time:180,msg:'',pause:0};
+  for(let team=0;team<2;team++)for(let i=0;i<5;i++){const q=pos[i];F.p.push({name:team?namesB[i]:namesA[i],team,x:team?FW-q[0]:q[0],y:q[1],hx:team?FW-q[0]:q[0],hy:q[1],vx:0,vy:0,cd:0,gk:i===4,dash:0});}
+}
+function activePlayer(){return F.p[F.active]}
+function switchPlayer(){if(!F)return;let best=F.active,bd=1e9;F.p.forEach((p,i)=>{if(p.team!==0||p.gk)return;const d=d2(p.x,p.y,F.ball.x,F.ball.y);if(i!==F.active&&d<bd){bd=d;best=i}});F.active=best;}
+function shootBall(){if(!F||F.pause>0)return;const p=activePlayer(),b=F.ball;if(d2(p.x,p.y,b.x,b.y)>44)return;const [mx,my]=movementVector();let a=Math.hypot(mx,my)>.1?Math.atan2(my,mx):Math.atan2(310-b.y, (b.x<p.x?FW:0)-p.x);b.vx=Math.cos(a)*690;b.vy=Math.sin(a)*690;b.owner=0;p.cd=.22;}
+function passBall(){if(!F||F.pause>0)return;const p=activePlayer(),b=F.ball;if(d2(p.x,p.y,b.x,b.y)>48)return;let target=null,score=-1e9;for(const q of F.p){if(q.team!==0||q===p||q.gk)continue;const dx=q.x-p.x,dy=q.y-p.y,dd=Math.hypot(dx,dy);const forward=dx/Math.max(1,dd);const s=forward*2.5-dd/600;if(s>score){score=s;target=q}}if(target){const a=Math.atan2(target.y-b.y,target.x-b.x);b.vx=Math.cos(a)*520;b.vy=Math.sin(a)*520;b.owner=0;p.cd=.28;F.active=F.p.indexOf(target)}}
+function fMove(p,tx,ty,sp,dt){const dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy);if(d>6){p.vx=dx/d*sp;p.vy=dy/d*sp;}else{p.vx*=.8;p.vy*=.8}p.x=clamp(p.x+p.vx*dt,12,FW-12);p.y=clamp(p.y+p.vy*dt,12,FH-12)}
+function fUpdate(dt){if(!F)return; if(F.pause>0){F.pause-=dt;if(F.pause<=0){F.msg='';resetFootball();}return;} F.time-=dt;if(F.time<=0){F.msg='КРАЈ';F.pause=9999;return;}
+  const me=activePlayer(),[mx,my]=movementVector();let sp=(K.shift||runButton)?245:205;fMove(me,me.x+mx*100,me.y+my*100,sp,dt);
+  if(d2(me.x,me.y,F.ball.x,F.ball.y)<32){F.ball.x+=mx*80*dt;F.ball.y+=my*80*dt;if(Math.hypot(mx,my)<.1){F.ball.vx*=.7;F.ball.vy*=.7;}}
+  for(const p of F.p){p.cd=Math.max(0,p.cd-dt);if(p===me)continue;let tx=p.hx+(F.ball.x-550)*.22*(p.team?-.45:.45),ty=p.hy+(F.ball.y-310)*.24*(p.team?1:1);if(p===closest(F.ball,p.team)){tx=F.ball.x;ty=F.ball.y;}if(p.gk){tx=p.team?FW-35:35;ty=clamp(F.ball.y,215,405);}fMove(p,tx,ty,p.gk?155:130,dt);}
+  // possession and tackles
+  for(const p of F.p){if(d2(p.x,p.y,F.ball.x,F.ball.y)<20&&!p.gk){const toward=Math.hypot(F.ball.vx,F.ball.vy);if(toward<250){F.ball.vx=p.vx*.7;F.ball.vy=p.vy*.7;if(p.team===0){F.active=F.p.indexOf(p)}}}}
+  F.ball.x+=F.ball.vx*dt;F.ball.y+=F.ball.vy*dt;const fr=Math.pow(.22,dt);F.ball.vx*=fr;F.ball.vy*=fr;
+  if(F.ball.y<8||F.ball.y>FH-8){F.ball.y=clamp(F.ball.y,8,FH-8);F.ball.vy*=-.55;}
+  if(F.ball.x<0||F.ball.x>FW){if(F.ball.y>210&&F.ball.y<410){const t=F.ball.x<0?1:0;F.score[t]++;F.msg='GOOOL!';F.pause=2.1;}else{F.ball.x=clamp(F.ball.x,0,FW);F.ball.vx*=-.55;}}
+}
+function closest(ball,team){let best=null,bd=1e9;F.p.forEach(p=>{if(p.team!==team||p.gk)return;const d2v=d2(p.x,p.y,ball.x,ball.y);if(d2v<bd){bd=d2v;best=p}});return best}
+function resetFootball(){F.p.forEach(p=>{p.x=p.hx;p.y=p.hy;p.vx=p.vy=0});F.ball.x=550;F.ball.y=310;F.ball.vx=F.ball.vy=0;}
+function drawPitch(){
+  const s=Math.min(W/(FW+80),(H-60)/(FH+50)),ox=(W-FW*s)/2,oy=(H-FH*s)/2+20;c.setTransform(D*s,0,0,D*s,D*ox,D*oy);
+  for(let i=0;i<11;i++){c.fillStyle=i%2?'#2d7337':'#357e3d';c.fillRect(i*100,0,100,FH)}c.strokeStyle='#fff';c.lineWidth=3;c.strokeRect(0,0,FW,FH);c.beginPath();c.moveTo(FW/2,0);c.lineTo(FW/2,FH);c.stroke();c.beginPath();c.arc(FW/2,FH/2,55,0,Math.PI*2);c.stroke();c.strokeRect(0,145,112,330);c.strokeRect(FW-112,145,112,330);
+  for(const p of F.p){drawMan(c,p.x,p.y,{body:p.team?'#c83a3a':'#2fa84f',pants:'#24282d',name:p.name,nameColor:p.team?'#fff':'#55d67b',s:.9});}
+  c.fillStyle='#eee';c.beginPath();c.arc(F.ball.x,F.ball.y,7,0,Math.PI*2);c.fill();c.fillStyle='#111';c.beginPath();c.arc(F.ball.x,F.ball.y,2.5,0,Math.PI*2);c.fill();
+  const me=activePlayer();c.strokeStyle='#d8a83d';c.lineWidth=3;c.beginPath();c.arc(me.x,me.y-3,19,0,Math.PI*2);c.stroke();
+  c.setTransform(D,0,0,D,0,0);c.fillStyle='rgba(0,0,0,.62)';c.fillRect(10,10,W-20,44);c.textAlign='center';c.fillStyle='#fff';c.font='700 20px Oswald';c.fillText(`ANDREJ ${F.score[0]} : ${F.score[1]} LAZAR`,W/2,34);c.textAlign='left';c.font='600 12px Inter';c.fillStyle='#d8a83d';c.fillText(`Vreme ${Math.max(0,F.time|0)} s`,24,82);c.fillStyle='#fff';c.fillText('E PAS · SPACE ŠUT · Q MENJAJ IGRAČA · ESC IZLAZ',W>680?W-440:150,82);
+  if(F.msg){c.textAlign='center';c.font='700 48px Oswald';c.fillStyle='#d8a83d';c.fillText(F.msg,W/2,H/2);c.textAlign='left';}
+}
+
+/* ---------- aplikacija / kontrole ---------- */
+function resize(){D=Math.min(devicePixelRatio||1,[.75,1,1.5,2][quality]);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;c.imageSmoothingEnabled=true;c.imageSmoothingQuality=quality>1?'high':'medium';}
+function loop(t){if(!run)return;const dt=Math.min(.045,(t-last)/1000||0);last=t;T+=dt;shake=Math.max(0,shake-dt*14);if(mode==='world')updateWorld(dt);else fUpdate(dt);if(mode==='world')drawWorld();else drawPitch();pressed.clear();requestAnimationFrame(loop)}
+function open(){gm.hidden=false;document.documentElement.classList.add('lock');if(!built){generateWorld();built=1;}resize();audio();if(masterGain)masterGain.gain.value=.06;run=1;gameOver=false;player.health=100;player.stamina=100;last=performance.now();requestAnimationFrame(loop);}
+function close(){run=0;gm.hidden=true;document.documentElement.classList.remove('lock');mode='world';F=null;if(masterGain)masterGain.gain.value=0;}
+function restart(){player.x=430;player.y=3500;player.health=100;player.stamina=100;dogs.length=0;dogsTriggered=false;ghosts.length=0;ghostHouse.opened=false;ghostHouse.active=false;repeller.taken=false;repeller.cool=0;gameOver=false;zoneName='';notify('Нови покушај. Пера иде са тобом.');}
+function audio(){if(AC)return;try{AC=new(window.AudioContext||window.webkitAudioContext)();masterGain=AC.createGain();masterGain.gain.value=.06;masterGain.connect(AC.destination);}catch(e){}}
+function beep(f=440,d=.08,v=.04,type='sine'){if(!AC)return;const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(masterGain);o.start();o.stop(AC.currentTime+d)}
+
+$('#play').onclick=open;$('#gx').onclick=close;
+addEventListener('resize',()=>run&&resize());
+addEventListener('keydown',e=>{if(gm.hidden)return;const k=e.key.toLowerCase();K[k]=1;if([' ','arrowup','arrowdown','arrowleft','arrowright','tab'].includes(k))e.preventDefault();if(k==='e'){pressed.add('e');interact();beep(500)}if(k==='q'||k==='tab'){pressed.add('q');if(mode==='football')switchPlayer()}if(k===' '){pressed.add('space');if(mode==='football')shootBall();}if(k==='r'&&gameOver)restart();if(k==='escape'){if(mode==='football')exitFootball();else close();}});
+addEventListener('keyup',e=>{K[e.key.toLowerCase()]=0});
+const st=$('#st'),kn=st.firstElementChild;let stick=0;
+function stickMove(e){const r=st.getBoundingClientRect();let x=(e.clientX-r.left-r.width/2)/(r.width/2),y=(e.clientY-r.top-r.height/2)/(r.height/2);const l=Math.hypot(x,y);if(l>1){x/=l;y/=l}J.x=Math.abs(x)<.12?0:x;J.y=Math.abs(y)<.12?0:y;kn.style.transform=`translate(${x*40}px,${y*40}px)`;}
+st.onpointerdown=e=>{stick=1;st.setPointerCapture(e.pointerId);stickMove(e)};st.onpointermove=e=>stick&&stickMove(e);st.onpointerup=st.onpointercancel=()=>{stick=0;J.x=J.y=0;kn.style.transform=''};
+$('#bA').onpointerdown=e=>{runButton=1;if(mode==='football')shootBall()};$('#bA').onpointerup=$('#bA').onpointercancel=()=>runButton=0;
+$('#bB').onpointerdown=e=>{if(mode==='football')passBall()};$('#bC').onpointerdown=e=>{if(mode==='football')switchPlayer()};
+$('#bq').onclick=()=>{quality=(quality+1)%4;$('#bq').textContent='GRAFIKA: '+['ŠTEDLJIVO','SREDNJE','VISOKO','ULTRA'][quality];resize();};
+$('#bs').onclick=()=>{season=(season+1)%4;$('#bs').textContent='SEZONA: '+['PROLEĆE','LETO','JESEN','ZIMA'][season];};
+// On-screen extra control on coarse devices.
+const repBtn=document.createElement('button');repBtn.textContent='RASTERIVAČ';repBtn.style.cssText='position:absolute;right:18px;bottom:104px;padding:10px 14px;border-radius:999px;border:1px solid #55d67b;background:#0b2a1acc;color:#fff;font:600 .75rem Oswald;z-index:4;display:none';gm.appendChild(repBtn);repBtn.onpointerdown=useRepeller;
+const intBtn=document.createElement('button');intBtn.textContent='E / INTERAKCIJA';intBtn.style.cssText='position:absolute;right:18px;bottom:190px;padding:10px 14px;border-radius:999px;border:1px solid #d8a83d;background:#2b1d0bcc;color:#fff;font:600 .75rem Oswald;z-index:4;display:none';gm.appendChild(intBtn);intBtn.onpointerdown=()=>{if(mode==='world')interact();};
+function updateMobileButtons(){const coarse=matchMedia('(pointer:coarse)').matches;repBtn.style.display=coarse?'block':'none';intBtn.style.display=coarse?'block':'none';}
+updateMobileButtons();addEventListener('resize',updateMobileButtons);
+
+// World action button for the mouse too: M = rasterivač.
+addEventListener('keydown',e=>{if(gm.hidden)return;if(e.key.toLowerCase()==='m')useRepeller();});
+window._kb={tp:(x,y)=>{player.x=x;player.y=y;}};
 })();
 </script>
 </body>
