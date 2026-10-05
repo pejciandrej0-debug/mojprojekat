@@ -2,22 +2,22 @@
 <html lang="sr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kalac Brdo | Open-World avanturistička igra</title>
-<meta name="description" content="Istraži skrivene puteve, misteriozne lokacije i svet Kalac Brda u originalnoj open-world avanturističkoj igri.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kalač brdo | Avanturistička igra slobodnog sveta</title>
+<meta name="description" content="Istraži skrivene puteve, tajanstvena mesta i svet Kalač brda u originalnoj avanturističkoj igri slobodnog sveta.">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#080b09">
 <!-- Open Graph: zameni TVOJ-SAJT.rs pravom adresom -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Kalac Brdo | Open-World avanturistička igra">
-<meta property="og:description" content="Istraži skrivene puteve, misteriozne lokacije i svet Kalac Brda.">
+<meta property="og:title" content="Kalač brdo | Avanturistička igra slobodnog sveta">
+<meta property="og:description" content="Istraži skrivene puteve, tajanstvena mesta i svet Kalač brda.">
 <meta property="og:image" content="https://TVOJ-SAJT.rs/assets/images/kalac-put.jpg">
 <meta property="og:url" content="https://TVOJ-SAJT.rs/">
 <!-- Favicon placeholder (zameni svojim fajlom) -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1f16'/%3E%3Ctext x='16' y='22' font-size='15' font-family='Arial' font-weight='700' text-anchor='middle' fill='%2355d67b'%3EKB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;1,500&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
 /* ===== KALAC BRDO · style.css ===== */
 
@@ -290,13 +290,7 @@ html{background:#080b09}
 /* bogat fallback kad slika ne postoji: šuma, sjaj meseca, magla */
 .fx{background:var(--trees) 0 100%/38% 34% repeat-x,radial-gradient(ellipse at 72% 22%,rgba(216,168,61,.28),transparent 42%),radial-gradient(ellipse at 25% 105%,rgba(85,214,123,.3),transparent 62%),linear-gradient(165deg,#15402a,#0a1510 60%,#050806)}
 .nf{z-index:1;color:rgba(243,245,242,.75)}
-/* intro ekran (čist CSS) */
-.pre{position:fixed;inset:0;z-index:300;display:grid;place-content:center;justify-items:center;gap:1.4rem;background:radial-gradient(circle at 50% 45%,#12301f,var(--bg) 70%);animation:preOut .7s 1.5s forwards}
-.pre b{display:grid;place-items:center;width:84px;height:84px;border:1px solid var(--au);border-radius:20px;background:var(--dg);color:var(--lg);font:600 2rem var(--hf);letter-spacing:.06em;box-shadow:0 0 50px rgba(85,214,123,.4);animation:glow 1.6s infinite}
-.pre i{display:block;width:170px;height:2px;background:var(--line);overflow:hidden}
-.pre i::after{content:"";display:block;height:100%;background:linear-gradient(90deg,var(--lg),var(--au));animation:load 1.4s ease forwards}
 @keyframes load{from{width:0}to{width:100%}}
-@keyframes preOut{to{opacity:0;visibility:hidden}}
 /* hero: svetlosni zraci + krijesnice + sjajni naslov */
 #ff{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 .hero::after{content:"";position:absolute;inset:-30% -10% 30%;z-index:-1;pointer-events:none;mix-blend-mode:screen;transform-origin:50% 0;background:conic-gradient(from 100deg at 50% 0,transparent 0 3%,rgba(216,168,61,.14) 9%,transparent 15%,rgba(85,214,123,.12) 21%,transparent 27%,rgba(216,168,61,.1) 33%,transparent 39%,transparent);-webkit-mask-image:linear-gradient(#000,transparent 80%);mask-image:linear-gradient(#000,transparent 80%);animation:sway 14s ease-in-out infinite alternate}
@@ -316,7 +310,6 @@ html{background:#080b09}
 .card:hover::after{opacity:1}
 .loc:hover{transform:perspective(900px) translateY(-6px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
 .tl .now h3{color:var(--lg);text-shadow:0 0 18px rgba(85,214,123,.5)}
-@media(prefers-reduced-motion:reduce){.pre{display:none}}
 
 
 /* ===== LEPŠE + BRŽE ===== */
@@ -415,9 +408,216 @@ body.kb-mobile #kh{top:118px;font-size:.73rem;max-width:88vw;padding:8px 12px}
 @media(prefers-reduced-motion:reduce){#deviceSetup::before,#deviceSetup::after,.device-glow,.device-badge,.pulse-dot{animation:none!important}}
 </style>
 <script>document.documentElement.classList.add('js')</script>
+<style>
+/* FINAL KALAC BRDO V3 */
+#mapOpen{position:absolute;top:158px;right:14px;z-index:4;padding:9px 15px;border:1px solid rgba(216,168,61,.75);border-radius:999px;background:rgba(11,22,15,.94);color:#fff;font:800 .68rem Oswald,sans-serif;letter-spacing:.12em;box-shadow:0 12px 30px #0009;touch-action:manipulation}
+#fullMap{position:absolute;inset:0;z-index:36;display:grid;place-items:center;background:rgba(1,4,2,.93);backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px);padding:16px}
+#fullMap[hidden]{display:none}
+#mapCard{position:relative;width:min(1000px,96vw);height:min(780px,92vh);overflow:hidden;border:1px solid rgba(216,168,61,.55);border-radius:28px;background:linear-gradient(180deg,#09180f,#040806);box-shadow:0 45px 140px #000}
+#mapHead{height:60px;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid rgba(85,214,123,.18)}
+#mapHead strong{font:800 1rem Oswald,sans-serif;letter-spacing:.14em;color:#fff}
+#mapLegend{flex:1;color:#89958d;font:500 .7rem Inter,sans-serif}
+#mapClose{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:#0008;color:#fff;font-size:1.25rem;cursor:pointer}
+#fullMapCanvas{position:absolute;left:12px;right:12px;top:70px;bottom:12px;width:calc(100% - 24px);height:calc(100% - 82px);background:#102116;border-radius:18px}
+#restartTouch{position:absolute;z-index:10;left:50%;top:calc(50% + 122px);transform:translateX(-50%);padding:14px 24px;border:1px solid #d8a83d;border-radius:15px;background:linear-gradient(135deg,#66501e,#a9842d);color:#fff;font:800 .8rem Oswald,sans-serif;letter-spacing:.12em;box-shadow:0 18px 50px #000c;display:none;touch-action:manipulation}
+#restartTouch.show{display:block}
+#gameOverOverlay{position:absolute;inset:0;z-index:8;display:none;place-items:center;background:radial-gradient(circle at 50% 43%,rgba(92,8,19,.42),rgba(0,0,0,.9) 66%);pointer-events:none}
+#gameOverOverlay.show{display:grid}
+.game-over-card{width:min(760px,92vw);padding:28px 20px 26px;border:1px solid rgba(216,168,61,.42);border-radius:28px;background:linear-gradient(180deg,rgba(10,12,10,.97),rgba(3,5,4,.99));box-shadow:0 40px 120px #000;text-align:center}
+.game-over-card .skull{font-size:3.7rem;animation:kbSkull 2.2s ease-in-out infinite}
+.game-over-card h2{margin:4px 0 9px;color:#e25261;font:800 clamp(2rem,7vw,4.4rem) Oswald,sans-serif;letter-spacing:.05em}
+.game-over-card p{margin:0 auto 9px;max-width:560px;color:#dedbd4;font:500 .96rem/1.5 Inter,sans-serif}
+.game-over-card .joke{color:#d8a83d;font:800 1rem Oswald,sans-serif;letter-spacing:.08em}
+@keyframes kbSkull{50%{transform:translateY(-6px) rotate(-2deg)}}
+body.kb-mobile #mapOpen{top:158px;right:12px}
+@media(max-width:760px){#mapCard{height:89vh}#mapLegend{display:none}#restartTouch{top:calc(50% + 125px)}}
+</style>
+<style id="kl-css">
+/* ===== KALAC BRDO · LOADING SCREEN ===== (trajanje i poruke: vidi skriptu u body-ju) */
+@property --r{syntax:'<length>';inherits:false;initial-value:-18vmax}
+html.kl-lock{overflow:hidden}
+.kl{--x:50%;--y:40%;--r:-18vmax;position:fixed;inset:0;z-index:300;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;justify-items:center;text-align:center;padding:clamp(1.6rem,8vh,4.5rem) 1rem max(1.8rem,env(safe-area-inset-bottom));background:radial-gradient(ellipse 80% 60% at 50% 62%,#17402a 0%,#0c2016 45%,var(--bg) 80%);animation:klFail .4s 12s forwards}
+.kl-sc{position:absolute;inset:0;width:100%;height:100%;animation:klRise 1.8s cubic-bezier(.2,.7,.2,1) both}
+.kl-h1{fill:#0a1a11}.kl-h2{fill:#0d2218;stroke:rgba(85,214,123,.14);stroke-width:1.5}.kl-h3{fill:#060a07}.kl-pine{fill:#050906;transition:filter .7s}
+.kl-rd{fill:none;stroke:rgba(243,245,242,.1);stroke-width:6;stroke-linecap:round}
+.kl-rp{fill:none;stroke:url(#klg);stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 0 5px rgba(216,168,61,.65))}
+.kl-gl{transform-box:fill-box;transform-origin:center;animation:klFl 1.7s ease-in-out infinite alternate;transition:transform .9s}
+.kl-lit .kl-pine{filter:drop-shadow(0 0 16px rgba(216,168,61,.65))}
+.kl-lit .kl-gl{animation:none;transform:scale(1.9)}
+.kl-fog{position:absolute;left:-50%;bottom:14%;width:200%;height:34%;pointer-events:none;filter:blur(16px);background:radial-gradient(ellipse 22% 40% at 20% 55%,rgba(170,205,185,.13),transparent),radial-gradient(ellipse 26% 36% at 62% 45%,rgba(170,205,185,.1),transparent),radial-gradient(ellipse 20% 40% at 90% 60%,rgba(170,205,185,.12),transparent);animation:klFog 24s ease-in-out infinite alternate}
+.kl-fog.b{bottom:30%;opacity:.55;animation-duration:38s;animation-direction:alternate-reverse}
+.kl-tr{position:absolute;left:0;right:0;bottom:0;height:clamp(60px,15vh,140px);background:var(--trees) repeat-x 0 100%/180px 100%;animation:klTr 90s linear infinite}
+.kl-ff i{position:absolute;left:var(--l);top:var(--tp);width:var(--z);height:var(--z);border-radius:50%;background:var(--c);box-shadow:0 0 8px 2px var(--c);opacity:0;animation:klFly var(--t) ease-in-out var(--d) infinite alternate}
+.kl-ui{position:relative;z-index:2}
+.kl-bot{grid-row:3;align-self:end;display:grid;justify-items:center;gap:.35rem}
+.kl-t{display:flex;justify-content:center;font:600 clamp(2.5rem,10vw,6rem)/1 var(--hf);letter-spacing:.1em;color:var(--tx);text-shadow:0 0 40px rgba(85,214,123,.35)}
+.kl-t span{display:inline-block;animation:klIn .9s cubic-bezier(.2,.7,.2,1) calc(var(--i)*65ms + .2s) both}
+.kl-t .sp{width:.35em}
+.kl-sub{margin-top:.9rem;color:var(--mu);font:500 clamp(.85rem,2.4vw,1.05rem) Inter,system-ui,sans-serif;letter-spacing:.06em;animation:klIn 1s .95s both}
+.kl-n{font:600 clamp(2.2rem,6vw,3.2rem)/1 var(--hf);color:var(--au);font-variant-numeric:tabular-nums;letter-spacing:.04em;text-shadow:0 0 24px rgba(216,168,61,.4)}
+.kl-n small{margin-left:.15em;font-size:.5em;color:var(--mu)}
+.kl-s{min-height:1.5em;color:var(--mu);font:400 .95rem Inter,system-ui,sans-serif;letter-spacing:.03em}
+.kl-s.sw{animation:klIn .5s both}
+.kl-go{-webkit-mask-image:radial-gradient(circle at var(--x) var(--y),transparent var(--r),#000 calc(var(--r) + 18vmax));mask-image:radial-gradient(circle at var(--x) var(--y),transparent var(--r),#000 calc(var(--r) + 18vmax));animation:klOpen 1.25s cubic-bezier(.55,.05,.75,.35) forwards,klGone .3s 1.15s forwards}
+.kl-go .kl-ui{opacity:0;transform:translateY(-12px);transition:opacity .5s,transform .5s}
+.kl-fade{opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+@keyframes klOpen{to{--r:130vmax}}
+@keyframes klGone{to{opacity:0;visibility:hidden}}
+@keyframes klFail{to{opacity:0;visibility:hidden}}
+@keyframes klRise{from{opacity:0;transform:translateY(3%)}}
+@keyframes klIn{from{opacity:0;transform:translateY(.45em);filter:blur(8px)}}
+@keyframes klFl{from{transform:scale(.88);opacity:.8}to{transform:scale(1.1);opacity:1}}
+@keyframes klFog{to{transform:translate3d(25%,0,0)}}
+@keyframes klTr{to{background-position-x:-1800px}}
+@keyframes klFly{50%{opacity:.9}to{opacity:0;transform:translate(var(--dx),var(--dy))}}
+@media(max-height:520px){.kl-sub{display:none}.kl-t{font-size:2rem}.kl-n{font-size:1.8rem}}
+@media(prefers-reduced-motion:reduce){.kl *,.kl-sc{animation:none!important}}
+</style>
+<style id="elite2">
+/* ===== SREDIŠNJI DEO: legenda, priče, Perina sveska ===== */
+.hd{padding-top:calc(.9rem + env(safe-area-inset-top,0px))}.hd.sc,.hd.open{padding-top:calc(.55rem + env(safe-area-inset-top,0px))}
+.top{bottom:calc(1.2rem + env(safe-area-inset-bottom,0px))}footer{padding-bottom:calc(1.5rem + env(safe-area-inset-bottom,0px))}
+#about h2,#locations h2,#sveska h2{font-size:clamp(2.2rem,6.4vw,4.6rem)}
+#legenda{background:radial-gradient(ellipse 60% 50% at 12% 18%,rgba(216,168,61,.13),transparent 70%),radial-gradient(ellipse 50% 50% at 90% 90%,rgba(30,107,58,.28),transparent 70%),var(--bg)}
+.lg-w{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(2rem,6vw,6rem);align-items:start}
+.lg-w h2{position:sticky;top:110px;font-size:clamp(2.6rem,7vw,5.6rem)}
+.lt{max-width:34rem;color:#dfe6e1;font:400 clamp(1.08rem,2vw,1.25rem)/1.9 Lora,Georgia,serif}
+.lt p+p{margin-top:1.6rem}
+.lt .dc::first-letter{float:left;padding:.3rem .75rem 0 0;color:var(--au);font:600 5.6rem/.78 var(--hf)}
+.lt .pq{margin:2.6rem 0;padding:0 0 0 1.6rem;border-left:3px solid var(--au);background:none;color:var(--tx);font:italic 500 clamp(1.45rem,3.2vw,2.2rem)/1.4 Lora,Georgia,serif}
+.loc-in p{line-height:1.55}
+#locations .sub{max-width:560px}
+.sv .sub{max-width:520px}
+.sv .pg{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(2rem,6vw,5rem);padding:clamp(1.6rem,4vw,3.2rem);border:1px solid rgba(216,168,61,.4);border-radius:8px;background:repeating-linear-gradient(transparent 0 35px,rgba(216,168,61,.15) 35px 36px),#0f1e15;box-shadow:0 30px 70px rgba(0,0,0,.6),inset 0 0 70px rgba(0,0,0,.4)}
+.pg article{padding:.4rem 0 1.6rem}
+.pg article:nth-child(even){transform:rotate(.5deg)}
+.pg h3{margin-bottom:.1rem;color:var(--au);font:700 1.8rem/36px Caveat,cursive;letter-spacing:0;text-transform:none}
+.pg p{color:#e9efe9;font:500 1.5rem/36px Caveat,cursive}
+@media(max-width:860px){.lg-w,.sv .pg{grid-template-columns:1fr}.lg-w h2{position:static}.pg article:nth-child(even){transform:none}}
+</style>
+<style id="elite3">
+/* ===== ŽIVLJE ANIMACIJE + JEZA ===== */
+#legenda,#sveska{isolation:isolate;overflow:clip}
+#legenda .fog{height:75%}
+#legenda::before,#sveska::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;mix-blend-mode:screen;opacity:0;transition:opacity .5s;background:radial-gradient(380px circle at var(--lx,50%) var(--ly,50%),rgba(255,214,130,.11),transparent 70%)}
+#legenda.lit::before,#sveska.lit::before{opacity:1}
+.mist{transition:opacity 1.8s ease,filter 1.8s ease,transform 1.8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--md,0s)}
+.mist.pre{opacity:0;filter:blur(9px);transform:translateY(20px)}
+/* vetar njiše šumu */
+.wild::after,.cta::after{transform-origin:50% 100%;animation:wind 9s ease-in-out infinite alternate}
+@keyframes wind{from{transform:skewX(-.7deg)}to{transform:skewX(1deg)}}
+/* radar: tačke svetle tek kad ih zrak prelazi */
+.radar::before{background:conic-gradient(from 0deg,transparent 72%,rgba(85,214,123,.5) 100%)}
+.radar i{opacity:.05;animation:ping 5s linear infinite}
+.radar i:nth-child(1){animation-delay:.4s}.radar i:nth-child(2){animation-delay:3.26s}.radar i:nth-child(3){animation-delay:1.92s}
+@keyframes ping{0%{opacity:1;transform:scale(1.9)}35%{opacity:.55;transform:scale(1)}100%{opacity:.05;transform:scale(1)}}
+/* sveska: tekst se ispisuje slovo po slovo */
+.pg{position:relative}
+.pg p .c{opacity:0}
+.pg .wr .c{animation:ink .55s ease forwards;animation-delay:calc(var(--d)*1ms)}
+@keyframes ink{from{opacity:0;filter:blur(3px)}to{opacity:1;filter:none}}
+.pg.flk{animation:flk 1.7s ease}
+@keyframes flk{0%,100%{filter:brightness(1)}22%{filter:brightness(.4)}40%{filter:brightness(.95)}62%{filter:brightness(.3)}80%{filter:brightness(1)}}
+.sk{grid-column:1/-1}.sk h3{color:#e0705f}.sk p{color:#efc2b0}
+.blot{position:absolute;right:clamp(.8rem,3vw,2rem);bottom:clamp(.8rem,2.5vw,1.6rem);width:22px;height:18px;padding:0;border:0;border-radius:50% 45% 55% 40%;background:radial-gradient(circle at 40% 40%,#3a2118,#0f1e15 75%);opacity:.55;cursor:pointer;transition:opacity .3s,box-shadow .3s}
+.blot:hover,.blot:focus-visible{opacity:1;box-shadow:0 0 18px rgba(224,112,95,.55)}
+/* jeza */
+#dk{position:fixed;inset:0;z-index:97;display:grid;place-items:end center;padding-bottom:16vh;pointer-events:none;opacity:0;visibility:hidden;background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.6),rgba(0,0,0,.95));transition:opacity 1.2s ease,visibility 0s 1.2s}
+#dk.on{opacity:1;visibility:visible;transition:opacity 1.2s ease}
+#dk p{color:#cfd7d2;font:700 clamp(1.8rem,6vw,2.8rem) Caveat,cursive;opacity:0;transition:opacity 1s}
+#dk.on p{opacity:.8;transition-delay:2s}
+#eyes{position:fixed;z-index:98;width:70px;height:22px;opacity:0;pointer-events:none;transition:opacity .45s}
+#eyes::before,#eyes::after{content:"";position:absolute;top:0;width:24px;height:13px;border-radius:50%;background:radial-gradient(ellipse,#fff7c4 0 16%,#e8b53a 42%,transparent 72%);box-shadow:0 0 18px 6px rgba(232,181,58,.5)}
+#eyes::before{left:0}#eyes::after{right:0}
+#eyes.on{opacity:1;animation:near .45s cubic-bezier(.2,.9,.3,1)}
+@keyframes near{from{transform:scale(.35)}}
+#eyes.blink{animation:blink .45s ease}
+@keyframes blink{50%{transform:scaleY(.06)}}
+#toast{position:fixed;left:50%;bottom:calc(1.4rem + env(safe-area-inset-bottom,0px));z-index:130;translate:-50% 14px;padding:.7rem 1.2rem;border:1px solid var(--au);border-radius:999px;background:rgba(8,11,9,.92);color:var(--au);font:500 .85rem var(--hf);letter-spacing:.12em;opacity:0;pointer-events:none;transition:.4s}
+#toast.on{opacity:1;translate:-50% 0}
+@media(prefers-reduced-motion:reduce){#dk,#eyes{display:none}.mist.pre{opacity:1;filter:none;transform:none}}
+</style>
+<style id="elite4">
+.cta .wrap{position:relative;z-index:1}
+.moon{position:absolute;top:9%;right:11%;width:clamp(70px,11vw,120px);aspect-ratio:1;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 36% 38%,#fffbe8,#f1e3b4 55%,#cdb77a);box-shadow:0 0 40px 12px rgba(255,236,170,.35),0 0 140px 50px rgba(255,236,170,.14);animation:moonf 8s ease-in-out infinite alternate}
+.moon::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 60% 30%,rgba(120,100,50,.28) 0 9%,transparent 10%),radial-gradient(circle at 35% 65%,rgba(120,100,50,.22) 0 12%,transparent 13%),radial-gradient(circle at 70% 70%,rgba(120,100,50,.2) 0 6%,transparent 7%)}
+@keyframes moonf{to{box-shadow:0 0 52px 16px rgba(255,236,170,.42),0 0 170px 60px rgba(255,236,170,.18)}}
+.cl{position:absolute;top:34%;left:-90%;width:260%;height:34%;border-radius:50%;filter:blur(9px);background:rgba(8,11,9,.82);animation:cld 26s linear infinite}
+.cl.b{top:58%;height:26%;opacity:.7;animation-duration:38s;animation-delay:-14s}
+@keyframes cld{from{transform:translateX(-45%)}to{transform:translateX(45%)}}
+.shoot{position:absolute;top:12%;left:18%;width:130px;height:2px;pointer-events:none;opacity:0;transform-origin:left;rotate:28deg;background:linear-gradient(90deg,#fff,rgba(255,255,255,0));box-shadow:0 0 8px #fff;animation:shoot 11s linear infinite 4s}
+@keyframes shoot{0%,90%{opacity:0;translate:0 0}91%{opacity:1}100%{opacity:0;translate:260px 140px}}
+</style>
 </head>
 <body>
-<div class="pre" aria-hidden="true"><b>KB</b><i></i></div>
+<div class="kl" id="kl" role="status" aria-label="Učitavanje igre Kalac Brdo">
+<svg class="kl-sc" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+<defs><linearGradient id="klg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#55d67b"/><stop offset="1" stop-color="#d8a83d"/></linearGradient>
+<radialGradient id="klh"><stop offset="0" stop-color="#ffe3a0" stop-opacity=".95"/><stop offset=".3" stop-color="#d8a83d" stop-opacity=".4"/><stop offset="1" stop-color="#d8a83d" stop-opacity="0"/></radialGradient></defs>
+<path class="kl-h1" d="M0 430C180 360 320 335 500 305C700 275 820 350 1000 385V600H0z"/>
+<path class="kl-h2" d="M0 480C200 440 360 335 500 258C640 335 800 440 1000 490V600H0z"/>
+<g class="kl-pine" transform="translate(506 252) scale(1.15)"><path d="M0-70-14-40H-7L-20-12H-9L-26 18H26L9-12H20L7-40H14z"/><rect x="-3" y="18" width="6" height="10"/></g>
+<path class="kl-rd" d="M500 548C430 520 600 490 530 455C470 425 590 395 525 355C485 330 535 300 506 266"/>
+<path id="klp" class="kl-rp" d="M500 548C430 520 600 490 530 455C470 425 590 395 525 355C485 330 535 300 506 266"/>
+<g id="klL"><circle class="kl-gl" r="64" fill="url(#klh)"/><circle id="klC" r="4.5" fill="#fff4cf"/></g>
+<path class="kl-h3" d="M0 548C220 520 380 538 500 534C640 530 800 516 1000 552V600H0z"/>
+</svg>
+<div class="kl-fog" aria-hidden="true"></div><div class="kl-fog b" aria-hidden="true"></div>
+<div class="kl-tr" aria-hidden="true"></div><div class="kl-ff" aria-hidden="true"></div>
+<div class="kl-ui"><div class="kl-t" aria-hidden="true"><span style="--i:0">K</span><span style="--i:1">A</span><span style="--i:2">L</span><span style="--i:3">A</span><span style="--i:4">C</span><span class="sp"></span><span style="--i:6">B</span><span style="--i:7">R</span><span style="--i:8">D</span><span style="--i:9">O</span></div><p class="kl-sub">Avantura slobodnog sveta iz Niša</p></div>
+<div class="kl-ui kl-bot"><div class="kl-n"><span id="klN">0</span><small>%</small></div><p class="kl-s" id="klS">Palim baterijsku lampu</p></div>
+</div>
+<noscript><style>.kl{display:none}</style></noscript>
+<script>
+/* LOADING SCREEN · podešavanja su prve tri konstante */
+(() => {
+const MIN_TIME = 2600;   /* najkraće trajanje (ms): veće = duže uživanje u animaciji */
+const MAX_TIME = 8000;   /* posle ovoga se otvara i ako se nešto sporo učitava */
+const MSG = [[0,'Palim baterijsku lampu'],[22,'Učitavam Kalač put'],[48,'Budim Peru'],[72,'Punim rasterivač za pse'],[93,'Skoro smo na vrhu']];
+const DONE_MSG = 'Dobrodošao na Kalač brdo';
+const el = document.getElementById('kl'); if (!el) return;
+const root = document.documentElement, rm = matchMedia('(prefers-reduced-motion:reduce)').matches;
+const fancy = !rm && window.CSS && CSS.registerProperty && (CSS.supports('mask-image','linear-gradient(#000,#000)') || CSS.supports('-webkit-mask-image','linear-gradient(#000,#000)'));
+let open; window.klReady = new Promise(r => open = r);
+root.classList.add('kl-lock');
+setTimeout(() => { open(); root.classList.remove('kl-lock'); }, MAX_TIME + 4000);
+const road = document.getElementById('klp'), lamp = document.getElementById('klL'), core = document.getElementById('klC');
+const num = document.getElementById('klN'), st = document.getElementById('klS'), len = road.getTotalLength();
+road.style.strokeDasharray = len;
+if (!rm) { const ff = el.querySelector('.kl-ff'), r = Math.random;
+  for (let i = 0; i < 18; i++) { const s = document.createElement('i');
+    s.style.cssText = `--l:${(5+r()*90).toFixed(1)}%;--tp:${(22+r()*58).toFixed(1)}%;--z:${(2+r()*2.5).toFixed(1)}px;--c:${r()>.55?'#d8a83d':'#55d67b'};--t:${(4+r()*5).toFixed(1)}s;--d:${(-r()*6).toFixed(1)}s;--dx:${((r()-.5)*70).toFixed(0)}px;--dy:${(-10-r()*50).toFixed(0)}px`;
+    ff.appendChild(s); } }
+/* pravi napredak: DOM -> fontovi -> window.load -> glavna slika */
+let ready = 0; const bump = v => ready = Math.max(ready, v);
+document.readyState === 'loading' ? addEventListener('DOMContentLoaded', () => bump(30)) : bump(30);
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(() => bump(55));
+const hero = () => { const h = document.querySelector('img[data-i="kalac-put"]'); (h && h.decode ? h.decode().catch(() => {}) : Promise.resolve()).then(() => bump(100)); };
+document.readyState === 'complete' ? (bump(90), hero()) : addEventListener('load', () => { bump(90); hero(); });
+const say = m => { if (st.textContent === m) return; st.textContent = m; st.classList.remove('sw'); void st.offsetWidth; st.classList.add('sw'); };
+const t0 = performance.now(), min = rm ? 500 : MIN_TIME; let p = 0, last = t0;
+function frame(now) {
+  const dt = Math.min(.05, (now - last) / 1000), age = now - t0; last = now;
+  const goal = age > MAX_TIME ? 100 : Math.min(ready, age / min * 100);
+  p += (goal - p) * (1 - Math.exp(-dt * 4.5)); if (goal >= 100 && p > 99.4) p = 100;
+  const pt = road.getPointAtLength(len * p / 100);
+  road.style.strokeDashoffset = len * (1 - p / 100); lamp.setAttribute('transform', `translate(${pt.x} ${pt.y})`);
+  num.textContent = Math.round(p); say(MSG.filter(m => p >= m[0]).pop()[1]);
+  p < 100 ? requestAnimationFrame(frame) : finish();
+}
+function finish() {
+  el.classList.add('kl-lit'); say(DONE_MSG);
+  setTimeout(() => {
+    const b = core.getBoundingClientRect(); el.style.setProperty('--x', b.left + b.width / 2 + 'px'); el.style.setProperty('--y', b.top + b.height / 2 + 'px');
+    el.classList.add(fancy ? 'kl-go' : 'kl-fade');
+    setTimeout(open, fancy ? 300 : 0);
+    setTimeout(() => { el.remove(); root.classList.remove('kl-lock'); }, fancy ? 1700 : 450);
+  }, fancy ? 650 : 150);
+}
+requestAnimationFrame(frame);
+})();
+</script>
+
 <div class="bar" id="bar" aria-hidden="true"></div>
 
 <!-- SVG ikonice (koriste se preko <use>) -->
@@ -439,10 +639,10 @@ body.kb-mobile #kh{top:118px;font-size:.73rem;max-width:88vw;padding:8px 12px}
     <a href="#home">Početna</a>
     <a href="#about">O igri</a>
     <a href="#locations">Lokacije</a>
-    <a href="#creator">Kreator</a>
+    <a href="#creator">Autor</a>
     <a href="#dev">Razvoj</a>
     <a href="#game">Pokreni igru</a>
-    <a class="btn pri sm" href="#locations">ISTRAŽI SVET</a>
+    <a class="btn pri sm" href="#locations">ISTRAŽI BRDO</a>
   </nav>
 </header>
 
@@ -454,83 +654,93 @@ body.kb-mobile #kh{top:118px;font-size:.73rem;max-width:88vw;padding:8px 12px}
   <canvas id="ff" aria-hidden="true"></canvas>
   <div class="fog" aria-hidden="true"></div>
   <div class="hero-in stg">
-    <span class="eyebrow rv">OPEN-WORLD AVANTURA IZ NIŠA</span>
+    <span class="eyebrow rv">AVANTURA IZ NIŠA</span>
     <h1 class="rv">KALAC<br><em>BRDO</em></h1>
-    <p class="lead rv">Zakorači u svet skrivenih prolaza, napuštenih lokacija i misterija koje čekaju da budu otkrivene.</p>
-    <div class="btns rv"><a class="btn pri" href="#locations">ISTRAŽI SVET</a><a class="btn gh" href="#dev">PRATI RAZVOJ</a></div>
-    <span class="status rv"><i class="dot"></i>STATUS PROJEKTA: U RAZVOJU</span>
-    <ul class="stats rv"><li>OPEN WORLD</li><li>ISTRAŽIVANJE</li><li>AVANTURA</li><li>MISTERIJE</li></ul>
+    <p class="lead rv">Popni se na brdo koje ima više priča nego kuća. Šljunkoviti putevi, napuštena dvorišta i magla u kojoj se nešto pomera. Pera je već krenuo ispred tebe.</p>
+    <div class="btns rv"><a class="btn pri" href="#locations">ISTRAŽI BRDO</a><a class="btn gh" href="#dev">PRATI RAZVOJ</a></div>
+    <span class="status rv"><i class="dot"></i>IGRA JE U IZRADI</span>
+    <ul class="stats rv"><li>SLOBODAN SVET</li><li>ISTRAŽIVANJE</li><li>AVANTURA</li><li>MISTERIJE</li></ul>
   </div>
-  <a class="scroll" href="#about"><span class="mouse"></span>Skroluj za istraživanje</a>
+  <a class="scroll" href="#about"><span class="mouse"></span>Spusti se u brdo</a>
 </section>
 
-<div class="mq" aria-hidden="true"><div><span>OPEN WORLD</span><span>ISTRAŽIVANJE</span><span>AVANTURA</span><span>MISTERIJE</span><span>OPEN WORLD</span><span>ISTRAŽIVANJE</span><span>AVANTURA</span><span>MISTERIJE</span><span>OPEN WORLD</span><span>ISTRAŽIVANJE</span><span>AVANTURA</span><span>MISTERIJE</span><span>OPEN WORLD</span><span>ISTRAŽIVANJE</span><span>AVANTURA</span><span>MISTERIJE</span></div></div>
+<div class="mq" aria-hidden="true"><div><span>SLOBODAN SVET</span><span>ISTRAŽIVANJE</span><span>AVANTURA</span><span>MISTERIJE</span><span>SLOBODAN SVET</span><span>ISTRAŽIVANJE</span><span>AVANTURA</span><span>MISTERIJE</span><span>SLOBODAN SVET</span><span>ISTRAŽIVANJE</span><span>AVANTURA</span><span>MISTERIJE</span><span>SLOBODAN SVET</span><span>ISTRAŽIVANJE</span><span>AVANTURA</span><span>MISTERIJE</span></div></div>
 
 <!-- 2. O IGRI -->
 <section id="about" class="sec"><div class="wrap">
-  <p class="eyebrow rv">O IGRI</p>
-  <h2 class="rv">SVET KOJI ČEKA DA BUDE OTKRIVEN</h2>
-  <p class="sub rv">Kalac Brdo je avanturistička open-world igra inspirisana lokalnim ulicama, šumskim putevima i skrivenim mestima. Igrač slobodno istražuje mapu, otkriva tajne, pronalazi tragove i posećuje lokacije sa sopstvenom pričom.</p>
+  <h2 class="rv">BRDO KOJE PAMTI SVE</h2>
+  <p class="sub rv">Kalač brdo je avantura slobodnog sveta nastala iz pravih ulica, šumskih staza i skrivenih mesta jednog niškog kraja. Niko te ne vodi za ruku. Ti biraš put, a brdo odlučuje šta će ti pokazati.</p>
   <div class="grid3 stg">
-    <article class="card rv"><span class="mark">01</span><svg class="ic"><use href="#i-compass"/></svg><h3>SLOBODNO ISTRAŽIVANJE</h3><p>Kreći se mapom bez unapred određenog puta i sam izaberi sledeću avanturu.</p></article>
-    <article class="card rv"><span class="mark">02</span><svg class="ic"><use href="#i-eye"/></svg><h3>SKRIVENE MISTERIJE</h3><p>Pronađi tajne prolaze, stare tragove i lokacije koje nisu odmah vidljive.</p></article>
-    <article class="card rv"><span class="mark">03</span><svg class="ic"><use href="#i-tree"/></svg><h3>ŽIVI SVET</h3><p>Istražuj prirodu, šumske delove i različite zone u kojima se mogu pojaviti životinje.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-compass"/></svg><h3>SLOBODNO KRETANJE</h3><p>Kreni kuda hoćeš. Nema označene staze, samo tvoja radoznalost i Perin pogled preko ramena.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-eye"/></svg><h3>SKRIVENE TAJNE</h3><p>Tajni prolazi, stari tragovi i vrata koja se otvaraju samo onome ko dovoljno dugo gleda.</p></article>
+    <article class="card rv"><svg class="ic"><use href="#i-tree"/></svg><h3>ŽIV SVET</h3><p>Šume šapuću, psi čuvaju kapije, a magla se spušta onda kad joj to najmanje odgovara tebi.</p></article>
+  </div>
+</div></section>
+
+<!-- LEGENDA -->
+<section id="legenda" class="sec"><div class="fog" aria-hidden="true"></div><div class="wrap lg-w">
+  <h2 class="rv">LEGENDA O KALAČ BRDU</h2>
+  <div class="lt">
+    <p class="dc">Kažu da je Kalač nekada bio samo jedna staza i jedan bor. Staza je vodila do izvora, a bor je stajao toliko visoko da su ga sa drugog kraja grada koristili umesto kompasa. Putnik koji bi zalutao u magli tražio bi njegov vrh i uvek bi stigao kući.</p>
+    <p>Onda su došli prvi stanari, pa prve ograde, pa psi. Meštani su ubrzo primetili nešto čudno: staza se menja. Jedno veče vodi pravo uz brdo, a sledeće se obavije oko ograde koje juče nije bilo. Niko ne ume da objasni zašto, ali starci tvrde da brdo samo bira kome će pokazati put.</p>
+    <blockquote class="pq">„Brdo nikoga ne zove. Samo nikome ne dozvoljava da zaboravi put do njega.“</blockquote>
+    <p>Zato se na Kalaču nikada ne žuri. Ko ide polako, vidi kako lampa na stubu zatreperi, kako se pas okrene ka kapiji, kako zujanje u daljini postaje glasnije. To nisu upozorenja. To je brdo koje ti poručuje da ovuda još niko nije prošao baš kao ti.</p>
   </div>
 </div></section>
 
 <!-- 3. LOKACIJE -->
 <section id="locations" class="sec alt"><div class="wrap">
-  <p class="eyebrow rv">MAPA</p>
+  <p class="eyebrow rv">MESTA NA BRDU</p>
   <h2 class="rv">LOKACIJE KALAC BRDA</h2>
-  <p class="sub rv">Svaki put može da sakrije novu priču. Klikni na lokaciju i pročitaj šta se šapće po brdu. Sve priče su izmišljene i deo su sveta igre.</p>
+  <p class="sub rv">Svaka staza krije neku priču. Dodirni mesto i pročitaj šta se šapuće po brdu. Sve priče su izmišljene i deo su sveta igre.</p>
   <!-- ★★★ OVDE DODAJEM NOVE LOKACIJE: kopiraj ceo <article class="loc ..."> blok ★★★ -->
   <div class="bento stg">
-    <article class="loc fx rv" data-m data-d="Tamo gde asfalt pukne, počinje Kalač. Put postaje šljunak, sa strane su naslagana drva, a iz svakog dvorišta laje po jedan pas. Meštani kažu da psi ne laju na stranca, već na nešto što ga prati. Na kraju puta stoji visok bor koji se vidi iz cele ulice, a niko ne zna ko ga je posadio.
+    <article class="loc fx rv" data-m data-d="Tamo gde asfalt odustane, Kalač tek počinje. Šljunak krcka pod nogama, uz put su složena drva za zimu, a iza svake kapije leži po jedan pas koji te prati pogledom. Meštani kažu da psi ne laju na stranca, već na ono što ga prati. Na kraju puta stoji bor za koji niko ne pamti da je posađen, a svi znaju da je tu oduvek.
 Savet: ne okreći se kad čuješ korake iza sebe.">
       <img data-i="kalac-put" decoding="async" alt="Šljunkovit put i visok bor na Kalač brdu" loading="lazy">
-      <span class="num">LOKACIJA 01</span><span class="tag">OTKRIVENO</span>
+      <span class="num">MESTO 01</span><span class="tag">OTKRIVENO</span>
       <div class="loc-in"><h3>Kalač put</h3><p>Šljunak, drva i lavež iz svakog dvorišta. Ovde asfalt staje, a brdo tek počinje.</p><button class="btn gh sm" type="button">Pročitaj priču</button></div>
     </article>
-    <article class="loc fx rv" data-m data-d="Ružičasta kuća ispod mreže kablova izgleda sasvim obično, sve dok ne padne mrak. Tada se lampa na stubu upali sama, a zavesa na gornjem prozoru se pomera iako je prozor zatvoren. Priča kaže da ispod kuće postoji podrum sa vratima koja vode pravo ka brdu, tajnim prolazom kojim se neko noću vraća kući.
-Savet: zapamti koliko prozora vidiš. Ujutru ih bude jedan više.">
+    <article class="loc fx rv" data-m data-d="Ružičasta kuća ispod mreže kablova izgleda sasvim obično, sve do sumraka. Tada se lampa na stubu upali sama, a zavesa na spratu zatreperi iako je prozor zatvoren. Priča kaže da ispod kuće postoji podrum, a iz podruma vrata koja vode pravo ka brdu. Tim putem se neko noću vraća kući, ali nikad ne ulazi na glavna vrata.
+Savet: izbroj prozore uveče. Ujutru ih je jedan više.">
       <img data-i="tajna-kuca" decoding="async" alt="Ružičasta kuća pored stuba sa kablovima" loading="lazy">
-      <span class="num">LOKACIJA 02</span><span class="tag lk">TAJNA</span>
+      <span class="num">MESTO 02</span><span class="tag lk">TAJNA</span>
       <div class="loc-in"><h3>Tajna kuća</h3><p>Ružičasta kuća ispod mreže kablova. Lampa na stubu pali se sama.</p><button class="btn gh sm" type="button">Pročitaj priču</button></div>
     </article>
-    <article class="loc fx rv" data-m data-d="Na prvi pogled obična klupica: jedna daska na dva stuba, išarana sprejom, sa pogledom na dolinu i krovove daleko dole. Ali baš ispod nje, u gustom žbunju, nešto belo se pomera u magli. Meštani kažu da su to samo papiri. Papiri se, međutim, pomeraju i kad nema vetra, i uvek ka klupici.
+    <article class="loc fx rv" data-m data-d="Daska na dva stuba, išarana sprejom, sa pogledom na krovove daleko dole. Generacije su tu sedele i pričale o onome što su obećale da neće ponoviti. Ispod klupice, u žbunju, nešto belo se miče u magli. Meštani kažu da je to samo hartija. Ali hartija ne ide bez vetra i ne kreće se uvek ka klupici.
 Savet: ne sedaj ovde posle zalaska sunca.">
       <img data-i="klupica" decoding="async" alt="Drvena klupica sa grafitima iznad doline" loading="lazy">
-      <span class="num">LOKACIJA 03</span><span class="tag">OTKRIVENO</span>
+      <span class="num">MESTO 03</span><span class="tag">OTKRIVENO</span>
       <div class="loc-in"><h3>Klupica</h3><p>Daska na dva stuba, sprej i pogled na dolinu. Ali šta se miče u žbunju?</p><button class="btn gh sm" type="button">Pročitaj priču</button></div>
     </article>
-    <article class="loc fx rv" data-m data-d="Nekada je iza ove ograde živela cela porodica: deca su trčala po travi, a uveče se iz dvorišta čula harmonika. Jedne jeseni su otišli i nikad se nisu vratili. Kuća je odavno nestala, ali ograda i dalje stoji, a staza uz nju je uvek pokošena, iako niko ne dolazi da je kosi.
-Savet: ako čuješ harmoniku, vrati se istim putem.">
+    <article class="loc fx rv" data-m data-d="Nekada je iza ove ograde živela cela porodica. Deca su trčala po travi, a uveče se iz dvorišta čula harmonika, tiha kao da svira samo za one koji slušaju. Jedne jeseni su otišli i nikada se nisu vratili. Kuće odavno nema, ali ograda stoji, a staza uz nju je uvek pokošena, iako niko ne dolazi da je kosi.
+Savet: ako čuješ harmoniku, vrati se istim putem kojim si došao.">
       <img data-i="ograda" decoding="async" alt="Stara drvena ograda na kraju livadske staze" loading="lazy">
-      <span class="num">LOKACIJA 04</span><span class="tag lk">NAPUŠTENO</span>
+      <span class="num">MESTO 04</span><span class="tag lk">NAPUŠTENO</span>
       <div class="loc-in"><h3>Ograda</h3><p>Drvena ograda na kraju staze. Iza nje nekada je živela cela porodica.</p><button class="btn gh sm" type="button">Pročitaj priču</button></div>
     </article>
-    <article class="loc fx rv" data-m data-d="Staza je široka taman da prođe jedan čovek. Sa obe strane su trnovito granje i suva trava viša od ramena, a magla guta kraj puta već posle desetak koraka. Blato čuva tragove, i tvoje, i neke koji nisu tvoji. Meštani je zovu Tesnac, jer sa nje nema sporednog izlaza sve do samog kraja.
-Savet: drži se sredine i ne zastajkuj.">
+    <article class="loc fx rv" data-m data-d="Staza je široka taman za jednog čoveka. S obe strane su trnje i trava viša od ramena, a magla proguta kraj već posle desetak koraka. Blato čuva tragove: tvoje, i neke koji nisu tvoji, a svežiji su od tvojih. Meštani je zovu Tesnac, jer sa nje nema sporednog izlaza sve do samog kraja.
+Savet: drži se sredine i ne zastajkuj. Ako ti se učini da te neko zove po imenu, nastavi dalje.">
       <img data-i="staza" decoding="async" alt="Uska blatnjava staza između gustog žbunja" loading="lazy">
-      <span class="num">LOKACIJA 05</span><span class="tag">OPASNO</span>
+      <span class="num">MESTO 05</span><span class="tag">OPASNO</span>
       <div class="loc-in"><h3>Staza straha</h3><p>Uska blatnjava staza između trnja. Magla guta kraj, a sa strane nema izlaza.</p><button class="btn gh sm" type="button">Pročitaj priču</button></div>
     </article>
-    <article class="loc fx rv" data-m data-d="Iza goleg žbunja pojavljuje se ruševina: crveni zid od cigle, rupa umesto prozora i greda koja visi nad prazninom. Jedna priča kaže da je kuća izgorela jedne zimske noći, druga da nikad nije ni završena jer je gazda nestao pred useljenje. Jedno je sigurno: kroz tu rupu se preko dana vidi samo nebo, a noću ništa.
+    <article class="loc fx rv" data-m data-d="Iza golog žbunja izranja ruševina: crven zid od cigle, rupa umesto prozora i greda koja visi nad prazninom. Jedni kažu da je kuća izgorela jedne zimske noći, drugi da nikada nije ni dovršena jer je gazda nestao pred useljenje. Jedno je sigurno: kroz tu rupu preko dana vidiš samo nebo, a noću ništa.
 Savet: ne ulazi. Ni da pogledaš.">
       <img data-i="ruzevina" decoding="async" alt="Ruševina od cigle viđena kroz golo žbunje" loading="lazy">
-      <span class="num">LOKACIJA 06</span><span class="tag lk">NAPUŠTENO</span>
+      <span class="num">MESTO 06</span><span class="tag lk">NAPUŠTENO</span>
       <div class="loc-in"><h3>Ruševina</h3><p>Zid od cigle bez krova. U otvoru prozora vidi se samo nebo.</p><button class="btn gh sm" type="button">Pročitaj priču</button></div>
     </article>
-    <article class="loc fx rv" data-m data-d="Krov od crvenog crepa još drži, ali prozori su prazni i crni. Vlasnici su otišli preko noći: za stolom je ostao ručak, a na vratima ključ. Komšije tvrde da u sumrak jedan prozor zasvetli, iako struju nikad nisu imali. Pas iz susednog dvorišta tada prestane da laje i samo gleda u tom pravcu.
+    <article class="loc fx rv" data-m data-d="Krov od crvenog crepa još drži, ali prozori su prazni i crni. Vlasnici su otišli preko noći: za stolom je ostao ručak, a u bravi ključ. Komšije tvrde da u sumrak jedan prozor zasvetli, iako struju tu nikada nisu imali. Pas iz susednog dvorišta tada prestane da laje i samo gleda u tom pravcu, kao da nekoga pozdravlja.
 Savet: ako vidiš svetlo, nije ti se učinilo.">
       <img data-i="napustena-kuca" decoding="async" alt="Napuštena kuća sa crvenim crepom i praznim prozorima" loading="lazy">
-      <span class="num">LOKACIJA 07</span><span class="tag lk">NAPUŠTENO</span>
+      <span class="num">MESTO 07</span><span class="tag lk">NAPUŠTENO</span>
       <div class="loc-in"><h3>Napuštena kuća</h3><p>Crveni crep, prazni prozori i gole grane. Vlasnici su otišli preko noći.</p><button class="btn gh sm" type="button">Pročitaj priču</button></div>
     </article>
-    <article class="loc fx rv" data-m data-d="Durmitorska počinje kao obična seoska ulica: gvozdene ograde, naslagana drva i blatnjavi tragovi traktora. Iza svake kapije leži po jedan pas koji te prati pogledom, ali nijedan ne laje, kao da čekaju. Priča kaže da ulica krije tajnu: iza poslednje krivine je mesto kojeg nema ni na jednoj mapi.
+    <article class="loc fx rv" data-m data-d="Durmitorska počinje kao obična seoska ulica: gvozdene ograde, složena drva i blatnjavi tragovi traktora. Iza svake kapije leži po jedan pas koji te prati pogledom, a nijedan ne laje, kao da nešto čekaju. Priča kaže da iza poslednje krivine postoji mesto kojeg nema ni na jednoj mapi, i da ga nađe samo onaj ko ga ne traži.
 Savet: pas koji se okrene ka tebi znači da si na pravom putu. Ili na pogrešnom.">
       <img data-i="durmitorska" decoding="async" alt="Blatnjava Durmitorska ulica sa drvima i psom" loading="lazy">
-      <span class="num">LOKACIJA 08</span><span class="tag">MISTERIJA</span>
+      <span class="num">MESTO 08</span><span class="tag">MISTERIJA</span>
       <div class="loc-in"><h3>Durmitorska ulica</h3><p>Blato, drva, gvozdena ograda i pas koji te posmatra. Šta je iza krivine?</p><button class="btn gh sm" type="button">Pročitaj priču</button></div>
     </article>
   </div>
@@ -541,10 +751,10 @@ Savet: pas koji se okrene ka tebi znači da si na pravom putu. Ili na pogrešnom
   <div>
     <p class="eyebrow rv">OPASNA DIVLJINA</p>
     <h2 class="rv">DIVLJINA NE OTKRIVA SVE TAJNE</h2>
-    <p class="rv">Velike zelene površine, stabla, uski putevi i nepristupačni delovi terena čine Kalac Brdo uzbudljivim svetom za istraživanje. Igrač mora pažljivo da posmatra okolinu, jer najvažniji tragovi nisu uvek jasno vidljivi.</p>
+    <p class="rv">Guste šume, uski putevi i delovi terena kojima se retko ko usudi da priđe. Pažljivo osmatraj okolinu: najvažniji tragovi ne leže na putu, već pored njega.</p>
     <ul class="wl stg">
       <li class="rv"><svg class="ic"><use href="#i-tree"/></svg>Guste šume</li>
-      <li class="rv"><svg class="ic"><use href="#i-paw"/></svg>Divlje životinje</li>
+      <li class="rv"><svg class="ic"><use href="#i-paw"/></svg>Divlje zveri</li>
       <li class="rv"><svg class="ic"><use href="#i-door"/></svg>Tajni prolazi</li>
       <li class="rv"><svg class="ic"><use href="#i-warn"/></svg>Opasne zone</li>
     </ul>
@@ -552,19 +762,33 @@ Savet: pas koji se okrene ka tebi znači da si na pravom putu. Ili na pogrešnom
   <div class="radar rv" role="img" aria-label="Animirani radar"><i></i><i></i><i></i></div>
 </div></section>
 
-<!-- 5. UKLETA METEO STANICA -->
+<!-- 5. UKLETA METEOROLOŠKA STANICA -->
 <section id="tis" class="sec alt"><div class="wrap two tis">
   <figure class="fx tisimg rv"><img data-i="meteo-stanica" decoding="async" alt="Ukleta meteorološka stanica iza ograde i žbunja" loading="lazy"></figure>
   <div class="rv">
-    <span class="tag gold">POSEBNA LOKACIJA</span>
-    <h2>UKLETA METEO STANICA</h2>
-    <p>Zatvorena meteorološka stanica usred livade, iza ograde i trnja. Instrumenti su ugašeni, a ipak beleže ono što običan svet ne meri. U igri je to jedna od najmisterioznijih lokacija, sa zujanjem koje raste kad se približiš.</p>
+    <span class="tag gold">POSEBNO MESTO</span>
+    <h2>UKLETA METEOROLOŠKA STANICA</h2>
+    <p>Zatvorena stanica usred livade, iza ograde i trnja. Instrumenti su ugašeni, a ipak beleže ono što običan svet ne meri. U igri je to jedno od najuznemirujućih mesta, sa zujanjem koje raste što ti je bliža.</p>
     <ul class="facts">
-      <li><b>TIP</b>Ukleta lokacija</li><li><b>STATUS</b>Zatvoreno</li>
+      <li><b>VRSTA</b>Ukleto mesto</li><li><b>STANJE</b>Zatvoreno</li>
       <li><b>TEŽINA</b>Visoka</li><li><b>NAGRADA</b>Tajni podaci</li>
     </ul>
-    <button class="btn pri" type="button" data-m data-img="meteo-stanica" data-t="Ukleta meteo stanica" data-n="POSEBNA LOKACIJA" data-s="UKLETO" data-d="Iza ograde i gustog žbunja, usred livade, stoji meteorološka stanica: beli objekat, betonski stubovi i žica, a u daljini visokonaponski stubovi koji tiho zuje. Stanica je zvanično zatvorena, ali meštani tvrde da instrumenti još rade. Kazaljka se pomera protiv vetra, a pred oluju iz zatvorenog objekta dopire zujanje. Neki kažu da stanica više ne meri vreme, već nešto što dolazi.
-Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI LOKACIJU</button>
+    <button class="btn pri" type="button" data-m data-img="meteo-stanica" data-t="Ukleta meteorološka stanica" data-n="POSEBNO MESTO" data-s="UKLETO" data-d="Iza ograde i gustog žbunja, usred livade, stoji meteorološka stanica: beo objekat, betonski stubovi i žica, a u daljini visokonaponski stubovi koji tiho zuje. Stanica je zvanično zatvorena, ali meštani tvrde da instrumenti još rade. Kazaljka se okreće protiv vetra, a pred oluju iz zatvorenog objekta dopire zujanje. Najstariji meštanin kaže da stanica više ne meri vreme, već ono što tek dolazi.
+Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI MESTO</button>
+  </div>
+</div></section>
+
+<!-- PERINA SVESKA -->
+<section id="sveska" class="sec"><div class="fog" aria-hidden="true"></div><div class="wrap sv">
+  <h2 class="rv">PERINA SVESKA</h2>
+  <p class="sub rv">Pera ceo život živi ispod brda i sve što je video upisao je u svesku. Neke stvari ni sam ne razume. Možda ćeš ti.</p>
+  <div class="pg rv">
+    <article><h3>Utorak, posle kiše</h3><p>Pas kod treće kapije je zaćutao. Prvi put za osam godina. Stajao sam pored njega čitav sat i nijednom nije trepnuo. Gledao je u brdo.</p></article>
+    <article><h3>Subota, pred mrak</h3><p>Brojao sam prozore na ružičastoj kući. Bilo ih je šest. Kad sam se vratio po lampu, bilo ih je sedam. Nisam se vraćao po lampu.</p></article>
+    <article><h3>Nedelja, magla</h3><p>Čuo sam harmoniku od ograde. Svirala je staru pesmu, onu koju je pevala moja baka. Ja je nikome nisam pevao.</p></article>
+    <article><h3>Ponedeljak, kasno</h3><p>Stanica zuji čak i kad nema struje. Zapisao sam kad: uvek kad neko izgubi put. Ako ovo čitaš, drži se sredine staze.</p></article>
+    <article class="sk" hidden><h3>Zapis koji nisam napisao</h3><p>Našao sam ovu stranicu u svesci, a nisam je pisao. Rukopis je moj, ali mastilo je još vlažno. Piše: „Pera, ne traži izvor. Izvor traži tebe.“ Ispod je nacrtan bor sa jednim upaljenim prozorom. Od tada posle pet popodne ne gledam u vrh brda.</p></article>
+    <button class="blot" type="button" aria-label="Mrlja od mastila u uglu stranice"></button>
   </div>
 </div></section>
 
@@ -574,34 +798,34 @@ Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI LOKACIJU</button>
     <!-- ★★★ OVDE MENJAM SLIKU KREATORA (assets/images/andrej-kreator.jpg) ★★★ -->
     <div class="frame" data-par>
       <div class="fx"><img data-i="andrej-kreator" decoding="async" alt="Andrej Pejčić, kreator igre Kalac Brdo" loading="lazy"></div>
-      <span class="boss">GLAVNI BOSS PROJEKTA</span>
+      <span class="boss">TVORAC KALAČ BRDA</span>
     </div>
   </div>
   <div class="rv">
     <p class="eyebrow">UM IZA PROJEKTA</p>
     <h2 class="name">ANDREJ PEJČIĆ</h2>
-    <p class="role">Kreator igre i glavni autor projekta</p>
-    <p>Andrej Pejčić je učenik Elektrotehničke škole „Nikola Tesla“ u Nišu i kreator projekta Kalac Brdo. Pored interesovanja za razvoj igara i web dizajn, Andrejev veliki cilj je da postane profesionalni fudbaler. Projekat Kalac Brdo predstavlja spoj kreativnosti, lokalne inspiracije, upornosti i želje da se jedna poznata sredina pretvori u originalan digitalni svet.</p>
+    <p class="role">Tvorac igre i glavni autor projekta</p>
+    <p>Andrej Pejčić je učenik Elektrotehničke škole „Nikola Tesla“ u Nišu i tvorac projekta Kalač brdo. Pored igara i izrade sajtova, najveći san mu je da postane profesionalni fudbaler. Kalač brdo je spoj mašte, lokalnih uspomena i upornosti: pokušaj da se jedna poznata sredina pretvori u svet kakav do sada nije viđen.</p>
     <blockquote>„Veliki projekti počinju od jedne ideje i discipline da se ta ideja svakog dana unapređuje.“</blockquote>
-    <ul class="chips"><li>KREATOR PROJEKTA</li><li>GAME DEVELOPER</li><li>UI/UX ENTUZIJASTA</li><li>BUDUĆI PROFESIONALNI FUDBALER</li><li>UČENIK TESLE</li></ul>
+    <ul class="chips"><li>TVORAC PROJEKTA</li><li>PRAVI IGRE</li><li>ZALJUBLJENIK U DIZAJN</li><li>BUDUĆI PROFESIONALNI FUDBALER</li><li>UČENIK TESLE</li></ul>
   </div>
 </div></section>
 
 <!-- 7. RAZVOJ -->
 <section id="dev" class="sec alt"><div class="wrap">
-  <p class="eyebrow rv">ROADMAP</p>
-  <h2 class="rv">RADOVI NA IGRICI</h2>
+  <p class="eyebrow rv">PUT RAZVOJA</p>
+  <h2 class="rv">RADOVI NA IGRI</h2>
   <p class="sub rv">Svet Kalac Brda nastaje korak po korak.</p>
   <ol class="tl stg">
-    <li class="done rv"><small>FAZA 01</small><h3>Koncept i ideja</h3><span class="st">Završeno</span></li>
-    <li class="now rv"><small>FAZA 02</small><h3>Dizajn sveta i lokacija</h3><span class="st">U toku</span></li>
-    <li class="prep rv"><small>FAZA 03</small><h3>Mehanike istraživanja</h3><span class="st">U pripremi</span></li>
-    <li class="plan rv"><small>FAZA 04</small><h3>Misije i skrivene priče</h3><span class="st">Planirano</span></li>
-    <li class="plan rv"><small>FAZA 05</small><h3>Testiranje igre</h3><span class="st">Planirano</span></li>
+    <li class="done rv"><small>FAZA 01</small><h3>Zamisao i ideja</h3><span class="st">Završeno</span></li>
+    <li class="now rv"><small>FAZA 02</small><h3>Izrada sveta i mesta</h3><span class="st">U toku</span></li>
+    <li class="prep rv"><small>FAZA 03</small><h3>Način istraživanja</h3><span class="st">U pripremi</span></li>
+    <li class="plan rv"><small>FAZA 04</small><h3>Zadaci i skrivene priče</h3><span class="st">Planirano</span></li>
+    <li class="plan rv"><small>FAZA 05</small><h3>Isprobavanje igre</h3><span class="st">Planirano</span></li>
   </ol>
   <div class="card now-panel rv">
     <h3>TRENUTNO SE RADI NA:</h3>
-    <ul><li>dizajnu mape</li><li>novim lokacijama</li><li>atmosferi i zvukovima</li><li>sistemu istraživanja</li><li>pripremi prvih zadataka</li></ul>
+    <ul><li>izradi mape</li><li>novim mestima</li><li>atmosferi i zvukovima</li><li>načinu istraživanja</li><li>prvim zadacima</li></ul>
   </div>
 </div></section>
 
@@ -642,10 +866,10 @@ Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI LOKACIJU</button>
 </div></section>
 
 <!-- 10. POZIV NA PRAĆENJE -->
-<section id="cta" class="sec cta"><div class="wrap stg">
+<section id="cta" class="sec cta"><div class="moon" aria-hidden="true"><i class="cl"></i><i class="cl b"></i></div><i class="shoot" aria-hidden="true"></i><div class="wrap stg">
   <h2 class="rv">AVANTURA TEK POČINJE</h2>
-  <p class="sub rv">Kalac Brdo se svakodnevno razvija. Nove lokacije, priče i mehanike postepeno će oblikovati svet igre.</p>
-  <div class="btns rv"><a class="btn pri" href="#dev">PRATI RAZVOJ</a><a class="btn gh" href="#locations">POGLEDAJ LOKACIJE</a></div>
+  <p class="sub rv">Kalač brdo raste iz dana u dan. Nova mesta, nove priče i nove tajne polako oblikuju svet igre.</p>
+  <div class="btns rv"><a class="btn pri" href="#dev">PRATI RAZVOJ</a><a class="btn gh" href="#locations">POGLEDAJ MESTA</a></div>
 </div></section>
 </main>
 
@@ -654,18 +878,18 @@ Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI LOKACIJU</button>
   <div class="ft">
     <div>
       <a class="brand" href="#home"><b>KB</b><span>KALAC BRDO</span></a>
-      <p>Originalni open-world projekat inspirisan lokalnim mestima i prirodom.</p>
+      <p>Originalna avantura slobodnog sveta, nastala iz lokalnih priča i prirode.</p>
     </div>
     <ul aria-label="Linkovi">
       <li><a href="#home">Početna</a></li><li><a href="#about">O igri</a></li><li><a href="#locations">Lokacije</a></li>
-      <li><a href="#creator">Kreator</a></li><li><a href="#dev">Razvoj</a></li><li><a href="#game">Igra</a></li>
+      <li><a href="#creator">Autor</a></li><li><a href="#dev">Razvoj</a></li><li><a href="#game">Igra</a></li>
     </ul>
     <!-- ★★★ OVDE DODAJEM LINKOVE DRUŠTVENIH MREŽA (zameni href="#") ★★★ -->
     <ul aria-label="Društvene mreže">
       <li><a href="#">Instagram (uskoro)</a></li><li><a href="#">YouTube (uskoro)</a></li><li><a href="#">TikTok (uskoro)</a></li>
     </ul>
   </div>
-  <div class="cp"><span>© 2026 Kalac Brdo. Sva prava zadržana.</span><span>Kreirao Andrej Pejčić.</span></div>
+  <div class="cp"><span>© 2026 Kalač brdo. Sva prava zadržana.</span><span>Autor: Andrej Pejčić.</span></div>
 </footer>
 
 <button class="top" type="button" aria-label="Nazad na vrh"><svg class="ic"><use href="#i-up"/></svg></button>
@@ -674,8 +898,8 @@ Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI LOKACIJU</button>
   <canvas id="gc"></canvas>
   <div id="gh"><b id="gt">Kalač brdo</b><span id="go"></span></div>
   <button id="gx" type="button" aria-label="Zatvori igru">&times;</button>
-  <div id="gq"><button id="bq" type="button">GRAFIKA: SREDNJE</button><button id="bs" type="button">SEZONA: LETO</button></div><canvas id="mm" width="130" height="92"></canvas><div id="kh" hidden></div>
-  <div id="deviceSetup" aria-modal="true" role="dialog">
+  <div id="gq"><button id="bq" type="button">GRAFIKA: SREDNJE</button><button id="bs" type="button">SEZONA: LETO</button></div><canvas id="mm" width="130" height="92"></canvas><button id="mapOpen" type="button">MAPA</button><div id="kh" hidden></div>
+  <div id="fullMap" hidden><div id="mapCard"><div id="mapHead"><strong>MAPA KALAČ BRDA</strong><span id="mapLegend">Зелено = Андреј · бело = Пера · црвено = пси · златно = локације</span><button id="mapClose" type="button">&times;</button></div><canvas id="fullMapCanvas"></canvas></div></div><div id="deviceSetup" aria-modal="true" role="dialog">
     <div class="device-glow"></div>
     <div class="device-card">
       <div class="device-badge"><span>KB</span></div>
@@ -691,7 +915,7 @@ Savet: ako se zujanje pojača, kreni nazad.">ISTRAŽI LOKACIJU</button>
     </div>
   </div>
   <div id="dv" hidden><div>На чему играш?<br><button data-d="pc">PC</button><button data-d="an">ANDROID</button><button data-d="ip">IPHONE</button></div></div><div id="st"><i></i></div>
-  <div id="gb"><button id="bC" type="button" hidden>MENJAJ</button><button id="bB" type="button" hidden>PAS</button><button id="bA" type="button" hidden>ŠУТ</button></div><button id="touchRun" type="button">ТРЧИ</button><button id="deviceSwitch" type="button">КОНТРОЛЕ</button>
+  <div id="gb"><button id="bC" type="button" hidden>MENJAJ</button><button id="bB" type="button" hidden>PAS</button><button id="bA" type="button" hidden>ŠУТ</button></div><button id="touchRun" type="button">ТРЧИ</button><button id="deviceSwitch" type="button">КОНТРОЛЕ</button><button id="restartTouch" type="button">ПОНОВО ПОКРЕНИ</button><div id="gameOverOverlay"><div class="game-over-card"><div class="skull">🐾</div><h2>КЕР ГЛУПИ ТЕ ЈЕ СТИГАО</h2><p>Пера: „Рекао сам ти да не окрећеш леђа...“</p><div class="joke">ОВОГ ПУТА КРЕЋЕШ ИЗНОВА.</div></div></div>
 </div>
 
 <!-- MODAL / LIGHTBOX (koriste ga lokacije, TIS i galerija) -->
@@ -761,11 +985,12 @@ onScroll();
 topBtn.addEventListener('click', () => scrollTo({ top: 0, behavior: rm ? 'auto' : 'smooth' }));
 
 /* 4. Reveal pri skrolovanju (IntersectionObserver) + stagger */
-$$('.stg').forEach(c => $$('.rv', c).forEach((e, i) => e.style.setProperty('--d', (i * 0.12 + (c.classList.contains('hero-in') ? 1.5 : 0)) + 's')));
+$$('.stg').forEach(c => $$('.rv', c).forEach((e, i) => e.style.setProperty('--d', (i * 0.12 + (c.classList.contains('hero-in') ? .3 : 0)) + 's')));
 const io = new IntersectionObserver((es, o) => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add('in'); o.unobserve(e.target); }
 }), { threshold: 0.15 });
-$$('.rv').forEach(e => io.observe(e));
+const revealAll = () => $$('.rv').forEach(e => io.observe(e));
+(window.klReady ? window.klReady.then(revealAll) : revealAll());
 
 /* 5. Aktivan link trenutne sekcije */
 const links = $$('nav a:not(.btn)');
@@ -901,7 +1126,7 @@ function roadDistance(x,y){let best=1e9;for(const r of roads)for(let i=1;i<r.pts
 const trees=[],houses=[],collisions=[],props=[];
 function addRect(x,y,w,h,kind='obstacle'){collisions.push({x,y,w,h,kind})}
 function addCircle(x,y,r,kind='tree'){collisions.push({x:x-r,y:y-r,w:r*2,h:r*2,kind})}
-function addHouse(x,y,w,h,color,type='house'){houses.push({x,y,w,h,color,type});if(type!=='church')addRect(x-18,y-16,w+36,h+34,'house')}
+function addHouse(x,y,w,h,color,type='house'){let nx=x,ny=y;if(type!=='church'){const minClear=Math.max(72,Math.min(w,h)*.58);for(let i=0;i<10&&roadDistance(nx+w/2,ny+h/2)<=minClear;i++){if(i%2===0)nx+=120;else ny+=120;}}houses.push({x:nx,y:ny,w,h,color,type});if(type!=='church')addRect(nx-18,ny-16,w+36,h+34,'house')}
 function generateWorld(){
  if(built)return;
  /* klupa + crkva + provalija */
@@ -946,7 +1171,7 @@ function moveEntity(e,dx,dy,r){let nx=e.x+dx;if(!collides(nx,e.y,r))e.x=nx;let n
 
 /* ---------------- igrač + Pera ---------------- */
 const player={x:400,y:3600,r:16,angle:0,health:100,stamina:100,step:0,moving:false,hasRepeller:false};
-const pera={x:490,y:3650,r:15,angle:0,step:0,energy:100,slow:128,voiceTimer:3.2};
+const pera={x:490,y:3650,r:15,angle:0,step:0,energy:100,slow:205,voiceTimer:3.2};
 const repeller={x:POI.repeller.x,y:POI.repeller.y,taken:false,cool:0};
 const ghosts=[];
 const hauntedPhotoImg=new Image();
@@ -976,7 +1201,7 @@ const chatter=[
  'Pera: Nemoj da me ostavljaš. Ja jesam spor, ali mogu da dam maksimum... prvih pet sekundi.',
  'Pera: Ako preživimo ovo, idemo na teren. To bar ima loptu umesto šest nogu i lošu nameru.'
 ];
-function spawnDogs(){if(dogsStarted)return;dogsStarted=true;const spots=[[760,3200],[1120,2800],[1850,2600],[3080,1650],[4490,1260],[5000,2700],[4300,2080],[5400,3200]];spots.forEach((s,i)=>{const bp=dogBlueprints[i%dogBlueprints.length];dogs.push({x:s[0],y:s[1],homeX:s[0],homeY:s[1],r:13*bp.size,size:bp.size,kind:bp.kind,color:bp.color,dark:bp.dark,variant:i%4,state:'idle',dir:rand()*Math.PI*2,speed:0,roam:rand()*4,repelled:0,bark:0,target:'player',fear:0,name:['Buca','Rile','Šapa','Žuća','Crni','Maza','Džeki','Grom'][i]});});}
+function spawnDogs(){if(dogsStarted)return;dogsStarted=true;const spots=[[760,3200],[1120,2800],[1850,2600],[3080,1650],[4490,1260],[5000,2700],[4300,2080],[5400,3200]];spots.forEach((s,i)=>{const bp=dogBlueprints[i%dogBlueprints.length];dogs.push({x:s[0],y:s[1],homeX:s[0],homeY:s[1],r:13*bp.size,size:bp.size,kind:bp.kind,color:bp.color,dark:bp.dark,variant:(i+bp.kind.length)%6,state:'idle',dir:rand()*Math.PI*2,speed:0,roam:rand()*4,repelled:0,bark:0,target:'player',fear:0,name:['Buca','Rile','Šapa','Žuća','Crni','Maza','Džeki','Grom'][i]});});}
 function triggerDogs(){spawnDogs();}
 function repellerSuccess(){return Math.random()<0.35}
 function useRepeller(){
@@ -994,13 +1219,13 @@ function useRepeller(){
 function spawnGhosts(){ghosts.length=0;for(let i=0;i<5;i++)ghosts.push({x:2240+rand()*260,y:760+rand()*240,r:16,speed:135+rand()*35,a:rand()*6});}
 function openHaunted(){ghostHouse.opened=true;ghostHouse.active=true;ghostHouse.inside=true;spawnGhosts();notify('Врата шкрипе. NE ULAZI... Касно. Duhovi су те видели.');beep(110,.45,.05,'sawtooth')}
 function updateGhosts(dt){if(!ghostHouse.inside){ghostHouse.active=false;ghosts.length=0;return;}player.health=clamp(player.health-4.2*dt,0,100);shake=Math.max(shake,1.8+Math.sin(T*17)*1.2);for(const g of ghosts){const a=Math.atan2(player.y-g.y,player.x-g.x)+Math.sin(T*2+g.a)*.18;moveEntity(g,Math.cos(a)*g.speed*dt,Math.sin(a)*g.speed*dt,12);if(dist(g,player)<32){player.health=clamp(player.health-10*dt,0,100);shake=Math.max(shake,4)}}}
-function updatePera(dt){const d=dist(pera,player);if(d>115){const a=Math.atan2(player.y-pera.y,player.x-pera.x);const sp=pera.slow*(d>240?.72:1);moveEntity(pera,Math.cos(a)*sp*dt,Math.sin(a)*sp*dt,pera.r);pera.angle=a;pera.moving=true;pera.step+=dt*sp*.055;}else{pera.moving=false;pera.step+=dt*2.4;}pera.energy=clamp(pera.energy+(pera.moving?-18:25)*dt,0,100);if(d>480){/* namerno ne teleportujemo Peru — spor je i može da zaostane */}}
-function chooseDogTarget(d){const dp=dist(d,player),dq=dist(d,pera);d.target=dq+35<dp?'pera':'player'}
+function updatePera(dt){const d=dist(pera,player);const hunted=dogs.some(g=>dist(g,pera)<430);if(d>98){const a=Math.atan2(player.y-pera.y,player.x-pera.x);const sp=hunted?292:pera.slow;moveEntity(pera,Math.cos(a)*sp*dt,Math.sin(a)*sp*dt,pera.r);pera.angle=a;pera.moving=true;pera.step+=dt*sp*.055;}else{pera.moving=false;pera.step+=dt*2.4;}pera.energy=clamp(pera.energy+(pera.moving?-24:28)*dt,0,100);}
+function chooseDogTarget(d){const dp=dist(d,player),dq=dist(d,pera);if(d.variant%2===0&&dq<650)d.target='pera';else d.target=dq+35<dp?'pera':'player'}
 function updateDogs(dt){
  for(const d of dogs){
   const dp=dist(d,player),dq=dist(d,pera);chooseDogTarget(d);const target=d.target==='pera'?pera:player,dd=d.target==='pera'?dq:dp;
   if(d.fear>0){d.fear-=dt;d.state='flee';const away=Math.atan2(d.y-player.y,d.x-player.x);d.dir=away;moveEntity(d,Math.cos(away)*(185*d.size)*dt,Math.sin(away)*(185*d.size)*dt,10);continue}
-  if(dd<460){d.state='attack';d.dir=Math.atan2(target.y-d.y,target.x-d.x);d.speed=dq<dp?104:118;if(dd<180)d.speed=145;moveEntity(d,Math.cos(d.dir)*d.speed*dt,Math.sin(d.dir)*d.speed*dt,10);d.bark-=dt;if(d.bark<=0){d.bark=1.2+rand()*1.6;notify(d.name+': '+pick(['VAU!','AV!','GRRR!']));beep(155+rand()*120,.08,.03,'square');}if(dd<36&&target===player){player.health=clamp(player.health-32*dt,0,100);shake=Math.max(shake,5)}
+  if(dd<460){d.state='attack';d.dir=Math.atan2(target.y-d.y,target.x-d.x);d.speed=dq<dp?104:118;if(dd<180)d.speed=145;moveEntity(d,Math.cos(d.dir)*d.speed*dt,Math.sin(d.dir)*d.speed*dt,10);d.bark-=dt;if(d.bark<=0){d.bark=1.2+rand()*1.6;notify(d.name+': '+pick(['VAU!','AV!','GRRR!']));bark(dd);}if(dd<36&&target===player){player.health=clamp(player.health-32*dt,0,100);shake=Math.max(shake,5)}
   }else{d.state='idle';d.roam-=dt;if(d.roam<=0){d.roam=2+rand()*4;d.dir=rand()*Math.PI*2;}if(d2(d.x,d.y,d.homeX,d.homeY)>170)d.dir=Math.atan2(d.homeY-d.y,d.homeX-d.x);moveEntity(d,Math.cos(d.dir)*34*dt,Math.sin(d.dir)*34*dt,9);}
  }
 }
@@ -1022,59 +1247,16 @@ function interact(){
 /* ---------------- crtanje sveta ---------------- */
 function road(ctx,pts,w){ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#2b2925';ctx.lineWidth=w+18;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke();ctx.strokeStyle='#777066';ctx.lineWidth=w;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke();ctx.strokeStyle='rgba(240,235,225,.14)';ctx.lineWidth=2;ctx.setLineDash([32,30]);ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke();ctx.setLineDash([])}
 function drawTree(ctx,t){const s=t.r/13;ctx.save();ctx.translate(t.x,t.y);ctx.rotate(Math.sin(t.seed*30)*.05);ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(5,10,20*s,8*s,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#5a3e28';ctx.fillRect(-4,-2,8,22*s);if(t.kind==='pine'){ctx.fillStyle=t.variant===0?'#12351d':t.variant===1?'#174524':'#1d5130';for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(0,-46*s+i*14*s);ctx.lineTo(-22*s,-15*s+i*11*s);ctx.lineTo(22*s,-15*s+i*11*s);ctx.closePath();ctx.fill();}}else{const cols=t.variant===0?['#1e4b28','#2f6735','#3a7a3e']:t.variant===1?['#173d22','#24532b','#336c37']:['#244e28','#2d5d31','#3a7137'];for(let i=0;i<4;i++){ctx.fillStyle=cols[i%3];ctx.beginPath();ctx.arc((i%2?7:-7)*s,-22*s-(i===3?10:0),(15+(i===2?4:0))*s,0,Math.PI*2);ctx.fill();}}ctx.restore()}
-function drawHouse(ctx,h){ctx.fillStyle='rgba(0,0,0,.28)';ctx.fillRect(h.x+9,h.y+12,h.w,h.h);ctx.fillStyle=h.color;ctx.fillRect(h.x,h.y+24,h.w,h.h-24);ctx.fillStyle=h.type==='church'?'#c7c0af':'#6b4b3f';ctx.beginPath();ctx.moveTo(h.x-12,h.y+29);ctx.lineTo(h.x+h.w/2,h.y-32);ctx.lineTo(h.x+h.w+12,h.y+29);ctx.closePath();ctx.fill();if(h.type==='church'){ctx.fillStyle='#3c382f';ctx.fillRect(h.x+h.w*.42,h.y+48,24,52);ctx.fillStyle='#d8d0be';ctx.fillRect(h.x+h.w*.46,h.y+8,16,38);ctx.fillRect(h.x+h.w*.39,h.y+15,30,7);}else{ctx.fillStyle='#27312c';ctx.fillRect(h.x+26,h.y+45,26,20);ctx.fillRect(h.x+h.w-53,h.y+45,26,20);ctx.fillStyle='#4a3229';ctx.fillRect(h.x+h.w/2-13,h.y+h.h-42,26,42)}}
+function drawHouse(ctx,h){const x=h.x,y=h.y,w=h.w,hg=h.h;ctx.save();ctx.fillStyle='rgba(0,0,0,.28)';ctx.fillRect(x+10,y+14,w,hg);ctx.fillStyle='rgba(224,213,188,.18)';ctx.fillRect(x-15,y+hg-3,w+30,18);ctx.strokeStyle='rgba(218,204,175,.42)';ctx.lineWidth=2;ctx.setLineDash([7,7]);ctx.strokeRect(x-18,y+hg-9,w+36,22);ctx.setLineDash([]);ctx.fillStyle=h.color;ctx.fillRect(x,y+23,w,hg-23);const roof=h.type==='church'?'#aaa395':(h.color==='#b5747e'?'#733f49':h.color==='#dadcd5'?'#69716e':'#68483b');ctx.fillStyle=roof;ctx.beginPath();ctx.moveTo(x-16,y+28);ctx.lineTo(x+w/2,y-40);ctx.lineTo(x+w+16,y+28);ctx.closePath();ctx.fill();ctx.fillStyle='rgba(255,255,255,.09)';ctx.beginPath();ctx.moveTo(x+w/2,y-35);ctx.lineTo(x+w+12,y+25);ctx.lineTo(x+w/2+7,y+25);ctx.closePath();ctx.fill();if(h.type==='church'){ctx.fillStyle='#403b35';ctx.fillRect(x+w*.42,y+48,Math.max(22,w*.18),hg-48);ctx.fillStyle='#ddd2ad';ctx.fillRect(x+w*.46,y+8,12,37);ctx.fillRect(x+w*.39,y+16,28,7);}else{for(const q of [x+20,x+w-53]){ctx.fillStyle='#21302a';ctx.fillRect(q,y+43,32,24);ctx.fillStyle='#cfd8d0';ctx.fillRect(q+3,y+46,26,18);ctx.fillStyle='#5b5a4f';ctx.fillRect(q+14,y+43,2,24);ctx.fillRect(q,y+53,32,2);}ctx.fillStyle='#4d342b';ctx.fillRect(x+w/2-15,y+hg-44,30,44);ctx.fillStyle='#d8a83d';ctx.beginPath();ctx.arc(x+w/2+8,y+hg-21,2.2,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#4e534e';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x+w-5,y+28);ctx.lineTo(x+w-5,y+hg-6);ctx.stroke();}ctx.restore();}
 function drawBench(ctx){const x=POI.bench.x,y=POI.bench.y;ctx.fillStyle='rgba(0,0,0,.25)';ctx.fillRect(x-28,y+14,76,12);ctx.fillStyle='#5d452f';ctx.fillRect(x-20,y+10,7,34);ctx.fillRect(x+30,y+10,7,34);ctx.fillStyle='#bdac89';ctx.fillRect(x-32,y,76,13)}
 function drawSign(ctx,p){ctx.fillStyle='#5a442d';ctx.fillRect(p.x-2,p.y,4,28);ctx.fillStyle='#d8d0b9';ctx.fillRect(p.x-70,p.y-22,140,27);ctx.fillStyle='#251e17';ctx.font='700 10px Inter';ctx.textAlign='center';ctx.fillText(p.text,p.x,p.y-4)}
 function drawWarning(ctx,p){ctx.fillStyle='#4c3928';ctx.fillRect(p.x-2,p.y,4,30);ctx.fillStyle='#3a120e';ctx.beginPath();ctx.moveTo(p.x-72,p.y-24);ctx.lineTo(p.x+72,p.y-24);ctx.lineTo(p.x+59,p.y+20);ctx.lineTo(p.x-59,p.y+20);ctx.closePath();ctx.fill();ctx.strokeStyle='#d84857';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle='#ffe9e3';ctx.font='800 16px Oswald';ctx.textAlign='center';ctx.fillText(p.text,p.x,p.y+1);ctx.font='700 10px Inter';ctx.fillText('ДУХОВИ',p.x,p.y+15);}
 function drawHauntedPhoto(ctx){const x=2340,y=885,w=150,h=86;ctx.fillStyle='rgba(0,0,0,.8)';ctx.fillRect(x-16,y-16,182,118);ctx.fillStyle='#251d18';ctx.fillRect(x-10,y-10,170,106);ctx.strokeStyle='#d8a83d';ctx.lineWidth=5;ctx.strokeRect(x,y,w,h);ctx.fillStyle='#182019';ctx.fillRect(x+4,y+4,w-8,h-8);if(hauntedPhotoImg.complete&&hauntedPhotoImg.naturalWidth){ctx.drawImage(hauntedPhotoImg,x+10,y+10,52,h-20);}else{ctx.fillStyle='#2f8c4f';ctx.fillRect(x+12,y+12,48,h-24);}drawPerson(ctx,{x:x+100,y:y+64,angle:0,step:T*2,moving:false,body:'#777b80',pants:'#263039',hair:'#2d2a29',jacket:true,s:.72});ctx.fillStyle='#f5f0e8';ctx.font='700 9px Inter';ctx.textAlign='center';ctx.fillText('АНДРЕЈ + ПЕРА',x+w/2,y+h-5);}
-function drawMap(ctx,camX,camY,scale){
- const bg=season===3?'#142019':season===2?'#1f3a23':season===0?'#1d3e23':'#193620';ctx.fillStyle=bg;const vx=camX-W/(2*scale)-220,vy=camY-H/(2*scale)-220,vw=W/scale+440,vh=H/scale+440;ctx.fillRect(vx,vy,vw,vh);
- for(let i=0;i<65;i++){const px=250+(i*853)%5400,py=280+(i*491)%4000;if(px<vx-300||px>vx+vw+300||py<vy-300||py>vy+vh+300)continue;ctx.fillStyle=`rgba(${25+(i%3)*8},${60+(i%4)*4},${31+(i%2)*5},.16)`;ctx.beginPath();ctx.arc(px,py,110+(i%5)*70,0,Math.PI*2);ctx.fill();}
- branches.forEach(p=>road(ctx,p,62));roads.forEach(r=>road(ctx,r.pts,r.w));
- houses.forEach(h=>{if(h.x+h.w>vx&&h.x<vx+vw&&h.y+h.h>vy&&h.y<vy+vh)drawHouse(ctx,h);});
- const treeStride=quality===0?3:(quality===1&&deviceMode!=='pc'?2:1);for(let i=0;i<trees.length;i+=treeStride){const t=trees[i];if(t.x>vx-80&&t.x<vx+vw+80&&t.y>vy-80&&t.y<vy+vh+80)drawTree(ctx,t);}
- props.filter(p=>p.type==='bench'||p.type==='sign'||p.type==='warning').forEach(p=>{if(p.type==='bench')drawBench(ctx);else if(p.type==='warning')drawWarning(ctx,p);else drawSign(ctx,p);});
- drawHauntedPhoto(ctx);
- ctx.fillStyle='#15110e';ctx.fillRect(1420,3135,850,520);ctx.fillStyle='#33241c';for(let i=0;i<46;i++){ctx.beginPath();ctx.moveTo(1420+i*20,3135);ctx.lineTo(1432+i*20,3655);ctx.lineTo(1446+i*20,3655);ctx.fill();}
- ctx.strokeStyle='rgba(220,210,180,.18)';ctx.lineWidth=2;ctx.setLineDash([8,8]);ctx.strokeRect(1440,3110,150,90);ctx.setLineDash([]);
- const labs=[[POI.church.x,POI.church.y-55,'CRKVA'],[POI.haunted.x+95,POI.haunted.y-55,'UKLETA KUĆA'],[POI.field.x,POI.field.y-65,'GRBAVSKO']];labs.forEach(a=>{ctx.fillStyle='#d8a83d';ctx.font='700 14px Oswald';ctx.textAlign='center';ctx.fillText(a[2],a[0],a[1])});
- if(!repeller.taken){ctx.fillStyle='#56595e';ctx.strokeStyle='#a8b0b7';ctx.lineWidth=2;ctx.fillRect(repeller.x-24,repeller.y-10,48,20);ctx.strokeRect(repeller.x-24,repeller.y-10,48,20);ctx.fillStyle='#55d67b';ctx.fillRect(repeller.x-14,repeller.y-5,12,5);}
-}
+function drawMap(ctx,camX,camY,scale){const bg=season===3?'#142019':season===2?'#1f3a23':season===0?'#1d3e23':'#193620';const vx=camX-W/(2*scale)-220,vy=camY-H/(2*scale)-220,vw=W/scale+440,vh=H/scale+440;ctx.fillStyle=bg;ctx.fillRect(vx,vy,vw,vh);for(let i=0;i<70;i++){const px=250+(i*853)%5400,py=280+(i*491)%4000;if(px<vx-300||px>vx+vw+300||py<vy-300||py>vy+vh+300)continue;ctx.fillStyle=`rgba(${25+(i%3)*8},${60+(i%4)*4},${31+(i%2)*5},.16)`;ctx.beginPath();ctx.arc(px,py,110+(i%5)*70,0,Math.PI*2);ctx.fill();}branches.forEach(p=>road(ctx,p,62));roads.forEach(r=>road(ctx,r.pts,r.w));const fx=POI.field.x-220,fy=POI.field.y-135,fw=440,fh=270;ctx.fillStyle='#2f7438';ctx.fillRect(fx,fy,fw,fh);ctx.strokeStyle='#edf0e8';ctx.lineWidth=4;ctx.strokeRect(fx,fy,fw,fh);ctx.beginPath();ctx.moveTo(fx+fw/2,fy);ctx.lineTo(fx+fw/2,fy+fh);ctx.stroke();ctx.beginPath();ctx.arc(fx+fw/2,fy+fh/2,40,0,Math.PI*2);ctx.stroke();ctx.strokeRect(fx,fy+72,68,126);ctx.strokeRect(fx+fw-68,fy+72,68,126);houses.forEach(h=>{if(h.x+h.w>vx&&h.x<vx+vw&&h.y+h.h>vy&&h.y<vy+vh)drawHouse(ctx,h);});const treeStride=quality===0?4:(quality===1&&deviceMode!=='pc'?3:1);for(let i=0;i<trees.length;i+=treeStride){const t=trees[i];if(t.x>vx-90&&t.x<vx+vw+90&&t.y>vy-90&&t.y<vy+vh+90)drawTree(ctx,t);}props.filter(p=>p.type==='bench'||p.type==='sign'||p.type==='warning').forEach(p=>p.type==='bench'?drawBench(ctx):p.type==='warning'?drawWarning(ctx,p):drawSign(ctx,p));drawHauntedPhoto(ctx);ctx.fillStyle='#14100e';ctx.fillRect(1420,3135,850,520);ctx.strokeStyle='rgba(220,210,180,.16)';ctx.lineWidth=2;for(let i=0;i<34;i++){ctx.beginPath();ctx.moveTo(1420+i*26,3135);ctx.lineTo(1442+i*26,3655);ctx.stroke();}ctx.fillStyle='#d8a83d';ctx.font='700 14px Oswald';ctx.textAlign='center';ctx.fillText('CRKVA',POI.church.x,POI.church.y-55);ctx.fillText('UKLETA KUĆA',POI.haunted.x+95,POI.haunted.y-58);ctx.fillText('GRBAVSKO · TEREN',POI.field.x,POI.field.y-155);if(!repeller.taken){ctx.fillStyle='#4f565c';ctx.fillRect(repeller.x-25,repeller.y-12,50,24);ctx.strokeStyle='#c4c9cb';ctx.lineWidth=2;ctx.strokeRect(repeller.x-25,repeller.y-12,50,24);ctx.fillStyle='#55d67b';ctx.fillRect(repeller.x-15,repeller.y-6,14,4);}}
 
 /* -------- likovi / psi -------- */
-function drawPerson(ctx,o){
- const s=o.s||1,x=o.x,y=o.y,phase=o.step||0,moving=o.moving!==false;ctx.save();ctx.translate(x,y);ctx.rotate(o.angle||0);
- const leg=Math.sin(phase)*6*s,arm=Math.sin(phase+Math.PI)*5*s;
- ctx.fillStyle='rgba(0,0,0,.28)';ctx.beginPath();ctx.ellipse(0,12,14*s,6*s,0,0,Math.PI*2);ctx.fill();
- /* noge */
- ctx.strokeStyle='#15181b';ctx.lineWidth=5*s;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-4*s,10*s);ctx.lineTo(-7*s+leg,25*s);ctx.moveTo(4*s,10*s);ctx.lineTo(7*s-leg,25*s);ctx.stroke();
- /* patike */ctx.strokeStyle='#d9dedf';ctx.lineWidth=4*s;ctx.beginPath();ctx.moveTo(-8*s+leg,25*s);ctx.lineTo(-1*s+leg,25*s);ctx.moveTo(4*s-leg,25*s);ctx.lineTo(11*s-leg,25*s);ctx.stroke();
- /* telo */ctx.fillStyle=o.body;ctx.beginPath();ctx.roundRect(-10*s,-10*s,20*s,25*s,6*s);ctx.fill();
- /* ruke */ctx.strokeStyle=o.skin||'#d5a17e';ctx.lineWidth=5*s;ctx.beginPath();ctx.moveTo(-9*s,-5*s);ctx.lineTo(-15*s,6*s+arm);ctx.moveTo(9*s,-5*s);ctx.lineTo(15*s,6*s-arm);ctx.stroke();
- /* glava */ctx.fillStyle=o.skin||'#d5a17e';ctx.beginPath();ctx.arc(0,-21*s,8*s,0,Math.PI*2);ctx.fill();ctx.fillStyle=o.hair||'#181515';ctx.beginPath();ctx.arc(-1*s,-24*s,8*s,Math.PI,0);ctx.fill();
- /* lice */ctx.fillStyle='#171717';ctx.beginPath();ctx.arc(3*s,-20*s,1*s,0,Math.PI*2);ctx.fill();
- if(o.jacket){ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1.5*s;ctx.beginPath();ctx.moveTo(0,-9*s);ctx.lineTo(0,14*s);ctx.stroke();}
- if(o.item){/* pravougaoni rasterivač u ruci */ctx.save();ctx.translate(15*s,6*s-arm);ctx.rotate(-0.15);ctx.fillStyle='#4c5055';ctx.strokeStyle='#c0c5c8';ctx.lineWidth=1*s;ctx.fillRect(0,-7*s,24*s,12*s);ctx.strokeRect(0,-7*s,24*s,12*s);ctx.fillStyle='#55d67b';ctx.fillRect(4*s,-4*s,8*s,3*s);ctx.restore();}
- if(o.name){ctx.restore();ctx.save();ctx.translate(x,y);ctx.font='700 11px Inter';ctx.textAlign='center';ctx.fillStyle=o.nameColor||'#fff';ctx.strokeStyle='#000';ctx.lineWidth=3;ctx.strokeText(o.name,0,-42*s);ctx.fillText(o.name,0,-42*s);ctx.restore();}else ctx.restore();
-}
-function drawDog(ctx,d){
- const s=d.size||1,walk=Math.sin(T*7+d.x*.01)*5*s;ctx.save();ctx.translate(d.x,d.y);ctx.rotate(d.dir);
- ctx.fillStyle='rgba(0,0,0,.28)';ctx.beginPath();ctx.ellipse(3,9,19*s,7*s,0,0,Math.PI*2);ctx.fill();
- /* telo */ctx.fillStyle=d.color;ctx.beginPath();ctx.ellipse(0,0,22*s,11*s,0,0,Math.PI*2);ctx.fill();
- /* vrat + glava */ctx.beginPath();ctx.ellipse(18,-4,9*s,8*s,0,0,Math.PI*2);ctx.fill();
- /* uši različite po tipu */ctx.fillStyle=d.dark;ctx.beginPath();
- if(d.variant%3===0){ctx.moveTo(14,-10);ctx.lineTo(11,-23);ctx.lineTo(19,-15);}
- else if(d.variant%3===1){ctx.moveTo(20,-10);ctx.quadraticCurveTo(27,-18,29,-8);ctx.lineTo(25,-3);}
- else {ctx.moveTo(12,-9);ctx.lineTo(7,-17);ctx.lineTo(14,-14);}
- ctx.fill();
- /* njuška */ctx.fillStyle=d.color;ctx.beginPath();ctx.ellipse(26,0,7*s,5*s,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#151515';ctx.beginPath();ctx.arc(30,0,2.3*s,0,Math.PI*2);ctx.fill();
- /* oči */ctx.fillStyle=d.state==='attack'?'#ef4f4f':'#e9dfb7';ctx.beginPath();ctx.arc(22,-6,1.7*s,0,Math.PI*2);ctx.fill();
- /* rep */ctx.strokeStyle=d.color;ctx.lineWidth=4*s;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-18,0);ctx.quadraticCurveTo(-29,-9+walk,-34,-1);ctx.stroke();
- /* noge */ctx.strokeStyle=d.dark;ctx.lineWidth=4*s;ctx.beginPath();ctx.moveTo(-10,8);ctx.lineTo(-13,18+walk);ctx.moveTo(0,9);ctx.lineTo(-1,19-walk);ctx.moveTo(10,8);ctx.lineTo(12,18+walk);ctx.moveTo(17,7);ctx.lineTo(20,17-walk);ctx.stroke();
- if(d.state==='attack'){ctx.strokeStyle='#fff4ef';ctx.lineWidth=2*s;ctx.beginPath();ctx.moveTo(24,2);ctx.lineTo(30,3);ctx.stroke();}
- ctx.restore();
- /* ime psa samo blizu */if(d2(d.x,d.y,player.x,player.y)<170){ctx.font='600 9px Inter';ctx.textAlign='center';ctx.fillStyle='#eee';ctx.fillText(d.name,d.x,d.y-28*d.size);}
-}
+function drawPerson(ctx,o){const s=o.s||1,x=o.x,y=o.y,phase=o.step||0,leg=Math.sin(phase)*6*s,arm=Math.sin(phase+Math.PI)*4.5*s;ctx.save();ctx.translate(x,y);ctx.rotate(o.angle||0);ctx.fillStyle='rgba(0,0,0,.30)';ctx.beginPath();ctx.ellipse(0,15,17*s,7*s,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#151719';ctx.lineWidth=5*s;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-4*s,8*s);ctx.lineTo(-7*s+leg,24*s);ctx.moveTo(4*s,8*s);ctx.lineTo(7*s-leg,24*s);ctx.stroke();ctx.strokeStyle='#ecebe6';ctx.lineWidth=4*s;ctx.beginPath();ctx.moveTo(-8*s+leg,24*s);ctx.lineTo(-1*s+leg,24*s);ctx.moveTo(5*s-leg,24*s);ctx.lineTo(12*s-leg,24*s);ctx.stroke();ctx.fillStyle=o.body||'#2f8c4f';ctx.beginPath();ctx.roundRect(-11*s,-10*s,22*s,24*s,6*s);ctx.fill();ctx.fillStyle='rgba(255,255,255,.14)';ctx.fillRect(-8*s,-7*s,16*s,3*s);ctx.strokeStyle=o.skin||'#d7aa88';ctx.lineWidth=5*s;ctx.beginPath();ctx.moveTo(-9*s,-5*s);ctx.lineTo(-15*s,5*s+arm);ctx.moveTo(9*s,-5*s);ctx.lineTo(15*s,5*s-arm);ctx.stroke();ctx.fillStyle=o.skin||'#d7aa88';ctx.fillRect(-3*s,-15*s,6*s,7*s);ctx.beginPath();ctx.arc(0,-22*s,8.4*s,0,Math.PI*2);ctx.fill();ctx.fillStyle=o.hair||'#1b1615';ctx.beginPath();ctx.arc(-1*s,-25*s,8.6*s,Math.PI,Math.PI*2);ctx.fill();ctx.fillRect(-8*s,-26*s,5*s,5*s);ctx.fillStyle='#211a17';ctx.beginPath();ctx.arc(3*s,-21*s,1.1*s,0,Math.PI*2);ctx.fill();if(o.jacket){ctx.strokeStyle='rgba(255,255,255,.22)';ctx.lineWidth=1.5*s;ctx.beginPath();ctx.moveTo(0,-9*s);ctx.lineTo(0,13*s);ctx.stroke();ctx.fillStyle='rgba(0,0,0,.1)';ctx.fillRect(-10*s,2*s,20*s,4*s);}if(o.item){ctx.save();ctx.translate(14*s,4*s-arm);ctx.rotate(-.12);ctx.fillStyle='#4b5055';ctx.fillRect(0,-8*s,25*s,13*s);ctx.strokeStyle='#cbd0d2';ctx.lineWidth=1.2*s;ctx.strokeRect(0,-8*s,25*s,13*s);ctx.fillStyle='#55d67b';ctx.fillRect(4*s,-5*s,9*s,3*s);ctx.restore();}ctx.restore();if(o.name){ctx.save();ctx.font='700 11px Inter';ctx.textAlign='center';ctx.strokeStyle='#000';ctx.lineWidth=3;ctx.strokeText(o.name,x,y-43*s);ctx.fillStyle=o.nameColor||'#fff';ctx.fillText(o.name,x,y-43*s);ctx.restore();}}
+function drawDog(ctx,d){const s=d.size||1,step=Math.sin(T*8+d.x*.01)*4*s;ctx.save();ctx.translate(d.x,d.y);ctx.rotate(d.dir||0);ctx.fillStyle='rgba(0,0,0,.30)';ctx.beginPath();ctx.ellipse(2,10,20*s,7*s,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=d.color;ctx.beginPath();ctx.ellipse(0,0,22*s,12*s,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(17,-3,10*s,9*s,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(25,-4,9*s,8*s,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(32,0,7*s,5*s,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=d.dark;if(d.kind==='ovčar'||d.kind==='krupan crni pas'){ctx.beginPath();ctx.moveTo(20,-10);ctx.lineTo(16,-25);ctx.lineTo(25,-14);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(28,-10);ctx.lineTo(33,-24);ctx.lineTo(35,-10);ctx.closePath();ctx.fill();}else{ctx.beginPath();ctx.moveTo(20,-9);ctx.lineTo(16,-19);ctx.lineTo(25,-13);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(28,-9);ctx.lineTo(34,-18);ctx.lineTo(34,-8);ctx.closePath();ctx.fill();}if(d.variant%3===1){ctx.fillStyle='rgba(20,20,20,.30)';ctx.beginPath();ctx.ellipse(-6,1,8*s,5*s,0,0,Math.PI*2);ctx.fill();}if(d.variant%3===2){ctx.fillStyle='rgba(245,245,245,.65)';ctx.beginPath();ctx.ellipse(21,-3,3*s,5*s,0,0,Math.PI*2);ctx.fill();}ctx.fillStyle=d.state==='attack'?'#ff4d55':'#f2e7b7';ctx.beginPath();ctx.arc(28,-7,1.7*s,0,Math.PI*2);ctx.fill();ctx.fillStyle='#111';ctx.beginPath();ctx.arc(34,0,2.4*s,0,Math.PI*2);ctx.fill();ctx.strokeStyle=d.color;ctx.lineWidth=5*s;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-20,0);ctx.quadraticCurveTo(-31,-11+step,-38,-2);ctx.stroke();ctx.strokeStyle=d.dark;ctx.lineWidth=4*s;ctx.beginPath();ctx.moveTo(-11,8);ctx.lineTo(-14,20+step);ctx.moveTo(-1,9);ctx.lineTo(-2,20-step);ctx.moveTo(10,8);ctx.lineTo(11,20+step);ctx.moveTo(18,7);ctx.lineTo(21,19-step);ctx.stroke();ctx.fillStyle=d.dark;for(const px of [-14,-2,11,21]){ctx.beginPath();ctx.ellipse(px,20,3.2*s,2*s,0,0,Math.PI*2);ctx.fill();}ctx.restore();if(d2(d.x,d.y,player.x,player.y)<190){ctx.font='600 9px Inter';ctx.textAlign='center';ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.strokeText(d.name,d.x,d.y-31*d.size);ctx.fillStyle='#fff';ctx.fillText(d.name,d.x,d.y-31*d.size);}}
 function drawGhost(ctx,g){ctx.save();ctx.translate(g.x,g.y+Math.sin(T*4+g.a)*5);for(let k=3;k>0;k--){ctx.globalAlpha=(.10*k)/3;ctx.fillStyle='#cfe8ef';ctx.beginPath();ctx.arc(-k*4,0,20+k*3,0,Math.PI*2);ctx.fill();}ctx.globalAlpha=.8+.15*Math.sin(T*5+g.a);ctx.shadowColor='#bcecff';ctx.shadowBlur=18;ctx.fillStyle='#e2edf0';ctx.beginPath();ctx.moveTo(0,-26);ctx.quadraticCurveTo(24,-20,21,5);ctx.lineTo(11,22);ctx.lineTo(2,9);ctx.lineTo(-8,23);ctx.lineTo(-18,9);ctx.quadraticCurveTo(-24,-16,0,-26);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#1d2024';ctx.beginPath();ctx.arc(-7,-7,3.2,0,Math.PI*2);ctx.arc(7,-7,3.2,0,Math.PI*2);ctx.fill();ctx.fillStyle='#7d2630';ctx.beginPath();ctx.arc(-7,-7,1.2,0,Math.PI*2);ctx.arc(7,-7,1.2,0,Math.PI*2);ctx.fill();ctx.restore();}
 
 function updateWorld(dt){
@@ -1085,31 +1267,31 @@ function updateWorld(dt){
  player.stamina=clamp(player.stamina+(sprint&&moving?-30:22)*dt,0,100);
  updatePera(dt);if(player.x>800||player.y<3300)triggerDogs();updateDogs(dt);const insideHaunted=player.x>hauntedInterior.x&&player.x<hauntedInterior.x+hauntedInterior.w&&player.y>hauntedInterior.y&&player.y<hauntedInterior.y+hauntedInterior.h;if(insideHaunted&&!ghostHouse.inside)openHaunted();if(!insideHaunted&&ghostHouse.inside){ghostHouse.inside=false;ghostHouse.active=false;ghosts.length=0;notify('Izašao si. Duhovi су нестали. Пера: NIKAD više ne ulazimo tamo.');}if(ghostHouse.active)updateGhosts(dt);repeller.cool=Math.max(0,repeller.cool-dt);storyChatter(dt,moving);
  const z=findZone(player.x,player.y);if(z&&z.n!==zoneName){zoneName=z.n;notify(z.t);gt.textContent=z.n;}
- if(player.health<=0){gameOver=true;beep(80,.5,.08,'sawtooth');}
+ if(player.health<=0){player.health=0;gameOver=true;runButton=0;}
 }
 function drawWorld(){
- const z=Math.max(.75,Math.min(1.55,Math.min(W,H)/640)),sx=W/2-player.x*z,sy=H/2-player.y*z,ox=shake?(rand()-.5)*shake:0,oy=shake?(rand()-.5)*shake:0;
- c.setTransform(D*z,0,0,D*z,D*(sx+ox/z),D*(sy+oy/z));drawMap(c,player.x,player.y,z);
+ const z=Math.max(.75,Math.min(1.55,Math.min(W,H)/640)),sx=W/2-camX*z,sy=H/2-camY*z,ox=shake?(rand()-.5)*shake:0,oy=shake?(rand()-.5)*shake:0;
+ c.setTransform(D*z,0,0,D*z,D*(sx+ox/z),D*(sy+oy/z));drawMap(c,camX,camY,z);
  const entities=[];trees.filter(t=>d2(t.x,t.y,player.x,player.y)<800).forEach(t=>entities.push({y:t.y,f:()=>{}}));
- if(d2(pera.x,pera.y,player.x,player.y)<850)entities.push({y:pera.y,f:()=>drawPerson(c,{x:pera.x,y:pera.y,angle:pera.angle,step:pera.step,moving:pera.moving,body:'#777b80',pants:'#263039',hair:'#2d2a29',jacket:true,name:'Pera',nameColor:'#d7d7d7',s:1})});
- entities.push({y:player.y,f:()=>drawPerson(c,{x:player.x,y:player.y,angle:player.angle,step:player.step,moving:player.moving,body:'#2f8c4f',pants:'#202426',hair:'#181515',jacket:true,item:player.hasRepeller,name:'Andrej',nameColor:'#55d67b',s:1.04})});
+ if(d2(pera.x,pera.y,player.x,player.y)<850)entities.push({y:pera.y,f:()=>drawPerson(c,{x:pera.x,y:pera.y,angle:pera.angle,step:pera.step,moving:pera.moving,body:'#777b80',pants:'#263039',hair:'#2d2a29',jacket:true,name:'Pera',nameColor:'#d7d7d7',s:0.92})});
+ entities.push({y:player.y,f:()=>drawPerson(c,{x:player.x,y:player.y,angle:player.angle,step:player.step,moving:player.moving,body:'#2f8c4f',pants:'#202426',hair:'#181515',jacket:true,item:player.hasRepeller,name:'Andrej',nameColor:'#55d67b',s:0.98})});
  dogs.filter(d=>d2(d.x,d.y,player.x,player.y)<920).forEach(d=>entities.push({y:d.y,f:()=>drawDog(c,d)}));if(ghostHouse.active)ghosts.forEach(g=>entities.push({y:g.y,f:()=>drawGhost(c,g)}));entities.sort((a,b)=>a.y-b.y).forEach(e=>e.f());
  c.setTransform(D,0,0,D,0,0);const rg=c.createRadialGradient(W/2,H/2,70,W/2,H/2,Math.max(W,H)*.72);rg.addColorStop(0,'rgba(0,0,0,0)');rg.addColorStop(1,'rgba(0,0,0,.56)');c.fillStyle=rg;c.fillRect(0,0,W,H);
  c.fillStyle='rgba(0,0,0,.6)';c.fillRect(12,12,Math.min(650,W-24),96);c.fillStyle='#d8a83d';c.font='700 14px Oswald';c.fillText(gt.textContent||'KALAČ BRDO',28,36);c.fillStyle='#fff';c.font='500 12px Inter';c.fillText('Pera je sporiji i drži se iza tebe — ne ostavljaj ga pred psima.',28,58);c.fillStyle=player.hasRepeller?'#55d67b':'#b5b8ba';c.fillText(player.hasRepeller?('Rasterivač: '+(repeller.cool>0?'punjenje':'PODIGNI E = AKTIVIRAJ')):'Rasterivač: pronađi ga pored početnog puta',28,79);
  /* život i izdržljivost */c.fillStyle='#0009';c.fillRect(W-218,12,208,64);c.fillStyle='#4a151b';c.fillRect(W-204,28,184,12);c.fillStyle='#d84857';c.fillRect(W-204,28,184*player.health/100,12);c.fillStyle='#122416';c.fillRect(W-204,49,184,10);c.fillStyle='#55d67b';c.fillRect(W-204,49,184*player.stamina/100,10);c.fillStyle='#fff';c.font='10px Inter';c.fillText('ŽИВОТ',W-204,25);c.fillText('ИЗДРЖЉИВОСТ',W-204,46);
- drawMini();drawPrompt();
+ if((T*8|0)%2===0)drawMini();drawPrompt();
  if(ghostHouse.inside){c.fillStyle='rgba(75,10,18,.18)';c.fillRect(0,0,W,H);c.textAlign='center';c.fillStyle='#f2d8d8';c.font='800 14px Oswald';c.fillText('UKLETA KUĆA · ŽIVOT ПАДА ДОК СИ УНУТРА',W/2,24);c.fillStyle='#d8a83d';c.font='800 15px Oswald';c.fillText('IZAĐI NAPOLJE',W/2,H-55);c.fillStyle='#fff';c.font='600 11px Inter';c.fillText('Ne ostaj unutra.',W/2,H-35);c.textAlign='left';}
  if(gameOver)drawGameOver();
 }
 function drawPrompt(){let t='';const n=(x,y,r)=>d2(player.x,player.y,x,y)<r;if(gameOver)t='R — NOVI POKUŠAJ';else if(!repeller.taken&&n(repeller.x,repeller.y,90))t='E — UZMI RASTERIVAČ';else if(repeller.taken&&n(player.x+Math.cos(player.angle)*20,player.y+Math.sin(player.angle)*20,40)&&dogs.some(d=>dist(d,player)<430))t='E — AKTIVIRAJ RASTERIVAČ';else if(n(POI.haunted.x,POI.haunted.y,165)&&!ghostHouse.opened)t='E — OTVORI UKLETU KUĆU';else if(n(POI.field.x,POI.field.y,240))t='E — UĐI NA TEREN';else if(n(POI.bench.x,POI.bench.y,110))t='E — PREGLEDAJ KLUPU';if(t){c.font='700 14px Inter';const w=c.measureText(t).width+34;c.fillStyle='#000d';c.fillRect((W-w)/2,H-76,w,42);c.fillStyle='#fff';c.textAlign='center';c.fillText(t,W/2,H-49);c.textAlign='left';}}
-function drawGameOver(){c.fillStyle='rgba(8,7,7,.88)';c.fillRect(0,0,W,H);c.textAlign='center';c.fillStyle='#e04a55';c.font='800 48px Oswald';c.fillText('KER GLUPI TE JE STIGAO',W/2,H/2-76);c.fillStyle='#d9d6cc';c.font='700 20px Inter';c.fillText('Nije bilo pametno da mu se okreneš leđima.',W/2,H/2-38);c.font='70px serif';c.fillText('🐾',W/2,H/2+40);c.fillStyle='#fff';c.font='600 16px Inter';c.fillText('R — поново покрени авантуру',W/2,H/2+88);c.textAlign='left';}
+function drawGameOver(){return;c.fillStyle='rgba(8,7,7,.88)';c.fillRect(0,0,W,H);c.textAlign='center';c.fillStyle='#e04a55';c.font='800 48px Oswald';c.fillText('KER GLUPI TE JE STIGAO',W/2,H/2-76);c.fillStyle='#d9d6cc';c.font='700 20px Inter';c.fillText('Nije bilo pametno da mu se okreneš leđima.',W/2,H/2-38);c.font='70px serif';c.fillText('🐾',W/2,H/2+40);c.fillStyle='#fff';c.font='600 16px Inter';c.fillText('R — поново покрени авантуру',W/2,H/2+88);c.textAlign='left';}
 function drawMini(){const s=130/WW;mc.clearRect(0,0,130,92);mc.fillStyle='#102116';mc.fillRect(0,0,130,92);for(const r of roads){mc.strokeStyle='#71695d';mc.lineWidth=Math.max(1,r.w*s);mc.lineCap='round';mc.beginPath();r.pts.forEach((p,i)=>i?mc.lineTo(p[0]*s,p[1]*s):mc.moveTo(p[0]*s,p[1]*s));mc.stroke();}mc.fillStyle='#d8a83d';mc.fillRect(POI.church.x*s-2,POI.church.y*s-2,4,4);mc.fillStyle='#55d67b';mc.beginPath();mc.arc(player.x*s,player.y*s,3.5,0,Math.PI*2);mc.fill();mc.fillStyle='#ddd';mc.beginPath();mc.arc(pera.x*s,pera.y*s,2.5,0,Math.PI*2);mc.fill();mc.fillStyle='#ff4d59';dogs.slice(0,20).forEach(d=>{mc.fillRect(d.x*s-1,d.y*s-1,2,2)});}
 
 /* ---------------- фудбал ---------------- */
 let F=null;
 const goal={top:230,bottom:450,width:60};
 function enterFootball(){mode='football';initFootball();bA.hidden=false;bB.hidden=false;bC.hidden=false;bA.textContent='ŠUT';bB.textContent='PAS';bC.textContent='MENJAJ';gq.hidden=true;$('#mm').hidden=true;go.textContent='E = PAS · SPACE = ŠUT · Q = MENJAJ · ESC = ŠUMA';notify('Grbavsko. Sada dobijaš fudbalske komande.');}
-function exitFootball(){mode='world';F=null;bA.hidden=true;bB.hidden=true;bC.hidden=true;gq.hidden=false;$('#mm').hidden=false;go.textContent='';notify('Vraćate se u šumu. Pera: Ajde, dosta fudbala — psi nas čekaju.');}
+function exitFootball(){mode='world';F=null;bA.hidden=true;bB.hidden=true;bC.hidden=true;gq.hidden=false;$('#mm').hidden=false;mapOpen.style.display='block';go.textContent='';notify('Враћате се у шуму. Пера: Ајде, доста фудбала — пси нас чекају.');}
 function initFootball(){
  const A=['ANDREJ','KOSTA','ALEKSA','JOCA','NIKOLA'],B=['LAZAR','MIHAJLO','DULE','MARKO','PETAR'];
  const pos=[[300,340],[230,190],[240,490],[95,250],[40,340]];
@@ -1140,7 +1322,7 @@ function fUpdate(dt){
   if(!p.gk&&d2(p.x,p.y,b.x,b.y)<24&&Math.hypot(b.vx,b.vy)<350){b.owner=F.players.indexOf(p);b.vx=0;b.vy=0;if(p.team===0)F.active=F.players.indexOf(p);}
   if(p.gk&&d2(p.x,p.y,b.x,b.y)<34&&p.cd<=0){const out=p.team?Math.PI:0;kickFrom(p,out+(rand()-.5)*.2,540);}
  }
- if(b.owner!==null){const owner=F.players[b.owner];if(owner){const ang=Math.hypot(owner.vx,owner.vy)>5?Math.atan2(owner.vy,owner.vx):owner.team?Math.PI:0;b.x=owner.x+Math.cos(ang)*20;b.y=owner.y+Math.sin(ang)*20;}b.vx=owner?owner.vx*.15:0;b.vy=owner?owner.vy*.15:0;}else{b.x+=b.vx*dt;b.y+=b.vy*dt;b.vx*=Math.pow(.17,dt);b.vy*=Math.pow(.17,dt);}
+ if(b.owner!==null){const owner=F.players[b.owner];if(owner){const ang=Math.hypot(owner.vx,owner.vy)>5?Math.atan2(owner.vy,owner.vx):owner.team?Math.PI:0;b.x=owner.x+Math.cos(ang)*20;b.y=owner.y+Math.sin(ang)*20;}b.vx=owner?owner.vx*.15:0;b.vy=owner?owner.vy*.15:0;}else{b.x+=b.vx*dt;b.y+=b.vy*dt;b.vx*=Math.pow(.98,dt*60);b.vy*=Math.pow(.98,dt*60);}
  /* goal detection prvo */
  if(b.x<-8&&b.y>goal.top&&b.y<goal.bottom){scoreGoal(1);return;}
  if(b.x>FW+8&&b.y>goal.top&&b.y<goal.bottom){scoreGoal(0);return;}
@@ -1165,36 +1347,191 @@ function notify(t){const el=$('#kh');el.textContent=t;el.hidden=false;clearTimeo
 function beep(freq,d=.1,v=.04,type='sine'){if(!AC||!masterGain)return;const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=freq;g.gain.value=v;o.connect(g);g.connect(masterGain);o.start();o.stop(AC.currentTime+d)}
 function audio(){if(AC)return;try{AC=new(window.AudioContext||window.webkitAudioContext)();masterGain=AC.createGain();masterGain.gain.value=.045;masterGain.connect(AC.destination);}catch(e){}}
 function isTouchDevice(){return matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0;}
-function resize(){const mobile=isTouchDevice()||deviceMode==='android'||deviceMode==='iphone';const maxD=mobile?1.12:[.75,1,1.35,1.75][quality];D=Math.min(devicePixelRatio||1,maxD);W=Math.max(320,innerWidth);H=Math.max(280,innerHeight);cv.width=Math.floor(W*D);cv.height=Math.floor(H*D);c.imageSmoothingEnabled=true;c.imageSmoothingQuality=quality>1?'high':'medium';}
+function resize(){const mobile=isTouchDevice()||deviceMode==='android'||deviceMode==='iphone';const maxD=mobile?.95:[.75,1,1.35,1.7][quality];D=Math.min(devicePixelRatio||1,maxD);W=Math.max(320,innerWidth);H=Math.max(280,innerHeight);cv.width=Math.floor(W*D);cv.height=Math.floor(H*D);c.imageSmoothingEnabled=true;c.imageSmoothingQuality=quality>1?'high':'medium';}
 function resetControls(){bA.hidden=true;bB.hidden=true;bC.hidden=true;gq.hidden=false;$('#mm').hidden=false;}
 function applyDeviceUI(){const mobile=deviceMode==='android'||deviceMode==='iphone'||isTouchDevice();document.body.classList.toggle('kb-mobile',mobile);if($('#touchRun'))$('#touchRun').style.display=mobile?'block':'none';repBtn.style.display=mobile?'block':'none';intBtn.style.display=mobile?'block':'none';document.querySelectorAll('#deviceSetup .device-option').forEach(b=>b.classList.toggle('chosen',b.dataset.device===deviceMode));resize();}
-function startAfterDevice(choice){deviceMode=choice;setupOpen=false;$('#deviceSetup').hidden=true;applyDeviceUI();resize();audio();if(AC&&AC.state==='suspended')AC.resume();masterGain.gain.value=.045;run=1;gameOver=false;player.health=100;player.stamina=100;player.x=400;player.y=3600;pera.x=490;pera.y=3650;last=performance.now();gt.textContent='KALAČ BRDO';notify(choice==='pc'?'PC: WASD · SHIFT: трчање · E: интеракција · SPACE: шут · Q: промена играча':'Додирни џојстик за кретање. ТРЧИ је десно. Дугмад се појављују само кад треба.');requestAnimationFrame(loop);}
+function startAfterDevice(choice){deviceMode=choice;setupOpen=false;$('#deviceSetup').hidden=true;fullMap.hidden=true;applyDeviceUI();resize();audio();if(AC&&AC.state==='suspended')AC.resume();masterGain.gain.value=.045;run=1;gameOver=false;gameOverOverlay.classList.remove('show');restartTouch.classList.remove('show');player.health=100;player.stamina=100;player.x=400;player.y=3600;pera.x=490;pera.y=3650;last=performance.now();gt.textContent='КАЛАЧ БРДО';notify(choice==='pc'?'PC: WASD · SHIFT: трчање · E: интеракција · M: мапа':'Телефон: џојстик · ТРЧИ · MAPA · дугмад се појављују само кад треба.');requestAnimationFrame(loop);}
 function showDeviceSetup(){setupOpen=true;run=false;$('#deviceSetup').hidden=false;applyDeviceUI();}
 function open(){gm.hidden=false;document.documentElement.classList.add('lock');if(!built){generateWorld();built=true;}mode='world';resetControls();resize();audio();showDeviceSetup();}
-function close(){run=0;setupOpen=false;gm.hidden=true;document.documentElement.classList.remove('lock');document.body.classList.remove('kb-mobile');mode='world';F=null;resetControls();if(masterGain)masterGain.gain.value=0;}
-function restart(){gameOver=false;player.health=100;player.stamina=100;player.x=400;player.y=3600;pera.x=490;pera.y=3650;dogs.length=0;dogsStarted=false;repeller.taken=false;player.hasRepeller=false;repeller.cool=0;ghosts.length=0;ghostHouse.opened=false;ghostHouse.active=false;ghostHouse.inside=false;storyIndex=0;nextChatter=3;notify('Novi pokušaj. Пера: Ајде да овог пута не хранимо псе.');}
+function close(){run=0;setupOpen=false;fullMap.hidden=true;gameOverOverlay.classList.remove('show');restartTouch.classList.remove('show');gm.hidden=true;document.documentElement.classList.remove('lock');document.body.classList.remove('kb-mobile');mode='world';F=null;resetControls();if(masterGain)masterGain.gain.value=0;}
+function restart(){gameOver=false;player.health=100;player.stamina=100;player.x=400;player.y=3600;pera.x=490;pera.y=3650;dogs.length=0;dogsStarted=false;repeller.taken=false;player.hasRepeller=false;repeller.cool=0;ghosts.length=0;ghostHouse.opened=false;ghostHouse.active=false;ghostHouse.inside=false;storyIndex=0;nextChatter=3;gameOverOverlay.classList.remove('show');restartTouch.classList.remove('show');notify('Нови покушај. Пера: Ајде да овог пута не хранимо псе.');}
 document.querySelectorAll('#deviceSetup .device-option').forEach(btn=>btn.addEventListener('click',()=>startAfterDevice(btn.dataset.device)));
 $('#deviceSwitch').onclick=()=>showDeviceSetup();
-const touchRun=$('#touchRun');touchRun.onpointerdown=e=>{e.preventDefault();runButton=1;touchRun.setPointerCapture?.(e.pointerId)};touchRun.onpointerup=touchRun.onpointercancel=()=>{runButton=0};
-function loop(t){if(!run)return;const dt=Math.min(.045,(t-last)/1000||0);last=t;T+=dt;shake=Math.max(0,shake-dt*18);if(mode==='world')updateWorld(dt);else fUpdate(dt);if(mode==='world')drawWorld();else drawPitch();requestAnimationFrame(loop)}
+const touchRun=$("#touchRun");const mapOpen=$("#mapOpen"),mapClose=$("#mapClose"),fullMap=$("#fullMap"),restartTouch=$("#restartTouch"),gameOverOverlay=$("#gameOverOverlay");
+touchRun.onpointerdown=e=>{e.preventDefault();runButton=1;touchRun.setPointerCapture?.(e.pointerId)};touchRun.onpointerup=touchRun.onpointercancel=()=>{runButton=0};
+function toggleMap(show){if(show){run=false;fullMap.hidden=false;drawFullMap();}else{fullMap.hidden=true;run=true;last=performance.now();requestAnimationFrame(loop);}}
+mapOpen.onclick=()=>{if(mode==='world'&&!gameOver)toggleMap(true)};mapClose.onclick=()=>toggleMap(false);fullMap.addEventListener('click',e=>{if(e.target===fullMap)toggleMap(false)});
+restartTouch.onclick=()=>{restart();run=true;last=performance.now();requestAnimationFrame(loop)};
+function updateActionButtons(){const mobile=isTouchDevice()||deviceMode==='android'||deviceMode==='iphone';const near=(x,y,r)=>d2(player.x,player.y,x,y)<r;const showRep=mode==='world'&&!gameOver&&player.hasRepeller&&dogs.some(d=>dist(d,player)<460);const showInt=mode==='world'&&!gameOver&&((!repeller.taken&&near(repeller.x,repeller.y,90))||(repeller.taken&&near(POI.haunted.x,POI.haunted.y,155)&&!ghostHouse.opened)||near(POI.field.x,POI.field.y,280)||near(POI.bench.x,POI.bench.y,105)||near(POI.church.x,POI.church.y,115));repBtn.style.display=showRep?'block':'none';intBtn.style.display=showInt?'block':'none';mapOpen.style.display=(mode==='world'&&!gameOver)?'block':'none';restartTouch.classList.toggle('show',mode==='world'&&gameOver);gameOverOverlay.classList.toggle('show',mode==='world'&&gameOver);if(mobile){repBtn.style.display=showRep?'block':'none';intBtn.style.display=showInt?'block':'none';}else{repBtn.style.display='none';intBtn.style.display='none';}}
+function loop(t){if(!run)return;const dt=Math.min(.045,(t-last)/1000||0);last=t;T+=dt;shake=Math.max(0,shake-dt*18);if(mode==='world')updateWorld(dt);else fUpdate(dt);if(mode==='world')drawWorld();else drawPitch();updateActionButtons();requestAnimationFrame(loop)}
 
 $('#play').onclick=open;$('#gx').onclick=()=>mode==='football'?exitFootball():close();
 addEventListener('resize',()=>run&&resize());
-addEventListener('keydown',e=>{if(gm.hidden)return;const k=e.key.toLowerCase();K[k]=1;if([' ','arrowup','arrowdown','arrowleft','arrowright','tab'].includes(k))e.preventDefault();if(k==='e'){if(mode==='world'){if(player.hasRepeller&&dogs.some(d=>dist(d,player)<460))useRepeller();else interact();}else passBall();}if(k===' '&&mode==='football')shootBall();if(k==='q'&&mode==='football')switchFootballPlayer();if(k==='escape'){if(mode==='football')exitFootball();else close();}if(k==='r'&&gameOver)restart();});
+addEventListener('keydown',e=>{if(gm.hidden)return;const k=e.key.toLowerCase();K[k]=1;if([' ','arrowup','arrowdown','arrowleft','arrowright','tab'].includes(k))e.preventDefault();if(k==='m'&&mode==='world'){toggleMap(fullMap.hidden);return;}if(k==='e'){if(mode==='world'){if(player.hasRepeller&&dogs.some(d=>dist(d,player)<460))useRepeller();else interact();}else passBall();}if(k===' '&&mode==='football'&&!e.repeat)chargeStart();if(k==='q'&&mode==='football')switchFootballPlayer();if(k==='escape'){if(!fullMap.hidden){toggleMap(false);return;}if(mode==='football')exitFootball();else close();}if(k==='r'&&gameOver)restart();});
 addEventListener('keyup',e=>K[e.key.toLowerCase()]=0);
 /* мобилни џојстик */
 const st=$('#st'),kn=st.firstElementChild;let stick=0;function stickMove(e){const r=st.getBoundingClientRect();let x=(e.clientX-r.left-r.width/2)/(r.width/2),y=(e.clientY-r.top-r.height/2)/(r.height/2);const l=Math.hypot(x,y);if(l>1){x/=l;y/=l}J.x=Math.abs(x)<.12?0:x;J.y=Math.abs(y)<.12?0:y;kn.style.transform=`translate(${x*40}px,${y*40}px)`}st.onpointerdown=e=>{stick=1;st.setPointerCapture(e.pointerId);stickMove(e)};st.onpointermove=e=>stick&&stickMove(e);st.onpointerup=st.onpointercancel=()=>{stick=0;J.x=J.y=0;kn.style.transform=''};
-bA.onpointerdown=()=>{runButton=1;if(mode==='football')shootBall()};bA.onpointerup=bA.onpointercancel=()=>runButton=0;
-bB.onpointerdown=()=>{if(mode==='football')passBall()};bC.onpointerdown=()=>{if(mode==='football')switchFootballPlayer()};
+bA.onclick=()=>{if(mode==='football')shootBall()};bB.onclick=()=>{if(mode==='football')passBall()};bC.onclick=()=>{if(mode==='football')switchFootballPlayer()};
 $('#bq').onclick=()=>{quality=(quality+1)%4;$('#bq').textContent='GRAFIKA: '+['ŠTEDLJIVO','SREDNJE','VISOKO','ULTRA'][quality];resize()};
 $('#bs').onclick=()=>{season=(season+1)%4;$('#bs').textContent='SEZONA: '+['PROLEĆE','LETO','JESEN','ZIMA'][season]};
 /* desktop pomoć за rasterivač */
 const repBtn=document.createElement('button');repBtn.textContent='E · RASTERIVAČ';Object.assign(repBtn.style,{position:'absolute',right:'18px',bottom:'108px',padding:'10px 14px',borderRadius:'999px',border:'1px solid #55d67b',background:'#0b2a1acc',color:'#fff',font:'600 .75rem Oswald',zIndex:4,display:'none'});gm.appendChild(repBtn);repBtn.onpointerdown=()=>player.hasRepeller&&useRepeller();
 const intBtn=document.createElement('button');intBtn.textContent='E · INTERAKCIJA';Object.assign(intBtn.style,{position:'absolute',right:'18px',bottom:'190px',padding:'10px 14px',borderRadius:'999px',border:'1px solid #d8a83d',background:'#2b1d0bcc',color:'#fff',font:'600 .75rem Oswald',zIndex:4,display:'none'});gm.appendChild(intBtn);intBtn.onpointerdown=()=>interact();
 function mobileUI(){const co=isTouchDevice()||deviceMode==='android'||deviceMode==='iphone';repBtn.style.display=co?'block':'none';intBtn.style.display=co?'block':'none';repBtn.classList.add('rep-device');intBtn.classList.add('int-device');repBtn.style.right='18px';repBtn.style.bottom='252px';intBtn.style.right='18px';intBtn.style.bottom='312px';}mobileUI();addEventListener('resize',mobileUI);
+/* ===== SPEC LAYER: Vec2, FSM, synth audio, dog AI, charge kick, map ===== */
+class Vec2{constructor(x=0,y=0){this.x=x;this.y=y}add(v){return new Vec2(this.x+v.x,this.y+v.y)}sub(v){return new Vec2(this.x-v.x,this.y-v.y)}mult(s){return new Vec2(this.x*s,this.y*s)}mag(){return Math.hypot(this.x,this.y)}heading(){return Math.atan2(this.y,this.x)}dist(v){return this.sub(v).mag()}normalize(){const m=this.mag();return m?this.mult(1/m):new Vec2()}lerp(v,t){return new Vec2(this.x+(v.x-this.x)*t,this.y+(v.y-this.y)*t)}}
+let FSM='INIT',camX=0,camY=0,camInit=false,hum=null,stepT=0,charging=false,charge=0,FM=null;
+Object.defineProperty(window,'kbState',{get:()=>FSM});
+const modalEl=$('#modal');
+function setFSM(){FSM=setupOpen?'INIT':gameOver?'GAME_OVER':!modalEl.hidden?'DIALOGUE':mode==='football'?'MINIGAME_FOOTBALL':'EXPLORATION'}
+document.head.appendChild(Object.assign(document.createElement('style'),{textContent:'#modal{z-index:500}'}));
+new MutationObserver(()=>{if(modalEl.hidden&&!gm.hidden)document.documentElement.classList.add('lock')}).observe(modalEl,{attributes:true,attributeFilter:['hidden']});
+
+/* ---- synth audio ---- */
+function noiseBurst(dur,f,v){if(!AC||!masterGain)return;const n=AC.sampleRate*dur|0,b=AC.createBuffer(1,n,AC.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=(Math.random()*2-1)*(1-i/n);const s=AC.createBufferSource(),fl=AC.createBiquadFilter(),g=AC.createGain();s.buffer=b;fl.type='bandpass';fl.frequency.value=f;g.gain.value=v;s.connect(fl);fl.connect(g);g.connect(masterGain);s.start()}
+function bark(d=300){if(!AC||!masterGain)return;const t=AC.currentTime,o=AC.createOscillator(),fl=AC.createBiquadFilter(),g=AC.createGain(),vol=clamp(1-d/900,.08,1);o.type='sawtooth';o.frequency.setValueAtTime(420,t);o.frequency.exponentialRampToValueAtTime(110,t+.16);fl.type='lowpass';fl.frequency.setValueAtTime(1400,t);fl.frequency.exponentialRampToValueAtTime(300,t+.18);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+.2);o.connect(fl);fl.connect(g);g.connect(masterGain);o.start(t);o.stop(t+.22)}
+function kickSnd(p=1){if(!AC||!masterGain)return;const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.setValueAtTime(140+160*p,t);o.frequency.exponentialRampToValueAtTime(40,t+.14);g.gain.setValueAtTime(.9,t);g.gain.exponentialRampToValueAtTime(.001,t+.16);o.connect(g);g.connect(masterGain);o.start(t);o.stop(t+.18)}
+function goalSnd(){if(!AC||!masterGain)return;const t=AC.currentTime;[1568,1976].forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.6,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+.7+i*.1);o.connect(g);g.connect(masterGain);o.start(t);o.stop(t+.9)})}
+function humTo(v){if(hum&&AC)hum.gain.setTargetAtTime(v,AC.currentTime,.15)}
+function humUpdate(){if(!AC||!masterGain)return;if(!hum){const o=AC.createOscillator(),m=AC.createOscillator(),mg=AC.createGain(),g=AC.createGain();o.type='sine';o.frequency.value=50;m.type='sine';m.frequency.value=173;mg.gain.value=40;m.connect(mg);mg.connect(o.frequency);g.gain.value=0;o.connect(g);g.connect(masterGain);o.start();m.start();hum=g}const d=dist(player,POI.meteo);humTo(gameOver||d>900?0:(1-d/900)*.9)}
+
+/* ---- dog AI: PATROL > ALERT > CHASE > ATTACK, instant game over on catch ---- */
+const _ud=updateDogs;
+updateDogs=function(dt){
+ for(const d of dogs){if(d.fear>0){d.ai='FLEE';continue}
+  const dp=dist(d,player),dd=Math.min(dp,dist(d,pera));
+  if(dd>=460&&dd<620){const a=Math.atan2(player.y-d.y,player.x-d.x);d.dir=a;moveEntity(d,Math.cos(a)*58*dt,Math.sin(a)*58*dt,10)}
+  const ai=dd<40?'ATTACK':dd<460?'CHASE':dd<620?'ALERT':'PATROL';
+  if(ai!==d.ai&&(ai==='ALERT'||ai==='CHASE')&&dp<700)bark(dp);
+  d.ai=ai}
+ _ud(dt);
+ if(!gameOver)for(const d of dogs)if(d.fear<=0&&dist(d,player)<34){player.health=0;break}
+};
+
+/* ---- world update: camera lerp, footsteps, hum, game-over overlay ---- */
+const _uw=updateWorld;
+updateWorld=function(dt){
+ _uw(dt);
+ if(!camInit){camX=player.x;camY=player.y;camInit=true}
+ const k=1-Math.pow(.9,dt*60);camX+=(player.x-camX)*k;camY+=(player.y-camY)*k;
+ if(player.moving&&!gameOver){stepT-=dt;if(stepT<=0){const r=K.shift||runButton;stepT=r?.2:.32;noiseBurst(.07,240+(r?160:0)+Math.random()*140,.55)}}
+ humUpdate();setFSM();
+ if(gameOver&&!gameOverOverlay.classList.contains('show')){
+  gameOverOverlay.querySelector('h2').textContent='Ker glupi te je stigao';
+  gameOverOverlay.querySelector('.joke').textContent='Pritisni R za novi pokušaj';
+  gameOverOverlay.classList.add('show');
+  if(document.body.classList.contains('kb-mobile'))restartTouch.classList.add('show');
+  bark(0)}
+};
+const _rs=restart;
+restart=function(){_rs();camInit=false;gameOverOverlay.classList.remove('show');restartTouch.classList.remove('show')};
+const _cl=close;
+close=function(){humTo(0);charging=false;_cl()};
+
+/* ---- football: charge kick, goal posts, scoreboard, sounds ---- */
+const _kf=kickFrom;
+kickFrom=function(p,a,pw){const ok=_kf(p,a,pw);if(ok)kickSnd(clamp(pw/1000,.2,1));return ok};
+const _sg=scoreGoal;
+scoreGoal=function(t){_sg(t);goalSnd()};
+function chargeStart(){if(mode!=='football'||!F||F.pause>0)return;charging=true;charge=0}
+function chargeRelease(){
+ if(!charging)return;charging=false;const pw=260+charge*820;charge=0;
+ if(!F||F.pause>0)return;
+ const p=activeFootballPlayer(),b=F.ball;if(d2(p.x,p.y,b.x,b.y)>58)return;
+ const[mx,my]=movementVector();
+ kickFrom(p,Math.hypot(mx,my)>.12?Math.atan2(my,mx):Math.atan2(FH/2-b.y,FW-b.x),pw)}
+const _fu=fUpdate;
+fUpdate=function(dt){
+ humTo(0);_fu(dt);setFSM();if(!F)return;
+ go.textContent='ANDREJ '+F.score[0]+' : '+F.score[1]+' LAZAR · '+Math.ceil(F.time)+'s';
+ if(F.pause>0)return;
+ if(charging)charge=Math.min(1,charge+dt/1.1);
+ const b=F.ball;
+ for(const px of[0,FW])for(const py of[goal.top,goal.bottom]){
+  const dx=b.x-px,dy=b.y-py,dd=Math.hypot(dx,dy);
+  if(dd<13&&dd>0){const nx=dx/dd,ny=dy/dd,vn=b.vx*nx+b.vy*ny;if(vn<0){b.vx-=1.8*vn*nx;b.vy-=1.8*vn*ny}b.x=px+nx*13;b.y=py+ny*13;b.owner=null;kickSnd(.3)}}
+};
+const _dp=drawPitch;
+drawPitch=function(){_dp();if(!charging)return;c.setTransform(D,0,0,D,0,0);const w=Math.min(260,W-40),x=(W-w)/2,y=H-34;c.fillStyle='rgba(0,0,0,.6)';c.fillRect(x-4,y-4,w+8,20);c.fillStyle=charge>.8?'#e25261':'#55d67b';c.fillRect(x,y,w*charge,12)};
+addEventListener('keyup',e=>{if(e.key===' ')chargeRelease()});
+addEventListener('blur',chargeRelease);
+bA.onclick=null;bA.onpointerdown=e=>{e.preventDefault();chargeStart()};bA.onpointerup=bA.onpointercancel=bA.onpointerleave=chargeRelease;
+
+/* ---- full map with clickable POI -> story modal ---- */
+const MAPPOI=[
+ {n:'Kalač put',x:POI.start.x,y:POI.start.y,img:'kalac-put',tag:'START',d:'Ovde počinje avantura. Uska staza vodi uzbrdo, a Pera već priča bez prestanka.'},
+ {n:'Tajna kuća',x:820,y:2980,tag:'TAJNA',d:'Kuća sakrivena iza žbunja. Kažu da je zavesa na prozoru uvek malo odmaknuta.'},
+ {n:'Klupica',x:POI.bench.x,y:POI.bench.y,img:'klupica',tag:'ODMOR',d:'Klupa iznad provalije. Pogled je predivan, ali iza leđa nema nikakvog prolaza.'},
+ {n:'Ograda',x:1970,y:4040,img:'ograda',tag:'OPASNO',d:'Stara ograda na kraju staze. Pas koji je čuva ne voli goste.'},
+ {n:'Staza straha',x:3090,y:2190,img:'staza',tag:'STRAH',d:'Uska staza u magli. Svaki šum iz žbunja zvuči kao pas.'},
+ {n:'Ruševina',x:POI.ruin.x,y:POI.ruin.y,img:'ruzevina',tag:'RUŠEVINA',d:'Ruševina u žbunju. Zidovi još stoje, ali krov je odavno nestao.'},
+ {n:'Napuštena kuća',x:POI.haunted.x,y:POI.haunted.y,img:'napustena-kuca',tag:'UKLETO',d:'Ukleta kuća sa natpisom NE ULAZI. Unutra život opada dok ne izađeš.'},
+ {n:'Durmitorska ulica',x:1260,y:3180,img:'durmitorska',tag:'RASKRSNICA',d:'Ulica gde se putevi granaju. Ne postoji samo jedan pravac.'},
+ {n:'Ukleta meteo stanica',x:POI.meteo.x,y:POI.meteo.y,tag:'UKLETO',d:'Napuštena stanica koja i dalje brunda. Vazduh oko nje pucketa.'},
+ {n:'Fudbalski teren Grbavsko',x:POI.field.x,y:POI.field.y,tag:'FUDBAL',d:'Kraj puta je teren. Ovde dobijaš loptu, šut i ekipu.'}
+];
+function openStory(p){const im=p.img&&document.querySelector('img[data-i="'+p.img+'"]');$('#m-t').textContent=p.n;$('#m-d').textContent=p.d;$('#m-n').textContent='KALAČ BRDO';$('#m-s').textContent=p.tag;$('#m-s').hidden=false;$('#m-i').src=im?im.src:'';modalEl.hidden=false}
+function drawFullMap(){
+ humTo(0);
+ const cm=$('#fullMapCanvas'),rc=cm.getBoundingClientRect(),w=rc.width,ht=rc.height;
+ cm.width=w*D;cm.height=ht*D;
+ const x=cm.getContext('2d');x.setTransform(D,0,0,D,0,0);
+ x.fillStyle='#173a22';x.fillRect(0,0,w,ht);
+ const s=Math.min(w/WW,ht/WH),ox=(w-WW*s)/2,oy=(ht-WH*s)/2;FM={s,ox,oy};
+ const X=v=>ox+v*s,Y=v=>oy+v*s;
+ x.fillStyle='#0a0f0b';x.fillRect(X(1420),Y(3135),850*s,520*s);
+ x.lineCap='round';x.lineJoin='round';x.strokeStyle='#8a8272';
+ const line=(pts,lw)=>{x.lineWidth=Math.max(1.5,lw*s);x.beginPath();pts.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.stroke()};
+ roads.forEach(r=>line(r.pts,r.w));branches.forEach(b=>line(b,54));
+ x.fillStyle='#b9a47c';houses.forEach(hs=>x.fillRect(X(hs.x),Y(hs.y),Math.max(3,hs.w*s),Math.max(3,hs.h*s)));
+ const dot=(o,col,r)=>{x.fillStyle=col;x.beginPath();x.arc(X(o.x),Y(o.y),r,0,6.3);x.fill()};
+ x.textAlign='center';x.font='600 11px Inter';
+ for(const p of MAPPOI){dot(p,'#d8a83d',8);x.strokeStyle='#000';x.lineWidth=2;x.beginPath();x.arc(X(p.x),Y(p.y),8,0,6.3);x.stroke();x.fillStyle='#fff';x.fillText(p.n,X(p.x),Y(p.y)-13)}
+ dogs.forEach(d=>dot(d,'#e04a55',4));dot(pera,'#4aa8ff',6);dot(player,'#55d67b',7)}
+$('#fullMapCanvas').addEventListener('click',e=>{
+ if(!FM)return;const rc=e.currentTarget.getBoundingClientRect(),mx=e.clientX-rc.left,my=e.clientY-rc.top;
+ let best=null,bd=26;for(const p of MAPPOI){const d=Math.hypot(FM.ox+p.x*FM.s-mx,FM.oy+p.y*FM.s-my);if(d<bd){bd=d;best=p}}
+ if(best)openStory(best)});
+$('#mapLegend').textContent='Zeleno = Andrej · plavo = Pera · crveno = psi · zlatno = lokacije (dodirni za priču)';
+
 window._kb={tp:(x,y)=>{player.x=x;player.y=y;}};
 })();
 
+</script>
+<div id="dk" aria-hidden="true"><p>Ne okreći se.</p></div><div id="eyes" aria-hidden="true"></div><div id="toast" role="status"></div>
+<script id="elite3js">
+(()=>{try{
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let ac;const arm=()=>{try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume&&ac.resume()}catch(e){}};
+['click','touchend','keydown'].forEach(t=>addEventListener(t,arm,{once:true,passive:true}));
+const thump=()=>{if(!ac||ac.state!=='running')return;const t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(70,t);o.frequency.exponentialRampToValueAtTime(30,t+.8);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.5,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+.9);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+1)};
+/* tekst izranja iz magle */
+if(!rm){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{threshold:.25});
+$$('.lt > *').forEach((e,i)=>{e.classList.add('mist','pre');e.style.setProperty('--md',i*.12+'s');io.observe(e)})}
+/* rukopis */
+const split=a=>{if(a.dataset.s)return;a.dataset.s=1;let d=0;$$('p',a).forEach(p=>{const t=p.textContent;p.textContent='';[...t].forEach(ch=>{const s=document.createElement('span');s.className='c';s.textContent=ch;d+=ch===' '?70:18+Math.random()*34;s.style.setProperty('--d',d|0);p.appendChild(s)})})};
+if(!rm){const w=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('wr');w.unobserve(e.target)}}),{threshold:.6});
+$$('.pg article:not(.sk)').forEach(a=>{split(a);w.observe(a)})}
+/* tajna */
+const blot=$('.blot'),sk=$('.sk'),pg=$('.pg'),toast=$('#toast');
+blot.addEventListener('click',()=>{sk.hidden=false;blot.hidden=true;
+ if(!rm){split(sk);pg.classList.add('flk');setTimeout(()=>pg.classList.remove('flk'),1700);setTimeout(()=>sk.classList.add('wr'),900)}
+ sk.scrollIntoView({block:'center',behavior:rm?'auto':'smooth'});
+ toast.textContent='Pronašao si peti zapis.';toast.classList.add('on');setTimeout(()=>toast.classList.remove('on'),3800)});
+/* jeza: jednom po poseti */
+const dk=$('#dk'),ey=$('#eyes');let fired=false,tm;
+const busy=()=>!$('#gm').hidden||!$('#modal').hidden;
+const scare=()=>{if(busy()){tm=setTimeout(scare,2500);return}fired=true;dk.classList.add('on');
+ setTimeout(()=>{ey.style.left=Math.random()<.5?'7%':'calc(93% - 70px)';ey.style.top=30+Math.random()*40+'vh';ey.classList.add('on');thump()},1500);
+ setTimeout(()=>ey.classList.add('blink'),3300);
+ setTimeout(()=>{ey.classList.remove('on','blink');dk.classList.remove('on')},3900)};
+if(!rm)new IntersectionObserver(es=>{if(fired)return;clearTimeout(tm);if(es[0].isIntersecting)tm=setTimeout(scare,6000)},{threshold:.5}).observe($('#sveska'));
+/* baterijska lampa prati miša */
+if(matchMedia('(hover:hover)').matches&&!rm)['#legenda','#sveska'].forEach(s=>{const e=$(s);
+ e.addEventListener('pointermove',v=>{const r=e.getBoundingClientRect();e.style.setProperty('--lx',v.clientX-r.left+'px');e.style.setProperty('--ly',v.clientY-r.top+'px');e.classList.add('lit')},{passive:true});
+ e.addEventListener('pointerleave',()=>e.classList.remove('lit'))});
+}catch(e){console.error(e)}})();
 </script>
 </body>
 </html>
