@@ -1,0 +1,22 @@
+; KALAČ BRDO — NOĆNI SIGNAL V3
+config_version=5
+
+[application]
+config/name="Kalač Brdo — Noćni Signal | ELITE V3"
+config/description="Pet poglavlja, dvorišta, teritorijalni psi, filmske scene, susreti, misije."
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+environment/defaults/default_clear_color=Color(0.025, 0.034, 0.055, 1)
+
+[physics]
+3d/default_gravity=18.0
